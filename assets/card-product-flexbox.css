@@ -55,16 +55,16 @@
 
 .product-card-wrapper .discount-percentage-text {
   display: inline-block;
-  padding: 0.4rem 0.8rem;
-  border: 1px solid #008e6d;
+  padding: 0.5rem 0.8rem;
   border-radius: 4px;
   background-color: #c4ffd3;
   color: #10211d;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 700;
   line-height: 1;
-  letter-spacing: 0.05rem;
+  font-variant-numeric: tabular-nums;
 }
+
 
 /* Wishlist button */
 .product-card-wrapper .card__inner > .favorito {
@@ -77,6 +77,14 @@
 .product-card-wrapper .favorito .custom-btn-icon {
   width: 4rem;
   height: 4rem;
+  background: #ffffff;
+  border: 1px solid rgba(var(--color-foreground), 0.12);
+  box-shadow: none;
+}
+
+.product-card-wrapper .favorito .custom-btn-icon:hover {
+  border-color: rgba(var(--color-foreground), 0.4);
+  box-shadow: none;
 }
 
 .product-card-wrapper .favorito .custom-btn-icon i {
@@ -102,9 +110,13 @@
   color: #756b00;
 }
 
+/* The default shipping is quiet text; only the fast one gets a pill */
 .product-card-wrapper .card-shipping--standard {
-  background-color: #ffffff;
-  border: 1px solid #000000;
+  padding-left: 0;
+  padding-right: 0;
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: rgba(var(--color-foreground), 0.6);
 }
 
 /* Title: two lines max, two lines always reserved */
@@ -122,9 +134,11 @@
 
 /* Price */
 .product-card-wrapper .card-information > .price {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 700;
   line-height: 1.2;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
 }
 
 .product-card-wrapper .card-information .price s.price-item--regular {
@@ -134,6 +148,7 @@
 
 .product-card-wrapper .card-information .bcv-convertido {
   font-size: 1.2rem;
+  font-variant-numeric: tabular-nums;
 }
 
 /* Quick add */
@@ -163,6 +178,16 @@
   outline-offset: 0.3rem;
 }
 
+.product-card-wrapper .quick-add__submit.button.button--secondary:disabled {
+  background-color: #e9e9ee !important;
+  border-color: #e9e9ee !important;
+  color: #5c5f6b !important;
+}
+
+.product-card-wrapper .quick-add__submit.button.button--secondary:disabled .quick-add-text {
+  color: #5c5f6b !important;
+}
+
 .product-card-wrapper .quick-add__submit .fa-ban {
   margin-left: 0.6rem;
   font-size: 1.3rem;
@@ -178,7 +203,7 @@
   }
 
   .product-card-wrapper .card-information > .price {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
 
   .product-card-wrapper .favorito .custom-btn-icon {

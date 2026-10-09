@@ -102,6 +102,20 @@ Los estilos en línea pasan a dos modificadores: `badge card-shipping card-shipp
 
 Se elimina el `<link>` del snippet: `layout/theme.liquid:8` ya lo carga en todas las páginas. Los íconos `fa-heart` y `fa-ban` siguen funcionando.
 
+### 9. Refinamiento visual posterior
+
+Tras la primera entrega se ajustó la tarjeta con un criterio: el precio es el único elemento con peso, y todo lo demás baja de volumen.
+
+- Precio a 18 px (16 px en móvil) con cifras tabulares; el equivalente en bolívares también usa cifras tabulares.
+- Esquinas de la tarjeta a 12 px mediante el ajuste del theme `card_corner_radius` (antes 0), para acompañar los banners y las cajas de categorías, que ya son redondeados.
+- La etiqueta "Envío normal" pasa a texto atenuado sin caja, porque aparece en casi todas las tarjetas; solo "Rápido 24/48h" conserva la píldora, que es la que aporta información.
+- Corazón de favoritos blanco con borde fino, sin sombra.
+- Porcentaje de descuento sin borde, a 12 px.
+- Botón agotado en gris claro con texto gris oscuro, legible (antes texto blanco sobre gris).
+- Texto del botón de la tarjeta de ejemplo igual al de la tarjeta real ("Agregar").
+
+Descartado: atenuar la imagen de los productos agotados. Mientras el catálogo completo figure sin disponibilidad, apagaría toda la tienda.
+
 ## Risks / Trade-offs
 
 - [El snippet es compartido: el cambio se ve en colección, buscador, relacionados, collage y página de producto] → Reglas acotadas a `.product-card-wrapper`; verificación visual explícita de cada listado en `tasks.md`. `collage` usa `.collage-card.product-card-wrapper` con tarjeta horizontal en algunos casos: las reglas de columna flex excluyen `.card--horizontal`.

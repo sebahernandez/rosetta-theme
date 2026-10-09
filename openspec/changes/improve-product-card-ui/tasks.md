@@ -32,3 +32,9 @@
 - [ ] 4.4 Prueba manual en el editor de temas de la sección "Colección destacada": alternar proporción (adaptar, vertical, cuadrado), compra rápida (ninguna, estándar, por cantidad), proveedor, valoración, imagen secundaria, columnas de escritorio y móvil, y deslizamiento en móvil; verificar que la tarjeta no se descuadra en ninguna combinación
 - [ ] 4.5 Revisión visual de los otros listados que usan la tarjeta: página de colección, resultados de búsqueda, productos relacionados, collage y bloque de producto en la página de producto; verificar que ninguno se descuadra
 - [x] 4.6 Hacer commit en `develop` con los archivos del theme y la carpeta `openspec/changes/improve-product-card-ui/`, y hacer push a `origin/develop`; verificar con `git status -sb` que la rama no queda por delante del remoto
+
+## 5. Refinamiento visual
+
+- [x] 5.1 Aplicar en `assets/card-product-flexbox.css` el refinamiento de la decisión 9 de `design.md` (precio, etiqueta de envío, corazón, descuento, botón agotado) y subir `card_corner_radius` a 12 en `config/settings_data.json`; verificado con captura de la página de colección a 1280 px y `shopify theme check` sin ofensas nuevas
+- [ ] 5.2 Revisar el refinamiento en móvil a 375 px y con un producto en oferta y otro con envío rápido; verificar que la píldora de envío rápido y el porcentaje de descuento se leen bien
+- [x] 5.3 Hacer commit en `develop` con el refinamiento y push a `origin/develop`; verificar con `git status -sb` que la rama no queda por delante del remoto
