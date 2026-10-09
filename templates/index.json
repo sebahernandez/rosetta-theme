@@ -281,7 +281,17 @@
         "banner_image_mobile": "shopify://shop_images/M-R-04.webp",
         "banner_alt_text": "",
         "banner_link": "",
-        "open_in_new_tab": false
+        "open_in_new_tab": false,
+        "margin_top_desktop": 0,
+        "margin_bottom_desktop": 0,
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "padding_horizontal_desktop": 50,
+        "margin_top_mobile": 0,
+        "margin_bottom_mobile": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0,
+        "padding_horizontal_mobile": 15
       }
     },
     "featured_collection_r8aVgk": {
@@ -321,7 +331,17 @@
         "banner_image_mobile": "shopify://shop_images/mobile-home-huincha-micupon-s13-28032025.webp",
         "banner_alt_text": "cupon rosetta",
         "banner_link": "",
-        "open_in_new_tab": false
+        "open_in_new_tab": false,
+        "margin_top_desktop": 0,
+        "margin_bottom_desktop": 20,
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "padding_horizontal_desktop": 50,
+        "margin_top_mobile": 0,
+        "margin_bottom_mobile": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0,
+        "padding_horizontal_mobile": 15
       }
     },
     "featured_blog_cXKLWj": {
