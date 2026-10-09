@@ -64,7 +64,29 @@
   }
 </style>
 
-<section class="promotional-banner page-width">
+{%- style -%}
+  .promotional-banner.promotional-banner--{{ section.id }} {
+    margin-top: {{ section.settings.margin_top_mobile }}px;
+    margin-bottom: {{ section.settings.margin_bottom_mobile }}px;
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+    padding-left: {{ section.settings.padding_horizontal_mobile }}px;
+    padding-right: {{ section.settings.padding_horizontal_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .promotional-banner.promotional-banner--{{ section.id }} {
+      margin-top: {{ section.settings.margin_top_desktop }}px;
+      margin-bottom: {{ section.settings.margin_bottom_desktop }}px;
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+      padding-left: {{ section.settings.padding_horizontal_desktop }}px;
+      padding-right: {{ section.settings.padding_horizontal_desktop }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="promotional-banner promotional-banner--{{ section.id }} page-width">
   {% if section.settings.banner_link != blank %}
     <a
       href="{{ section.settings.banner_link }}"
@@ -188,6 +210,102 @@
         "id": "open_in_new_tab",
         "label": "Abrir enlace en nueva pestaña",
         "default": false
+      }, {
+        "type": "header",
+        "content": "Espaciado en escritorio"
+      }, {
+        "type": "range",
+        "id": "margin_top_desktop",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Margen superior",
+        "default": 0
+      }, {
+        "type": "range",
+        "id": "margin_bottom_desktop",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Margen inferior",
+        "default": 0
+      }, {
+        "type": "range",
+        "id": "padding_top_desktop",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Padding superior",
+        "default": 0
+      }, {
+        "type": "range",
+        "id": "padding_bottom_desktop",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Padding inferior",
+        "default": 0
+      }, {
+        "type": "range",
+        "id": "padding_horizontal_desktop",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "label": "Padding lateral",
+        "default": 50
+      }, {
+        "type": "header",
+        "content": "Espaciado en móvil"
+      }, {
+        "type": "range",
+        "id": "margin_top_mobile",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Margen superior",
+        "default": 0
+      }, {
+        "type": "range",
+        "id": "margin_bottom_mobile",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Margen inferior",
+        "default": 0
+      }, {
+        "type": "range",
+        "id": "padding_top_mobile",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Padding superior",
+        "default": 0
+      }, {
+        "type": "range",
+        "id": "padding_bottom_mobile",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Padding inferior",
+        "default": 0
+      }, {
+        "type": "range",
+        "id": "padding_horizontal_mobile",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "label": "Padding lateral",
+        "default": 15
       }
     ],
     "presets": [
