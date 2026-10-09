@@ -192,47 +192,15 @@
             "target_collection": "",
             "image_alt": "Bebidas"
           }
-        },
-        "category_image_Gjm6aX": {
-          "type": "category_image",
-          "settings": {
-            "category_title": "",
-            "category_image": "shopify://shop_images/Cat-SnacksComo.webp",
-            "target_collection": "",
-            "image_alt": "snacks"
-          }
-        },
-        "category_image_qtPQYf": {
-          "type": "category_image",
-          "settings": {
-            "category_title": "",
-            "category_image": "shopify://shop_images/Cat-Cervezas.webp",
-            "target_collection": "",
-            "image_alt": "Cervezas"
-          }
-        },
-        "category_image_fAtNzE": {
-          "type": "category_image",
-          "settings": {
-            "category_title": "",
-            "category_image": "shopify://shop_images/Cat-Vinos.webp",
-            "target_collection": "",
-            "image_alt": "Vinos"
-          }
         }
       },
       "block_order": [
         "category_image_jHewEk",
         "category_image_4XaxzE",
         "category_image_T74Fem",
-        "category_image_eNKRbE",
-        "category_image_Gjm6aX",
-        "category_image_qtPQYf",
-        "category_image_fAtNzE"
+        "category_image_eNKRbE"
       ],
       "settings": {
-        "slides_per_page": 4,
-        "autoplay": true,
         "gap_size": 1
       }
     },
