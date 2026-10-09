@@ -113,7 +113,8 @@
               show_rating: section.settings.show_rating,
               skip_styles: skip_card_product_styles,
               section_id: section.id,
-              quick_add: section.settings.quick_add
+              quick_add: section.settings.quick_add,
+              extend_height: true
             %}
           </li>
           {%- assign skip_card_product_styles = true -%}
@@ -140,7 +141,8 @@
                 show_vendor: section.settings.show_vendor,
                 media_aspect_ratio: section.settings.image_ratio,
                 image_shape: section.settings.image_shape,
-                placeholder_image: placeholder_image
+                placeholder_image: placeholder_image,
+                extend_height: true
               %}
             </li>
           {%- endfor -%}
@@ -360,7 +362,7 @@
           "label": "t:sections.featured-collection.settings.image_ratio.options__3.label"
         }
       ],
-      "default": "adapt",
+      "default": "square",
       "label": "t:sections.featured-collection.settings.image_ratio.label"
     },
     {

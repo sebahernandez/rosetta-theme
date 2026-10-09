@@ -20,8 +20,6 @@
   Usage:
   {% render 'card-product', show_vendor: section.settings.show_vendor %}
 {% endcomment %}
-<!-- Font Awesome CDN -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 {%- unless skip_styles -%}
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-volume-pricing.css' | asset_url | stylesheet_tag }}
@@ -43,13 +41,6 @@
       assign ratio = 1
     endif
   -%}
-
-<style>
-  .card__information-title{
-     min-height: 30px;
-  }
-</style>
-
 
   <div class="card-wrapper product-card-wrapper underline-links-hover">
     <div
@@ -138,18 +129,6 @@
         {%- endif -%}
         <div class="card__content">
           <div class="card__information">
-            <!-- Card Badge Discount Container -->
-             
-           {%- if card_product.compare_at_price and card_product.compare_at_price > card_product.price -%}
-
-                {%- assign discount_percentage = card_product.compare_at_price | minus: card_product.price | times: 100.0 | divided_by: card_product.compare_at_price -%}
-                {%- assign discount_percentage_rounded = discount_percentage | ceil -%}
-                
-                <span class="discount-percentage-text">
-                  -%{{ discount_percentage_rounded }}%
-                </span>
-            {%- endif -%}
-            
             <h3
               class="card__heading"
               {% if card_product.featured_media == null and settings.card_style == 'standard' %}
@@ -182,33 +161,21 @@
                 {{- 'products.product.on_sale' | t -}}
               </span>
             {%- endif -%}
+            {%- if card_product.compare_at_price and card_product.compare_at_price > card_product.price -%}
+              {%- assign discount_percentage = card_product.compare_at_price | minus: card_product.price | times: 100.0 | divided_by: card_product.compare_at_price -%}
+              {%- assign discount_percentage_rounded = discount_percentage | ceil -%}
+              <span class="discount-percentage-text">-{{ discount_percentage_rounded }}%</span>
+            {%- endif -%}
           </div>
         </div>
       </div>
       <div class="card__content">
         <div class="card__information">
-          <!-- Card Badge Discount Container --> 
-           <div>
-              <div style="padding:5px 0px;margin:2px 0px">
-                <div>
-                  {%- if card_product.compare_at_price and card_product.compare_at_price > card_product.price -%}
-                  {%- assign discount_percentage = card_product.compare_at_price | minus: card_product.price | times: 100.0 | divided_by: card_product.compare_at_price -%}
-                  {%- assign discount_percentage_rounded = discount_percentage | ceil -%}
-                  <span class="discount-percentage-text">
-                    -{{ discount_percentage_rounded }}%
-                  </span>
-                  {%- else -%}
-               {%- endif -%}
-                </div>
-                <div>
-                 {% if card_product.tags contains 'envio-rapido' %}
-                  <span class="badge" style="background:#fbffb5;border:none; font-size:9px; border:1px solid #cebd00; color:#756b00;"> Rápido 24/48h</span>
-                {% else %}
-                  <span class="badge" style="background:#ffffff;border:1px solid black; font-size:9px "> Envío Normal</span>
-                {% endif %}
-               </div>
-              </div>
-           </div>
+          {% if card_product.tags contains 'envio-rapido' %}
+            <span class="badge card-shipping card-shipping--fast">Rápido 24/48h</span>
+          {% else %}
+            <span class="badge card-shipping card-shipping--standard">Envío Normal</span>
+          {% endif %}
 
            <div class="card__information-title">
              <h3
@@ -234,8 +201,6 @@
                 <span class="visually-hidden">{{ 'accessibility.vendor' | t }}</span>
                 <div class="caption-with-letter-spacing light">{{ card_product.vendor }}</div>
               {%- endif -%}
-
-              <span class="caption-large light">{{ block.settings.description | escape }}</span>
 
               {%- if show_rating and card_product.metafields.reviews.rating.value != blank -%}
               {% liquid
@@ -359,6 +324,7 @@
               {% endif %}
             {%- endif -%}
             </div>
+          </div>
         </div>
         {% assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id %}
         {% if quick_add == 'standard' %}
@@ -379,7 +345,6 @@
                   aria-haspopup="dialog"
                   aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
                   data-product-url="{{ card_product.url }}"
-                  style="background-color: #ff71db !important; border: 1px solid #ff71db !important; border-radius: 48px !important; box-shadow: none !important; -webkit-box-shadow: none !important; -moz-box-shadow: none !important; filter: none !important; color: white !important; padding: 12px 20px !important;"
                 >
                   <span class="quick-add-text">
                     {{ 'products.product.choose_options' | t }}
@@ -439,7 +404,6 @@
                     aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
                     aria-live="polite"
                     data-sold-out-message="true"
-                    style="background-color: #ff71db !important; border: 1px solid #ff71db !important; border-radius: 48px !important; box-shadow: none !important; -webkit-box-shadow: none !important; -moz-box-shadow: none !important; filter: none !important; color: white !important; padding: 12px 20px !important;"
                     {% if card_product.selected_or_first_available_variant.available == false %}
                       disabled
                     {% endif %}
@@ -481,7 +445,6 @@
                   class="quick-add__submit button button--secondary"
                   aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
                   data-sold-out-message="true"
-                  style="background-color: #cccccc !important; border: 1px solid #cccccc !important; border-radius: 48px !important; box-shadow: none !important; -webkit-box-shadow: none !important; -moz-box-shadow: none !important; filter: none !important; color: #666666 !important; padding: 12px 20px !important;"
                   disabled
                 >
                   <span class="quick-add-text">{{ 'products.product.sold_out' | t }}</span>
@@ -515,7 +478,6 @@
                   aria-haspopup="dialog"
                   aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
                   data-product-url="{{ card_product.url }}"
-                  style="background-color: #ff71db !important; border: 1px solid #ff71db !important; border-radius: 48px !important; box-shadow: none !important; -webkit-box-shadow: none !important; -moz-box-shadow: none !important; filter: none !important; color: white !important; padding: 12px 20px !important;"
                 >
                   <span class="quick-add-text">{{ 'products.product.choose_options' | t }}</span>
                   {%- comment -%}<i class="fa-solid fa-bag-shopping"></i>{%- endcomment -%}
@@ -686,9 +648,6 @@
       </div>
       <div class="card__content">
         <div class="card__information">
-          <!-- Discount placeholder para productos de ejemplo -->
-          <div class="discount-placeholder"></div>
-          
           <h3 class="card__heading card__heading--placeholder{% if settings.card_style == 'standard' %} h5{% endif %}">
             <a role="link" aria-disabled="true" class="full-unstyled-link">
               {{ 'onboarding.product_title' | t }}
@@ -702,13 +661,13 @@
               {%- endif -%}
               {% render 'price', placeholder: placeholder, show_compare_at_price: true %}
             </div>
-            <div class="quick-add no-js-hidden">
-              <button class="quick-add__submit button button--secondary" disabled>
-                <span class="quick-add-text">Añadir al carrito</span>
-                {%- comment -%}<i class="fa-solid fa-bag-shopping"></i>{%- endcomment -%}
-              </button>
-            </div>
           </div>
+        </div>
+        <div class="quick-add no-js-hidden">
+          <button class="quick-add__submit button button--secondary" disabled>
+            <span class="quick-add-text">Añadir al carrito</span>
+            {%- comment -%}<i class="fa-solid fa-bag-shopping"></i>{%- endcomment -%}
+          </button>
         </div>
       </div>
     </div>
