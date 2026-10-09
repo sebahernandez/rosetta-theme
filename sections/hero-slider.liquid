@@ -1,0 +1,650 @@
+{% schema %}
+  {
+    "name": "Hero Slider",
+    "tag": "section",
+   "class": "hero-slider-layout",
+   "settings": [
+     {
+      "type": "text",
+      "id": "titulo",
+      "label": "Título",
+      "default": "Productos frescos, sabores locales, recetas que enamoran."
+    },
+      {
+      "type": "text",
+      "id": "subtitulo",
+      "label": "Subtitulo",
+      "default": "Traemos lo mejor de Tucacas directo a tu mesa: ingredientes de calidad, panadería artesanal y delicias para todos los gustos."
+    }, 
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Texto del botón",
+      "default": "Texto del botón"
+    },
+    {
+      "type": "color",
+      "id": "button_background_color",
+      "label": "Color de fondo del botón",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Color del texto del botón",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Slider Móvil/Tablet"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_slide1_image",
+      "label": "Imagen Slide 1 (Móvil)"
+    },
+    {
+      "type": "text",
+      "id": "mobile_slide1_title",
+      "label": "Título Slide 1",
+      "default": "Productos frescos"
+    },
+    {
+      "type": "text",
+      "id": "mobile_slide1_description",
+      "label": "Descripción Slide 1",
+      "default": "Sabores locales, recetas que enamoran."
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_slide2_image",
+      "label": "Imagen Slide 2 (Móvil)"
+    },
+    {
+      "type": "text",
+      "id": "mobile_slide2_title",
+      "label": "Título Slide 2",
+      "default": "Panadería artesanal"
+    },
+    {
+      "type": "text",
+      "id": "mobile_slide2_description",
+      "label": "Descripción Slide 2",
+      "default": "Delicias recién horneadas cada mañana."
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_slide3_image",
+      "label": "Imagen Slide 3 (Móvil)"
+    },
+    {
+      "type": "text",
+      "id": "mobile_slide3_title",
+      "label": "Título Slide 3",
+      "default": "Postres irresistibles"
+    },
+    {
+      "type": "text",
+      "id": "mobile_slide3_description",
+      "label": "Descripción Slide 3",
+      "default": "Endulza tu día con nuestros productos caseros."
+    },
+    {
+      "type": "text",
+      "id": "mobile_button_text",
+      "label": "Texto del botón (Móvil)",
+      "default": "Explorar Productos"
+    },
+    {
+      "type": "url",
+      "id": "mobile_button_url",
+      "label": "URL del botón (Móvil)",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "Estilos de texto (Móvil)"
+    },
+    {
+      "type": "color",
+      "id": "mobile_title_color",
+      "label": "Color del título",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "mobile_title_size",
+      "min": 14,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamaño del título",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "mobile_description_color",
+      "label": "Color de la descripción",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "mobile_description_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamaño de la descripción",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "mobile_button_bg_color",
+      "label": "Color de fondo del botón",
+      "default": "#ff6b9d"
+    },
+    {
+      "type": "color",
+      "id": "mobile_button_text_color",
+      "label": "Color del texto del botón",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_show_description",
+      "label": "Mostrar descripción",
+      "default": true,
+      "info": "Activar para mostrar la descripción en el slider móvil"
+    }
+   ],
+    "blocks": [
+    {
+      "type": "producto",
+      "name": "Producto",
+      "settings": [
+        {
+          "type": "product",
+          "id": "producto",
+          "label": "Selecciona un producto"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+     "presets": [
+    {
+      "name": "Hero Slider"
+    }
+  ]
+  }
+{% endschema %}
+
+
+{% stylesheet %}
+
+.section-container {
+  position: relative;
+  padding: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:space-between;
+  width: 100%;
+  max-width: 100%;
+  background-color: #ff71db;
+  transition: background-color 0.8s ease;
+}
+
+.section-title {
+  flex: 0 0 auto;
+  padding: 0 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 700px;
+  margin-right: 20px;
+  z-index: 9;
+}
+
+.section-title h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  color: #333;
+  max-width:400px;
+  padding: 0;
+}
+
+.section-title p {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.5;
+  max-width:400px;
+  padding: 0;
+}
+
+.container-slider {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle-slider {
+  position: relative;
+  width: 700px;
+  height: 700px;
+}
+
+.orbit-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  transform-origin: center center;
+}
+
+.orbit-path {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  transform-origin: center center;
+}
+
+.orbit-path circle {
+    fill: none;
+    stroke: #e87f1e42;
+    stroke-dasharray: 10 10;
+    stroke-width: 3;
+    opacity: .8;
+}
+
+.orbit-image {
+  position: absolute;
+  width: 100px; // cambiar tamaño para que se vea mejor
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  z-index: 1;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease;
+  cursor: pointer;
+}
+
+.orbit-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+/* Asegurar que las imágenes dentro de los enlaces también mantengan la rotación correcta */
+.orbit-image a img {
+  display: block;
+}
+
+.center-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.center-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: opacity 0.4s ease;
+}
+
+.center-image.fade-out img {
+  opacity: 0;
+}
+
+.center-image.fade-in img {
+  opacity: 1;
+}
+
+.mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 700px;
+  height: 700px;
+  background: rgb(255, 255, 255);
+  z-index: 2; /* Cambiado de 3 a 2 */
+  pointer-events: none;
+  clip-path: circle(190px at center);
+}
+.custom-shape-divider-bottom-1747321538 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  z-index: 3;
+}
+
+/* .custom-shape-divider-bottom-1747321538 svg {
+  position: relative;
+  display: block;
+  width: calc(300% + 1.2px);
+  height:1600px;
+} */
+
+.custom-shape-divider-bottom-1747321538 svg {
+  position: relative;
+  display: block;
+  width: calc(300% + 1.2px);
+  height: 1600px;  /* Ajusta según el diseño deseado */
+}
+
+  
+.custom-shape-divider-bottom-1747321538 .shape-fill {
+  fill: white;
+}
+
+.controls {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  gap: 400px;
+  justify-content: center;
+  align-items: center;
+  z-index: 6;
+}
+
+@media (max-width: 1200px) {
+    .section-container {
+     display:none;
+    }
+}
+
+.controls button {
+  background: #ff50c3;
+  color: white;
+  border: none;
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.controls button:hover {
+  background: #d13fa1;
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.controls button:active {
+  transform: scale(0.95);
+  background: #b5357f;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+ .custom-button-wrapper {
+    margin: 20px 0;
+    width: 100%;
+  }
+  .custom-button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 48px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    min-width: 250px;
+    font-weight: 500;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
+  .custom-button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .custom-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .custom-button span {
+    display: inline-block;
+    white-space: normal;
+    max-width: none;
+    width: auto;
+  }
+
+
+
+{% endstylesheet %}
+
+ <div class="section-container page-width">
+      <div class="section-title">
+        <h1>{{section.settings.titulo}}</h1>
+        <p>
+       {{section.settings.subtitulo}}
+        </p>
+         <div class="custom-button-wrapper">
+          <a href="/collections/all" style="display: inline-block; text-decoration: none;">
+            <button class="custom-button" style="background-color: {{ section.settings.button_background_color }}; color: {{ section.settings.button_text_color }};">
+              <span>{{ section.settings.button_text }}</span>
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <div class="container-slider">
+        <div class="custom-shape-divider-bottom-1747321538">
+    
+          <svg
+            data-name="Layer 1"
+            viewBox="0 0 1200 75"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
+              fill="#D9D9D9"
+              class="shape-fill"
+            />
+          </svg>
+        </div>
+        <div class="circle-slider" id="circleSlider">
+          <!-- Background -->
+
+          <!-- Dashed orbit -->
+          <svg class="orbit-path" viewBox="0 0 700 700">
+            <circle cx="350" cy="350" r="250"></circle>
+          </svg>
+
+          <!-- Orbiting images container -->
+      <div class="orbit-container" id="orbitContainer">
+        {% assign productos = section.blocks | slice: 0, 9 %}
+        {% for block in productos %}
+          {% assign producto = all_products[block.settings.producto] %}
+          {% if producto %}
+            <div class="orbit-image" id="img{{ forloop.index }}">
+              <a href="{{ producto.url }}">
+                <img src="{{ producto.featured_image | img_url: 'medium' }}" alt="{{ producto.title }}">
+              </a>
+            </div>
+          {% else %}
+            <div class="orbit-image" id="img{{ forloop.index }}">
+              <img src="{{ 'product-placeholder.png' | asset_url }}" alt="Producto no disponible">
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+          <!-- Capa blanca que oculta parte de la órbita -->
+          <div class="mask"></div>
+
+          <!-- Imagen central destacada -->
+           <div class="center-image" id="centerImage">
+            <a id="centerLink" href="#">
+              <img src="" alt="central">
+            </a>
+          </div>
+
+          <!-- Controles de navegación -->
+          <div class="controls">
+            <button id="prevBtn"><i class="fa-solid fa-arrow-down"></i></button>
+            <button id="nextBtn"><i class="fa-solid fa-arrow-down"></i></button>
+          </div>
+        </div>
+      </div>
+</div>
+
+
+{% render 'slider-movil', 
+  slide1_image: section.settings.mobile_slide1_image,
+  slide1_title: section.settings.mobile_slide1_title,
+  slide1_description: section.settings.mobile_slide1_description,
+  slide2_image: section.settings.mobile_slide2_image,
+  slide2_title: section.settings.mobile_slide2_title,
+  slide2_description: section.settings.mobile_slide2_description,
+  slide3_image: section.settings.mobile_slide3_image,
+  slide3_title: section.settings.mobile_slide3_title,
+  slide3_description: section.settings.mobile_slide3_description,
+  button_text: section.settings.mobile_button_text,
+  button_url: section.settings.mobile_button_url,
+  title_color: section.settings.mobile_title_color,
+  title_size: section.settings.mobile_title_size,
+  description_color: section.settings.mobile_description_color,
+  description_size: section.settings.mobile_description_size,
+  button_bg_color: section.settings.mobile_button_bg_color,
+  button_text_color: section.settings.mobile_button_text_color,
+  show_description: section.settings.mobile_show_description %}
+
+<script>
+  const products = [
+    {% assign productos = section.blocks | slice: 0, 9 %}
+    {% for block in productos %}
+      {% assign producto = all_products[block.settings.producto] %}
+      {% if producto %}
+        {
+          title: "{{ producto.title | escape }}",
+          url: "{{ producto.url }}",
+          image: "{{ producto.featured_image | img_url: 'medium' }}"
+        }{% unless forloop.last %},{% endunless %}
+      {% endif %}
+    {% endfor %}
+  ];
+
+  const orbitElements = [];
+  for (let i = 1; i <= products.length; i++) {
+    orbitElements.push(document.getElementById(`img${i}`));
+  }
+
+  const centerImage = document.querySelector("#centerImage img");
+  const centerLink = document.getElementById("centerLink");
+  const orbitPath = document.querySelector(".orbit-path");
+  const orbitContainer = document.getElementById("orbitContainer");
+  const radius = 250;
+  const center = 350;
+  let rotationAngle = 0;
+  let currentIndex = 0;
+
+  function getRandomColor() {
+    const pastelColors = [
+  '#CFF09E',
+  '#FF9E9D', 
+  '#4DD0E1', 
+  '#CDA6F2', 
+  '#FF8EE2', 
+  '#BFE1F7', 
+  '#D0A0DB', 
+  '#47E0BA', 
+  '#C9CFEB', 
+];
+    /* const pastelColors = ['#FFD6E0', '#FFF5BA', '#D0F4DE', '#B5EAD7', '#C7CEEA', '#FFDAC1', '#E2F0CB', '#B5D8FA', '#F3C6E8']; */
+    return pastelColors[Math.floor(Math.random() * pastelColors.length)];
+  }
+
+  function initOrbitalPositions() {
+    const startAngle = -Math.PI / 2;
+    for (let i = 0; i < orbitElements.length; i++) {
+      const angle = startAngle + (i / orbitElements.length) * 2 * Math.PI;
+      const x = Math.cos(angle) * radius + center - 60;
+      const y = Math.sin(angle) * radius + center - 60;
+      orbitElements[i].style.transform = `translate(${x}px, ${y}px)`;
+      
+      // Asegurar que las imágenes estén verticales desde el inicio
+      const img = orbitElements[i].querySelector("img");
+      if (img) {
+        img.style.transform = `rotate(0deg)`;
+      }
+    }
+  }
+
+  function renderOrbitImages() {
+    for (let i = 0; i < orbitElements.length; i++) {
+      const img = orbitElements[i].querySelector("img");
+      const index = (currentIndex + i) % products.length;
+      img.src = products[index].image;
+      // Contrarotación para mantener la imagen vertical
+      img.style.transform = `rotate(${-rotationAngle}deg)`;
+    }
+
+    centerImage.src = products[currentIndex].image;
+    centerLink.href = products[currentIndex].url;
+  }
+
+  function rotate(direction) {
+    const sectionContainer = document.querySelector(".section-container");
+    sectionContainer.style.backgroundColor = getRandomColor();
+
+    const angleStep = ((2 * Math.PI) / products.length) * direction;
+    rotationAngle += angleStep * (180 / Math.PI);
+
+    if (direction > 0) {
+      currentIndex = (currentIndex + 1) % products.length;
+    } else {
+      currentIndex = (currentIndex - 1 + products.length) % products.length;
+    }
+
+    // Aplicar rotación al contenedor y camino orbital
+    orbitPath.style.transform = `rotate(${rotationAngle}deg)`;
+    orbitContainer.style.transform = `rotate(${rotationAngle}deg)`;
+
+    // Aplicar contra-rotación a todas las imágenes para mantenerlas verticales
+    const allOrbitImages = document.querySelectorAll('.orbit-image img');
+    allOrbitImages.forEach(img => {
+      img.style.transform = `rotate(${-rotationAngle}deg)`;
+    });
+
+    renderOrbitImages();
+  }
+
+  document.getElementById("prevBtn").addEventListener("click", () => rotate(-1));
+  document.getElementById("nextBtn").addEventListener("click", () => rotate(1));
+
+  initOrbitalPositions();
+  renderOrbitImages();
+</script>

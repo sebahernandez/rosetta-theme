@@ -1,0 +1,206 @@
+{% schema %}
+  {
+    "name": "Banner de oferta",
+    "tag": "section",
+    "class": "banner-oferta",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "fondo_imagen",
+        "label": "Imagen de fondo"
+      },
+      {
+        "type": "color",
+        "id": "fondo_color",
+        "label": "Color de fondo (fallback)",
+        "default": "#ff4ed7"
+      },
+      {
+        "type": "range",
+        "id": "altura_banner",
+        "label": "Altura del banner (px)",
+        "unit": "px",
+        "min": 300,
+        "max": 900,
+        "step": 10,
+        "default": 500
+      },
+      {
+        "type": "text",
+        "id": "subtitulo",
+        "label": "Subtítulo",
+        "default": "GRANDES OFERTAS"
+      }, {
+        "type": "range",
+        "id": "subtitulo_size",
+        "label": "Tamaño del subtítulo (px)",
+        "unit": "px",
+        "min": 12,
+        "max": 30,
+        "step": 1,
+        "default": 16
+      }, {
+        "type": "text",
+        "id": "titulo_principal",
+        "label": "Título principal",
+        "default": "37% desc."
+      }, {
+        "type": "range",
+        "id": "titulo_size",
+        "label": "Tamaño del título (px)",
+        "unit": "px",
+        "min": 20,
+        "max": 60,
+        "step": 1,
+        "default": 40
+      }, {
+        "type": "textarea",
+        "id": "texto_adicional",
+        "label": "Texto adicional",
+        "default": "Envío gratis en todas tus compras por el mes de mayo."
+      }, {
+        "type": "range",
+        "id": "texto_size",
+        "label": "Tamaño del texto adicional (px)",
+        "unit": "px",
+        "min": 12,
+        "max": 30,
+        "step": 1,
+        "default": 16
+      }, {
+        "type": "text",
+        "id": "texto_boton",
+        "label": "Texto del enlace",
+        "default": "Comprar ahora"
+      }, {
+        "type": "url",
+        "id": "link_boton",
+        "label": "Enlace del texto"
+      }, {
+        "type": "range",
+        "id": "boton_size",
+        "label": "Tamaño del enlace (px)",
+        "unit": "px",
+        "min": 12,
+        "max": 30,
+        "step": 1,
+        "default": 16
+      }, {
+        "type": "image_picker",
+        "id": "imagen_principal",
+        "label": "Imagen principal"
+      }, {
+        "type": "image_picker",
+        "id": "imagen_decorativa",
+        "label": "Imagen decorativa (opcional)"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Banner de Oferta"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+  .banner-oferta {
+    margin: 2rem 0;
+  }
+
+  .banner-oferta-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    gap: 2rem;
+    padding: 4rem;
+    border-radius: 16px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .banner-oferta-texto {
+    color: #000;
+    padding: 0 2rem;
+  }
+
+  .banner-oferta-enlace {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    font-weight: 600;
+    color: #000;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    transition: none;
+  }
+
+  .banner-oferta-enlace::after {
+    content: "→";
+    font-size: 1.2em;
+    margin-left: 0.5rem;
+  }
+
+  .banner-oferta-imagen img,
+  .banner-oferta-decorativa img {
+    width: 100%;
+    max-height: 320px;
+    object-fit: contain;
+  }
+
+  @media screen and (max-width: 768px) {
+    .banner-oferta-wrapper {
+      grid-template-columns: 1fr;
+      text-align: center;
+      padding: 2rem;
+    }
+  }
+{% endstylesheet %}
+
+<div class="banner-oferta page-width">
+  <div class="banner-oferta-wrapper" style="
+      {% if section.settings.fondo_imagen != blank %}
+        background-image: url({{ section.settings.fondo_imagen | image_url: width: 1500 }});
+      {% else %}
+        background-color: {{ section.settings.fondo_color }};
+      {% endif %}
+      min-height: {{ section.settings.altura_banner }}px;
+    ">
+    <!-- Columna 1: Texto -->
+    <div class="banner-oferta-texto">
+      <div class="banner-oferta-sub" style="font-size: {{ section.settings.subtitulo_size }}px;">
+        {{ section.settings.subtitulo }}
+      </div>
+      <div class="banner-oferta-titulo" style="font-size: {{ section.settings.titulo_size }}px;">
+        {{ section.settings.titulo_principal }}
+      </div>
+      <div class="banner-oferta-parrafo" style="font-size: {{ section.settings.texto_size }}px;">
+        {{ section.settings.texto_adicional }}
+      </div>
+      {% if section.settings.link_boton != blank %}
+        <a
+          href="{{ section.settings.link_boton }}"
+          class="banner-oferta-enlace"
+          style="font-size: {{ section.settings.boton_size }}px;">
+          {{ section.settings.texto_boton }}
+        </a>
+      {% endif %}
+    </div>
+
+    <!-- Columna 2: Imagen principal -->
+    <div class="banner-oferta-imagen">
+      {% if section.settings.imagen_principal != blank %}
+        <img src="{{ section.settings.imagen_principal | image_url: width: 600 }}" alt="Oferta principal">
+      {% endif %}
+    </div>
+
+    <!-- Columna 3: Imagen decorativa -->
+    <div class="banner-oferta-decorativa">
+      {% if section.settings.imagen_decorativa != blank %}
+        <img src="{{ section.settings.imagen_decorativa | image_url: width: 600 }}" alt="Decoración">
+      {% endif %}
+    </div>
+  </div>
+</div>

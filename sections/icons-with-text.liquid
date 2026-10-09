@@ -1,0 +1,127 @@
+<section class="payment-methods-section">
+  <div class="container">
+    <div class="payment-methods-grid">
+      {% for block in section.blocks %}
+        <div class="payment-method-item" style="font-size: {{ block.settings.text_size }}px;">
+          {% if block.settings.icon != blank %}
+            <div class="icon-wrapper">
+              <img
+                src="{{ block.settings.icon | image_url }}"
+                alt="Icono"
+                class="icon" />
+            </div>
+          {% endif %}
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .payment-methods-section {
+    padding: 40px 20px;
+    background: #fff;
+  }
+  .container {
+    max-width: 1200px;
+    margin: auto;
+  }
+  .payment-methods-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .payment-method-item {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  .payment-method-item .icon-wrapper {
+    margin-bottom: 15px;
+  }
+  .payment-method-item .icon {
+    height: 100px;
+    width: 100px;
+    object-fit: contain;
+    background-color: #ffe8f8;
+    padding: 10px;
+    border-radius: 50%;
+  }
+
+  @media(min-width: 768px) {
+    .payment-methods-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Métodos de Pago",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "metodo_pago",
+        "name": "Método de Pago",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Ícono"
+          }, {
+            "type": "text",
+            "id": "title",
+            "label": "Título",
+            "default": "Título del Método de Pago"
+          }, {
+            "type": "textarea",
+            "id": "description",
+            "label": "Descripción",
+            "default": "Descripción del método de pago."
+          }, {
+            "type": "range",
+            "id": "text_size",
+            "label": "Tamaño del texto",
+            "min": 12,
+            "max": 24,
+            "step": 1,
+            "default": 16
+          }
+        ]
+      }
+    ],
+    "max_blocks": 6,
+    "presets": [
+      {
+        "name": "Métodos de Pago",
+        "category": "Secciones Personalizadas",
+        "blocks": [
+          {
+            "type": "metodo_pago",
+            "settings": {
+              "title": "Pago Móvil y Transferencias en Bolívares",
+              "description": "Aceptamos Pago Móvil Interbancario y transferencias bancarias desde cualquier banco en Venezuela. Un método rápido, seguro y sin complicaciones.",
+              "text_size": 16
+            }
+          }, {
+            "type": "metodo_pago",
+            "settings": {
+              "title": "Pagos en Línea con Tarjeta de Crédito Internacional",
+              "description": "Aceptamos Visa y Mastercard internacionales a través de nuestra plataforma de pago en línea. Compra fácil y segura desde Venezuela o el extranjero.",
+              "text_size": 16
+            }
+          }, {
+            "type": "metodo_pago",
+            "settings": {
+              "title": "Pago en Divisas (Dólares y Euros)",
+              "description": "Si prefieres pagar en dólares o euros en efectivo, ¡también lo aceptamos! Pregunta en caja por la tasa de cambio del día.",
+              "text_size": 16
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

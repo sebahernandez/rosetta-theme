@@ -1,0 +1,521 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "home_slider_NY4Wzk": {
+      "type": "home-slider",
+      "blocks": {
+        "imagen_slide_UyD9Y6": {
+          "type": "imagen_slide",
+          "settings": {
+            "imagen": "shopify://shop_images/BannerPrincipal_4.webp",
+            "imagen_mobile": "shopify://shop_images/BannerPrincipal-Movil4.webp",
+            "imagen_tablet": "shopify://shop_images/BannerPrincipal_4.webp",
+            "imagen_desktop": "shopify://shop_images/BannerPrincipal_4.webp",
+            "imagen_wide": "shopify://shop_images/BannerPrincipal_4.webp",
+            "custom_fit": "",
+            "custom_position_x": "",
+            "custom_position_y": ""
+          }
+        }
+      },
+      "block_order": [
+        "imagen_slide_UyD9Y6"
+      ],
+      "settings": {
+        "top_margin": 100,
+        "autoplay": true,
+        "interval": 5000,
+        "arrows": false,
+        "pagination": false,
+        "slider_height": "460",
+        "slider_height_tablet": "350",
+        "slider_height_mobile": "140",
+        "border_radius": 16,
+        "image_fit": "fill",
+        "image_position_x": "center",
+        "image_position_y": "center",
+        "contain_background": "#f5f5f5",
+        "enable_custom_positioning": false,
+        "custom_position_x_percent": 50,
+        "custom_position_y_percent": 50
+      }
+    },
+    "custom_search_k93Y9X": {
+      "type": "custom-search",
+      "settings": {
+        "show_heading": true,
+        "heading": "¿Qué estás buscando?",
+        "heading_size": "h2",
+        "subheading": "",
+        "text_alignment": "center",
+        "label_text": "",
+        "placeholder_text": "¿Qué estas buscando?",
+        "button_label": "",
+        "input_font_size": 16,
+        "input_padding": 12,
+        "button_color": "#ffffff",
+        "button_hover_color": "#ffffff",
+        "background_color": "",
+        "border_radius": 4,
+        "max_width": 800,
+        "spacing_bottom": 20,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "icon_features_xBBGBz": {
+      "type": "icon-features",
+      "blocks": {
+        "feature_K3qeA8": {
+          "type": "feature",
+          "settings": {
+            "heading": "Envío gratuito",
+            "heading_font_size": 15,
+            "subtext": "Sin costo en tus pedidos",
+            "subtext_font_size": 15,
+            "icon": "shopify://shop_images/envio.svg"
+          }
+        },
+        "feature_KUkmxR": {
+          "type": "feature",
+          "settings": {
+            "heading": "Atención 24/7",
+            "heading_font_size": 15,
+            "subtext": "Soporte todo el día",
+            "subtext_font_size": 15,
+            "icon": "shopify://shop_images/headphones_1.svg"
+          }
+        },
+        "feature_HR4JgQ": {
+          "type": "feature",
+          "settings": {
+            "heading": "Pago Seguro",
+            "heading_font_size": 15,
+            "subtext": "Transacciones protegidas",
+            "subtext_font_size": 15,
+            "icon": "shopify://shop_images/bag.svg"
+          }
+        },
+        "feature_JLxyEV": {
+          "type": "feature",
+          "settings": {
+            "heading": "Devolución Garantizada",
+            "heading_font_size": 15,
+            "subtext": "Hasta 30 días para volver",
+            "subtext_font_size": 15,
+            "icon": "shopify://shop_images/box.svg"
+          }
+        }
+      },
+      "block_order": [
+        "feature_K3qeA8",
+        "feature_KUkmxR",
+        "feature_HR4JgQ",
+        "feature_JLxyEV"
+      ],
+      "custom_css": [
+        ".icon-features {}"
+      ],
+      "settings": {}
+    },
+    "featured_collection_9qmYdC": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Productos Populares",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "productos-populares",
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "outline",
+        "enable_desktop_slider": false,
+        "color_scheme": "",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "category_slide_cQbWcm": {
+      "type": "category-slide",
+      "blocks": {
+        "category_image_jHewEk": {
+          "type": "category_image",
+          "settings": {
+            "category_title": "",
+            "category_image": "shopify://shop_images/Cat-Belleza_y_salud.webp",
+            "target_collection": "",
+            "image_alt": "belleza y salud"
+          }
+        },
+        "category_image_4XaxzE": {
+          "type": "category_image",
+          "settings": {
+            "category_title": "",
+            "category_image": "shopify://shop_images/Cat-Carnes_y_Pescados.webp",
+            "target_collection": "",
+            "image_alt": "carnes y pescados"
+          }
+        },
+        "category_image_T74Fem": {
+          "type": "category_image",
+          "settings": {
+            "category_title": "",
+            "category_image": "shopify://shop_images/Cat-Panaderia.webp",
+            "target_collection": "",
+            "image_alt": "Panaderia"
+          }
+        },
+        "category_image_eNKRbE": {
+          "type": "category_image",
+          "settings": {
+            "category_title": "",
+            "category_image": "shopify://shop_images/Cat-Bebidas.png",
+            "target_collection": "",
+            "image_alt": "Bebidas"
+          }
+        },
+        "category_image_Gjm6aX": {
+          "type": "category_image",
+          "settings": {
+            "category_title": "",
+            "category_image": "shopify://shop_images/Cat-SnacksComo.webp",
+            "target_collection": "",
+            "image_alt": "snacks"
+          }
+        },
+        "category_image_qtPQYf": {
+          "type": "category_image",
+          "settings": {
+            "category_title": "",
+            "category_image": "shopify://shop_images/Cat-Cervezas.webp",
+            "target_collection": "",
+            "image_alt": "Cervezas"
+          }
+        },
+        "category_image_fAtNzE": {
+          "type": "category_image",
+          "settings": {
+            "category_title": "",
+            "category_image": "shopify://shop_images/Cat-Vinos.webp",
+            "target_collection": "",
+            "image_alt": "Vinos"
+          }
+        }
+      },
+      "block_order": [
+        "category_image_jHewEk",
+        "category_image_4XaxzE",
+        "category_image_T74Fem",
+        "category_image_eNKRbE",
+        "category_image_Gjm6aX",
+        "category_image_qtPQYf",
+        "category_image_fAtNzE"
+      ],
+      "settings": {
+        "slides_per_page": 4,
+        "autoplay": true,
+        "gap_size": 1
+      }
+    },
+    "announcement_month_ypzKCY": {
+      "type": "announcement-month",
+      "settings": {
+        "margin_top": 40,
+        "margin_bottom": 40
+      }
+    },
+    "featured_collection_4eGYqL": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "title": "Ofertas Destacadas",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "ofertas-destacadas",
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "outline",
+        "enable_desktop_slider": false,
+        "color_scheme": "",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "promotional_bar_LgHQmr": {
+      "type": "promotional-bar",
+      "settings": {
+        "banner_title": "",
+        "banner_image_desktop": "shopify://shop_images/b-7-rosetta.webp",
+        "banner_image_tablet": "shopify://shop_images/b-7-rosetta.webp",
+        "banner_image_mobile": "shopify://shop_images/M-R-04.webp",
+        "banner_alt_text": "",
+        "banner_link": "",
+        "open_in_new_tab": false
+      }
+    },
+    "featured_collection_r8aVgk": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Productos Destacados",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "productos-destacados",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "outline",
+        "enable_desktop_slider": false,
+        "color_scheme": "",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "promotional_bar_yzUBNb": {
+      "type": "promotional-bar",
+      "settings": {
+        "banner_title": "",
+        "banner_image_desktop": "shopify://shop_images/cupon-rosetta.webp",
+        "banner_image_tablet": "shopify://shop_images/mobile-home-huincha-micupon-s13-28032025.webp",
+        "banner_image_mobile": "shopify://shop_images/mobile-home-huincha-micupon-s13-28032025.webp",
+        "banner_alt_text": "cupon rosetta",
+        "banner_link": "",
+        "open_in_new_tab": false
+      }
+    },
+    "featured_blog_cXKLWj": {
+      "type": "featured-blog",
+      "settings": {
+        "heading": "Recetas",
+        "heading_size": "h2",
+        "blog": "news",
+        "post_limit": 3,
+        "columns_desktop": 3,
+        "color_scheme": "",
+        "show_image": true,
+        "show_date": true,
+        "show_author": false,
+        "show_view_all": true,
+        "show_read_more": true,
+        "read_more_text": "Leer más",
+        "read_more_color": "#ff71db",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "testimonials_NMFPMa": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_WqtK9A": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Carlos J.",
+            "testimonial_text": "<p>“¡Todo llegó fresquito y rápido! Me encantó el pan artesanal y la atención fue increíble. Se nota el cariño en cada producto. Sin duda volveré a pedir”</p>",
+            "customer_image": "shopify://shop_images/carlos.png",
+            "rating": 5
+          }
+        },
+        "testimonial_gHRX4M": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Guillermo H.",
+            "testimonial_text": "<p>La calidad de los embutidos y quesos es top. Ideal para una tabla con vino. Además, el proceso de pago fue muy fácil. ¡Rosetta es lo máximo!</p>",
+            "customer_image": "shopify://shop_images/guillermo.png",
+            "rating": 5
+          }
+        },
+        "testimonial_ynPTrM": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "José L.",
+            "testimonial_text": "<p>Una amiga me recomendó Rosetta y ahora no puedo parar. Los jugos, las recetas del blog, todo es delicioso. ¡Qué rico comprar local así!</p>",
+            "customer_image": "shopify://shop_images/jose.png",
+            "rating": 5
+          }
+        },
+        "testimonial_h8yAm9": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Lucía F.",
+            "testimonial_text": "<p>Este es un testimonio de ejemplo. ¡Me encantó el producto!</p>",
+            "customer_image": "shopify://shop_images/uifaces-popular-image_3.jpg",
+            "rating": 5
+          }
+        },
+        "testimonial_apqirx": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Diana C.",
+            "testimonial_text": "<p>Este es un testimonio de ejemplo. ¡Me encantó el producto!</p>",
+            "customer_image": "shopify://shop_images/uifaces-popular-image.jpg",
+            "rating": 5
+          }
+        },
+        "testimonial_JekUhV": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Antonio D.",
+            "testimonial_text": "<p>Este es un testimonio de ejemplo. ¡Me encantó el producto!</p>",
+            "customer_image": "shopify://shop_images/uifaces-popular-image_1.jpg",
+            "rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_WqtK9A",
+        "testimonial_gHRX4M",
+        "testimonial_ynPTrM",
+        "testimonial_h8yAm9",
+        "testimonial_apqirx",
+        "testimonial_JekUhV"
+      ],
+      "settings": {}
+    },
+    "marcas_logo_bar_X3dNXm": {
+      "type": "marcas-logo-bar",
+      "blocks": {
+        "marca_rkxVW6": {
+          "type": "marca",
+          "settings": {
+            "logo": "shopify://shop_images/logo_pepsi.webp",
+            "enlace": "",
+            "activo": true
+          }
+        },
+        "marca_x7mjD7": {
+          "type": "marca",
+          "settings": {
+            "logo": "shopify://shop_images/logo_polar.webp",
+            "enlace": "",
+            "activo": false
+          }
+        },
+        "marca_TLMHbP": {
+          "type": "marca",
+          "settings": {
+            "logo": "shopify://shop_images/logo_savoy.webp",
+            "enlace": "",
+            "activo": false
+          }
+        },
+        "marca_6FcA6w": {
+          "type": "marca",
+          "settings": {
+            "logo": "shopify://shop_images/logo_oreo.webp",
+            "enlace": "",
+            "activo": false
+          }
+        },
+        "marca_agDfwz": {
+          "type": "marca",
+          "settings": {
+            "logo": "shopify://shop_images/logo_flips.webp",
+            "enlace": "",
+            "activo": false
+          }
+        }
+      },
+      "block_order": [
+        "marca_rkxVW6",
+        "marca_x7mjD7",
+        "marca_TLMHbP",
+        "marca_6FcA6w",
+        "marca_agDfwz"
+      ],
+      "settings": {}
+    },
+    "newsletter_WGhgqi": {
+      "type": "newsletter",
+      "blocks": {
+        "heading_kBPd3H": {
+          "type": "heading",
+          "settings": {
+            "heading": "Suscríbete a nuestras ofertas",
+            "heading_size": "h2"
+          }
+        },
+        "paragraph_bHUMqk": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Recibe recetas, promociones y novedades fresquitas directo en tu bandeja de entrada. ¡Conéctate con el sabor local</p>"
+          }
+        },
+        "email_form_QxLVAL": {
+          "type": "email_form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading_kBPd3H",
+        "paragraph_bHUMqk",
+        "email_form_QxLVAL"
+      ],
+      "settings": {
+        "color_scheme": "scheme-76159230-694a-42ae-993a-c7adf2564efc",
+        "full_width": true,
+        "show_social": true,
+        "background_image": "shopify://shop_images/Patron.svg",
+        "background_size": "cover",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "home_slider_NY4Wzk",
+    "custom_search_k93Y9X",
+    "icon_features_xBBGBz",
+    "featured_collection_9qmYdC",
+    "category_slide_cQbWcm",
+    "announcement_month_ypzKCY",
+    "featured_collection_4eGYqL",
+    "promotional_bar_LgHQmr",
+    "featured_collection_r8aVgk",
+    "promotional_bar_yzUBNb",
+    "featured_blog_cXKLWj",
+    "testimonials_NMFPMa",
+    "marcas_logo_bar_X3dNXm",
+    "newsletter_WGhgqi"
+  ]
+}

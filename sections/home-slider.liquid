@@ -1,0 +1,764 @@
+{% comment %}
+  Sección Slider de Imágenes con Splide - Versión Avanzada
+  Características de posicionamiento de imágenes:
+  - object-fit: cover, contain, fill, scale-down, none
+  - object-position: left/center/right + top/center/bottom
+  - Posicionamiento personalizado con porcentajes (0-100%)
+  - Configuración global + configuración individual por imagen
+  - Fondo personalizable para modo 'contain'
+  - Responsive automático con fallbacks
+{% endcomment %}
+
+<section style="margin-top: {{ section.settings.top_margin | default: 0 }}px;">
+  <div class="page-width">
+    <div class="slider-imagenes splide">
+      <div class="splide__track">
+        <ul class="splide__list">
+          {% for bloque in section.blocks %}
+            {% if bloque.settings.imagen != blank %}
+              <li class="splide__slide">
+                <div class="slide-image-container">
+                  <img
+                    src="{{ bloque.settings.imagen | image_url: width: 1200 }}"
+                    alt="Slide {{ forloop.index }}"
+                    loading="lazy"
+                    class="slide-image desktop-slide-image {% if bloque.settings.imagen_mobile == blank %}mobile-fallback{% endif %}"
+                    style="
+                      {% if bloque.settings.custom_fit %}
+                        object-fit: {{ bloque.settings.custom_fit }};
+                      {% endif %}
+                      {% if bloque.settings.custom_position_x or bloque.settings.custom_position_y %}
+                        object-position: {{ bloque.settings.custom_position_x | default: 'center' }} {{ bloque.settings.custom_position_y | default: 'center' }};
+                      {% endif %}
+                    ">
+                  {% assign img_mobile = bloque.settings.imagen_mobile %}
+                  {% assign img_tablet = bloque.settings.imagen_tablet %}
+                  {% assign img_desktop = bloque.settings.imagen_desktop %}
+                  {% assign img_wide = bloque.settings.imagen_wide %}
+                  {% assign img_default = bloque.settings.imagen %}
+
+                  {% if img_mobile != blank %}
+                    <img
+                      src="{{ img_mobile | image_url: width: 800 }}"
+                      alt="Slide {{ forloop.index }} Mobile"
+                      loading="lazy"
+                      class="slide-image mobile-slide-image"
+                      style="{% if bloque.settings.custom_fit and bloque.settings.custom_fit != '' %}object-fit: {{ bloque.settings.custom_fit }};{% else %}object-fit: {{ section.settings.image_fit | default: 'cover' }};{% endif %}{% if bloque.settings.custom_position_x or bloque.settings.custom_position_y %}object-position: {{ bloque.settings.custom_position_x | default: 'center' }} {{ bloque.settings.custom_position_y | default: 'center' }};{% endif %}">
+                  {% endif %}
+                  {% if img_tablet != blank %}
+                    <img
+                      src="{{ img_tablet | image_url: width: 1000 }}"
+                      alt="Slide {{ forloop.index }} Tablet"
+                      loading="lazy"
+                      class="slide-image tablet-slide-image"
+                      style="{% if bloque.settings.custom_fit and bloque.settings.custom_fit != '' %}object-fit: {{ bloque.settings.custom_fit }};{% else %}object-fit: {{ section.settings.image_fit | default: 'cover' }};{% endif %}{% if bloque.settings.custom_position_x or bloque.settings.custom_position_y %}object-position: {{ bloque.settings.custom_position_x | default: 'center' }} {{ bloque.settings.custom_position_y | default: 'center' }};{% endif %}">
+                  {% endif %}
+                  {% if img_desktop != blank %}
+                    <img
+                      src="{{ img_desktop | image_url: width: 1200 }}"
+                      alt="Slide {{ forloop.index }} Desktop"
+                      loading="lazy"
+                      class="slide-image desktop-slide-image"
+                      style="{% if bloque.settings.custom_fit and bloque.settings.custom_fit != '' %}object-fit: {{ bloque.settings.custom_fit }};{% else %}object-fit: {{ section.settings.image_fit | default: 'cover' }};{% endif %}{% if bloque.settings.custom_position_x or bloque.settings.custom_position_y %}object-position: {{ bloque.settings.custom_position_x | default: 'center' }} {{ bloque.settings.custom_position_y | default: 'center' }};{% endif %}">
+                  {% endif %}
+                  {% if img_wide != blank %}
+                    <img
+                      src="{{ img_wide | image_url: width: 1600 }}"
+                      alt="Slide {{ forloop.index }} Widescreen"
+                      loading="lazy"
+                      class="slide-image wide-slide-image"
+                      style="{% if bloque.settings.custom_fit and bloque.settings.custom_fit != '' %}object-fit: {{ bloque.settings.custom_fit }};{% else %}object-fit: {{ section.settings.image_fit | default: 'cover' }};{% endif %}{% if bloque.settings.custom_position_x or bloque.settings.custom_position_y %}object-position: {{ bloque.settings.custom_position_x | default: 'center' }} {{ bloque.settings.custom_position_y | default: 'center' }};{% endif %}">
+                  {% endif %}
+                  {% if img_default != blank %}
+                    <img
+                      src="{{ img_default | image_url: width: 1200 }}"
+                      alt="Slide {{ forloop.index }} Default"
+                      loading="lazy"
+                      class="slide-image default-slide-image"
+                      style="{% if bloque.settings.custom_fit and bloque.settings.custom_fit != '' %}object-fit: {{ bloque.settings.custom_fit }};{% else %}object-fit: {{ section.settings.image_fit | default: 'cover' }};{% endif %}{% if bloque.settings.custom_position_x or bloque.settings.custom_position_y %}object-position: {{ bloque.settings.custom_position_x | default: 'center' }} {{ bloque.settings.custom_position_y | default: 'center' }};{% endif %}">
+                  {% endif %}
+                </div>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+<style>
+  .slider-imagenes {
+    width: 100%;
+    position: relative;
+    border-radius: {{ section.settings.border_radius | default: 16 }}px;
+    overflow: hidden;
+    height: {% if section.settings.slider_height contains 'px' %}{{ section.settings.slider_height }}
+  {% else %}{{ section.settings.slider_height | default: 400 }}px{% endif %};
+}
+
+.splide__track {
+  border-radius: {{ section.settings.border_radius | default: 16 }}px;
+  overflow: hidden;
+  height: 100%;
+}
+
+.splide__slide {
+  border-radius: {{ section.settings.border_radius | default: 16 }}px;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+}
+
+.slide-image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: {{ section.settings.border_radius | default: 16 }}px;
+  background: #f5f5f5;
+}
+
+.slide-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  object-fit: {{ section.settings.image_fit | default: 'cover' }};
+  {% if section.settings.enable_custom_positioning %}
+    object-position: {{ section.settings.custom_position_x_percent | default: 50 }}%{{ section.settings.custom_position_y_percent | default: 50 }}%;
+  {% else %}
+    object-position: {{ section.settings.image_position_x | default: 'center' }}
+    {{ section.settings.image_position_y | default: 'center' }};
+  {% endif %}
+  transition: transform 0.3s ease;
+  border-radius: {{ section.settings.border_radius | default: 16 }}px;
+}
+
+.desktop-slide-image {
+  display: block;
+}
+
+.mobile-slide-image {
+  display: none;
+}
+
+.tablet-slide-image {
+  display: none;
+}
+
+.mobile-slide-image,
+.tablet-slide-image,
+.desktop-slide-image,
+.wide-slide-image {
+  display: none;
+}
+@media (max-width: 480px) {
+  .mobile-slide-image {
+    display: block !important;
+  }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  .tablet-slide-image {
+    display: block !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: {{ section.settings.image_fit | default: 'cover' }};
+    object-position: center center;
+    border-radius: {{ section.settings.border_radius | default: 16 }}px;
+  }
+}
+@media (min-width: 769px) and (max-width: 1200px) {
+  .desktop-slide-image {
+    display: block !important;
+  }
+}
+@media (min-width: 1201px) {
+  .wide-slide-image {
+    display: block !important;
+  }
+}
+
+/* Técnicas avanzadas para posicionamiento perfecto */
+.slide-image-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 49%, rgba(0,0,0,0.01) 50%, transparent 51%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Efecto de zoom sutil en hover */
+.splide__slide:hover .slide-image {
+  transform: translate(-50%, -50%) scale(1.02);
+}
+
+/* Asegurar que la imagen nunca se salga del contenedor */
+.slide-image-container {
+  contain: layout style paint;
+  will-change: transform;
+}
+
+/* Técnica de aspect-ratio para contenedores consistentes */
+.slide-image-container {
+  aspect-ratio: 16 / 9;
+  min-height: {% if section.settings.slider_height contains 'px' %}{{ section.settings.slider_height }}
+{% else %}{{ section.settings.slider_height | default: 400 }}px{% endif %};
+  max-height: {% if section.settings.slider_height contains 'px' %}{{ section.settings.slider_height }}
+{% else %}{{ section.settings.slider_height | default: 400 }}px{% endif %};
+}
+
+/* Personalización de flechas de navegación */
+.splide__arrow {
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  z-index: 2;
+}
+
+.splide__arrow:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+.splide__arrow svg {
+  fill: white;
+  width: 20px;
+  height: 20px;
+}
+
+/* Personalización de paginación específica para este slider */
+.slider-imagenes .splide__pagination {
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+}
+
+.slider-imagenes .splide__pagination__page {
+  background: #FF71DB !important;
+  border: none !important;
+  border-radius: 50% !important;
+  width: 14px !important;
+  height: 14px !important;
+  margin: 0 !important;
+  transition: all 0.3s ease !important;
+  opacity: 0.6 !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.slider-imagenes .splide__pagination__page:hover {
+  opacity: 0.8 !important;
+  transform: scale(1.1) !important;
+  background: #FF71DB !important;
+}
+
+.slider-imagenes .splide__pagination__page.is-active {
+  background: #FF71DB !important;
+  opacity: 1 !important;
+  transform: scale(1.3) !important;
+  box-shadow: 0 0 0 2px rgba(255, 113, 219, 0.3) !important;
+}
+
+/* Responsive adjustments */
+/* Tablet adjustments (769px-1024px) */@media (min-width: 769px) and (max-width: 1024px) {
+  .slider-imagenes {
+    height: {% if section.settings.slider_height_tablet contains 'px' %}{{ section.settings.slider_height_tablet }}
+  {% else %}{{ section.settings.slider_height_tablet | default: 350 }}px{% endif %};
+}
+
+.slide-image-container {
+  min-height: {% if section.settings.slider_height_tablet contains 'px' %}{{ section.settings.slider_height_tablet }}
+{% else %}{{ section.settings.slider_height_tablet | default: 350 }}px{% endif %};
+  max-height: {% if section.settings.slider_height_tablet contains 'px' %}{{ section.settings.slider_height_tablet }}
+{% else %}{{ section.settings.slider_height_tablet | default: 350 }}px{% endif %};
+  border-radius: {{ section.settings.border_radius | default: 16 }}px;
+}
+
+.desktop-slide-image {
+  height: 100% !important;
+  max-height: 100% !important;
+  width: auto;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* En tablets mantenemos la imagen de desktop */
+.desktop-slide-image {
+  display: block;
+}
+
+.mobile-slide-image {
+  display: none;
+}
+}
+
+/* Mobile adjustments (max-width: 768px) */
+@media (max-width: 768px) {
+  .slider-imagenes {
+    height: {% if section.settings.slider_height_mobile contains 'px' %}{{ section.settings.slider_height_mobile }}
+  {% else %}{{ section.settings.slider_height_mobile | default: 250 }}px{% endif %};
+}
+
+.slide-image-container {
+  min-height: {% if section.settings.slider_height_mobile contains 'px' %}{{ section.settings.slider_height_mobile }}
+{% else %}{{ section.settings.slider_height_mobile | default: 250 }}px{% endif %};
+  max-height: {% if section.settings.slider_height_mobile contains 'px' %}{{ section.settings.slider_height_mobile }}
+{% else %}{{ section.settings.slider_height_mobile | default: 250 }}px{% endif %};
+  border-radius: {{ section.settings.border_radius | default: 16 | divided_by: 1.3 | round }}px;
+}
+
+.desktop-slide-image {
+  display: none;
+}
+
+.mobile-slide-image {
+  display: block;
+}
+
+/* Si no hay imagen móvil, se usa la de desktop como fallback */
+.slide-image-container .desktop-slide-image.mobile-fallback {
+  display: block;
+}
+
+.slider-imagenes,
+.splide__track,
+.splide__slide,
+.slide-image {
+  border-radius: {{ section.settings.border_radius | default: 16 | divided_by: 1.3 | round }}px;
+}
+
+.splide__arrow {
+  width: 40px;
+  height: 40px;
+}
+
+.splide__arrow svg {
+  width: 16px;
+  height: 16px;
+}
+}
+
+@media (max-width: 480px) {
+  .slider-imagenes {
+    height: {% if section.settings.slider_height_mobile contains 'px' %}{{ section.settings.slider_height_mobile }}
+  {% else %}{{ section.settings.slider_height_mobile | default: 140 }}px{% endif %};
+}
+.slide-image-container {
+  min-height: {% if section.settings.slider_height_mobile contains 'px' %}{{ section.settings.slider_height_mobile }}
+{% else %}{{ section.settings.slider_height_mobile | default: 140 }}px{% endif %};
+  max-height: {% if section.settings.slider_height_mobile contains 'px' %}{{ section.settings.slider_height_mobile }}
+{% else %}{{ section.settings.slider_height_mobile | default: 140 }}px{% endif %};
+  border-radius: {{ section.settings.border_radius | default: 16 | divided_by: 2 | round }}px;
+}
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  .slider-imagenes {
+    height: {% if section.settings.slider_height_tablet contains 'px' %}{{ section.settings.slider_height_tablet }}
+  {% else %}{{ section.settings.slider_height_tablet | default: 350 }}px{% endif %};
+  }
+  
+  .slide-image-container {
+    min-height: {% if section.settings.slider_height_tablet contains 'px' %}{{ section.settings.slider_height_tablet }}
+{% else %}{{ section.settings.slider_height_tablet | default: 350 }}px{% endif %};
+    max-height: {% if section.settings.slider_height_tablet contains 'px' %}{{ section.settings.slider_height_tablet }}
+{% else %}{{ section.settings.slider_height_tablet | default: 350 }}px{% endif %};
+    height: 100%;
+    border-radius: {{ section.settings.border_radius | default: 16 }}px;
+  }
+}
+
+/* Técnicas adicionales para performance */
+.slide-image {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Estilos específicos para diferentes object-fit */
+.slide-image[style*="object-fit: contain"] {
+  background: {{ section.settings.contain_background | default: '#f5f5f5' }};
+}
+
+.slide-image[style*="object-fit: none"] {
+  max-width: none;
+  max-height: none;
+}
+
+.slide-image[style*="object-fit: scale-down"] {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Ajustes responsivos para diferentes object-fit */
+@media (max-width: 768px) {
+  .slide-image[style*="object-fit: none"] {
+    object-fit: cover;
+    /* Fallback en móviles */
+  }
+}
+
+/* Fallback para navegadores que no soportan aspect-ratio */
+@supports not(aspect-ratio: 16 / 9) {
+  .slide-image-container::before {
+    content: '';
+    display: block;
+    padding-top: 56.25%;
+    /* 16:9 aspect ratio */
+  }
+
+  .slide-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var slider = document.querySelector(".slider-imagenes");
+    if (slider) {
+      new Splide(".slider-imagenes", {
+        type: 'loop',
+        autoplay: {% if section.settings.autoplay %}true{% else %}false{% endif %},
+        interval: {{ section.settings.interval | default: 3000 }},
+        pauseOnHover: true,
+        arrows: {% if section.settings.arrows %}true{% else %}false{% endif %},
+        pagination: {% if section.settings.pagination %}true{% else %}false{% endif %},
+        cover: false, // Deshabilitamos cover para usar nuestro CSS personalizado
+        height: '{% if section.settings.slider_height contains 'px' %}{{ section.settings.slider_height }}{% else %}{{ section.settings.slider_height | default: 400 }}px{% endif %}',
+        drag: true,
+        snap: true,
+        keyboard: true,
+        wheel: false,
+        releaseWheel: false,
+        breakpoints: {
+          1024: {
+            height: '{% if section.settings.slider_height_tablet contains 'px' %}{{ section.settings.slider_height_tablet }}{% else %}{{ section.settings.slider_height_tablet | default: 350 }}px{% endif %}',
+          },
+          768: {
+            height: '{% if section.settings.slider_height_tablet contains 'px' %}{{ section.settings.slider_height_tablet }}{% else %}{{ section.settings.slider_height_tablet | default: 350 }}px{% endif %}',
+          },
+          480: {
+            height: '{% if section.settings.slider_height_mobile contains 'px' %}{{ section.settings.slider_height_mobile }}{% else %}{{ section.settings.slider_height_mobile | default: 250 }}px{% endif %}',
+          }
+        }
+      }).mount();
+    }
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Slider de Imágenes",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "range",
+        "id": "top_margin",
+        "min": 0,
+        "max": 100,
+        "step": 10,
+        "unit": "px",
+        "label": "Margen superior",
+        "default": 40,
+        "info": "Espacio en la parte superior del slider"
+      },
+      {
+        "type": "checkbox",
+        "id": "autoplay",
+        "label": "Reproducción automática",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "interval",
+        "min": 2000,
+        "max": 8000,
+        "step": 1000,
+        "unit": "ms",
+        "label": "Intervalo de reproducción automática",
+        "default": 3000
+      },
+      {
+        "type": "checkbox",
+        "id": "arrows",
+        "label": "Mostrar flechas de navegación",
+        "default": true
+      }, {
+        "type": "checkbox",
+        "id": "pagination",
+        "label": "Mostrar paginación",
+        "default": true
+      }, {
+        "type": "text",
+        "id": "slider_height",
+        "label": "Altura del slider (Desktop)",
+        "default": "400",
+        "placeholder": "Ej: 400",
+        "info": "Altura fija del slider en píxeles para dispositivos desktop (sin escribir 'px')"
+      }, {
+        "type": "text",
+        "id": "slider_height_tablet",
+        "label": "Altura del slider (Tablet)",
+        "default": "350",
+        "placeholder": "Ej: 350",
+        "info": "Altura fija del slider en píxeles para tablets (sin escribir 'px')"
+      }, {
+        "type": "text",
+        "id": "slider_height_mobile",
+        "label": "Altura del slider (Mobile)",
+        "default": "250",
+        "placeholder": "Ej: 250",
+        "info": "Altura fija del slider en píxeles para dispositivos móviles (sin escribir 'px')"
+      }, {
+        "type": "range",
+        "id": "border_radius",
+        "min": 0,
+        "max": 32,
+        "step": 4,
+        "unit": "px",
+        "label": "Radio de las esquinas",
+        "default": 16,
+        "info": "Radio de las esquinas redondeadas"
+      }, {
+        "type": "select",
+        "id": "image_fit",
+        "label": "Ajuste de imagen",
+        "default": "cover",
+        "options": [
+          {
+            "value": "cover",
+            "label": "Cubrir - Llena el contenedor"
+          },
+          {
+            "value": "contain",
+            "label": "Contener - Imagen completa visible"
+          },
+          {
+            "value": "fill",
+            "label": "Rellenar - Estira para llenar"
+          },
+          {
+            "value": "scale-down",
+            "label": "Escalar hacia abajo"
+          }, {
+            "value": "none",
+            "label": "Ninguno - Tamaño original"
+          }
+        ],
+        "info": "Controla cómo se ajustan las imágenes en el contenedor"
+      }, {
+        "type": "select",
+        "id": "image_position_x",
+        "label": "Posición horizontal de imagen",
+        "default": "center",
+        "options": [
+          {
+            "value": "left",
+            "label": "Izquierda"
+          }, {
+            "value": "center",
+            "label": "Centro"
+          }, {
+            "value": "right",
+            "label": "Derecha"
+          }
+        ],
+        "info": "Posición horizontal de la imagen dentro del contenedor"
+      }, {
+        "type": "select",
+        "id": "image_position_y",
+        "label": "Posición vertical de imagen",
+        "default": "center",
+        "options": [
+          {
+            "value": "top",
+            "label": "Arriba"
+          }, {
+            "value": "center",
+            "label": "Centro"
+          }, {
+            "value": "bottom",
+            "label": "Abajo"
+          }
+        ],
+        "info": "Posición vertical de la imagen dentro del contenedor"
+      }, {
+        "type": "color",
+        "id": "contain_background",
+        "label": "Color de fondo para modo 'Contener'",
+        "default": "#f5f5f5",
+        "info": "Color que se muestra detrás de la imagen cuando usas el modo 'Contener'"
+      }, {
+        "type": "header",
+        "content": "Posicionamiento avanzado (opcional)"
+      }, {
+        "type": "checkbox",
+        "id": "enable_custom_positioning",
+        "label": "Habilitar posicionamiento personalizado",
+        "default": false,
+        "info": "Activa opciones avanzadas de posicionamiento con valores personalizados"
+      }, {
+        "type": "range",
+        "id": "custom_position_x_percent",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "%",
+        "label": "Posición horizontal personalizada",
+        "default": 50,
+        "info": "0% = izquierda, 50% = centro, 100% = derecha"
+      }, {
+        "type": "range",
+        "id": "custom_position_y_percent",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "%",
+        "label": "Posición vertical personalizada",
+        "default": 50,
+        "info": "0% = arriba, 50% = centro, 100% = abajo"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "imagen_slide",
+        "name": "Slide de imagen",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "imagen",
+            "label": "Imagen del slide (Desktop)"
+          },
+          {
+            "type": "image_picker",
+            "id": "imagen_mobile",
+            "label": "Imagen del slide (Mobile)",
+            "info": "Opcional. Esta imagen se mostrará en smartphones (0px-480px). Si no se selecciona, se usará la imagen de desktop."
+          },
+          {
+            "type": "image_picker",
+            "id": "imagen_tablet",
+            "label": "Imagen del slide (Tablet)",
+            "info": "Opcional. Esta imagen se mostrará en tablets (481px-768px). Si no se selecciona, se usará la imagen de desktop."
+          },
+          {
+            "type": "image_picker",
+            "id": "imagen_desktop",
+            "label": "Imagen del slide (Desktop)",
+            "info": "Opcional. Esta imagen se mostrará en pantallas desktop (769px-1200px). Si no se selecciona, se usará la imagen principal."
+          }, {
+            "type": "image_picker",
+            "id": "imagen_wide",
+            "label": "Imagen del slide (Widescreen)",
+            "info": "Opcional. Esta imagen se mostrará en pantallas grandes (1201px en adelante). Si no se selecciona, se usará la imagen de desktop."
+          }, {
+            "type": "header",
+            "content": "Configuración individual de imagen (opcional)"
+          }, {
+            "type": "select",
+            "id": "custom_fit",
+            "label": "Ajuste personalizado de esta imagen",
+            "options": [
+              {
+                "value": "",
+                "label": "Usar configuración global"
+              },
+              {
+                "value": "cover",
+                "label": "Cubrir (Cover)"
+              },
+              {
+                "value": "contain",
+                "label": "Contener (Contain)"
+              },
+              {
+                "value": "fill",
+                "label": "Rellenar (Fill)"
+              }, {
+                "value": "scale-down",
+                "label": "Escalar hacia abajo"
+              }, {
+                "value": "none",
+                "label": "Ninguno"
+              }
+            ],
+            "info": "Deja vacío para usar la configuración global del slider"
+          }, {
+            "type": "select",
+            "id": "custom_position_x",
+            "label": "Posición horizontal personalizada",
+            "options": [
+              {
+                "value": "",
+                "label": "Usar configuración global"
+              }, {
+                "value": "left",
+                "label": "Izquierda"
+              }, {
+                "value": "center",
+                "label": "Centro"
+              }, {
+                "value": "right",
+                "label": "Derecha"
+              }
+            ]
+          }, {
+            "type": "select",
+            "id": "custom_position_y",
+            "label": "Posición vertical personalizada",
+            "options": [
+              {
+                "value": "",
+                "label": "Usar configuración global"
+              }, {
+                "value": "top",
+                "label": "Arriba"
+              }, {
+                "value": "center",
+                "label": "Centro"
+              }, {
+                "value": "bottom",
+                "label": "Abajo"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "max_blocks": 10,
+    "presets": [
+      {
+        "name": "Slider de Imágenes",
+        "category": "Secciones personalizadas"
+      }
+    ]
+  }
+{% endschema %}

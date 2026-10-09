@@ -1,0 +1,76 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "announcement_bar_xEieGE": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_HyYiKH": {
+          "type": "announcement",
+          "settings": {
+            "text": "Simple, fresco, Rosetta.",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_HyYiKH"
+      ],
+      "name": "t:sections.announcement-bar.presets.name",
+      "settings": {
+        "color_scheme": "scheme-3",
+        "show_line_separator": true,
+        "show_social": false,
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "show_info_links": true,
+        "info_link_1": "shopify://pages/orden-de-seguimiento",
+        "info_link_1_text": "Seguír mi pedido",
+        "info_link_2": "shopify://pages/faqs",
+        "info_link_2_text": "Ayuda",
+        "info_link_3": "",
+        "info_link_3_text": "Contacto"
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo_position": "middle-left",
+        "menu": "main-menu",
+        "menu_type_desktop": "mega",
+        "sticky_header_type": "on-scroll-up",
+        "show_line_separator": true,
+        "mobile_logo": "shopify://shop_images/logo-rosetta.webp",
+        "mobile_logo_width": 80,
+        "other_pages_logo": "shopify://shop_images/logo-rosetta.webp",
+        "other_pages_mobile_logo": "shopify://shop_images/logo-rosetta-white.webp",
+        "other_pages_logo_width": 120,
+        "other_pages_mobile_logo_width": 120,
+        "color_scheme": "scheme-2",
+        "menu_color_scheme": "scheme-3",
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "enable_customer_avatar": true,
+        "mobile_logo_position": "left",
+        "margin_bottom": 52,
+        "padding_top": 8,
+        "padding_bottom": 8
+      }
+    }
+  },
+  "order": [
+    "announcement_bar_xEieGE",
+    "header"
+  ]
+}

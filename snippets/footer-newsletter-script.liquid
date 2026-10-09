@@ -1,0 +1,39 @@
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Seleccionar los elementos que necesitamos reorganizar
+    const newsletterContainer = document.querySelector('.footer-block__newsletter');
+    if (!newsletterContainer) return;
+    
+    const heading = newsletterContainer.querySelector('.footer-block__heading');
+    const form = newsletterContainer.querySelector('.footer__newsletter');
+    const socialIcons = document.querySelector('.footer__list-social');
+    
+    // Limpiar el contenedor
+    newsletterContainer.innerHTML = '';
+    
+    // Crear div para el texto (izquierda)
+    const textDiv = document.createElement('div');
+    textDiv.className = 'footer-block__newsletter-left';
+    
+    // Añadir heading al div de texto
+    if (heading) {
+      textDiv.appendChild(heading.cloneNode(true));
+    }
+    
+    // Añadir texto descriptivo
+    const descP = document.createElement('p');
+    descP.textContent = 'Suscríbete para recibir nuestras ofertas y novedades exclusivas.';
+    textDiv.appendChild(descP);
+    
+    // Añadir todos los elementos al contenedor principal en el orden correcto
+    newsletterContainer.appendChild(textDiv);
+    
+    if (form) {
+      newsletterContainer.appendChild(form.cloneNode(true));
+    }
+    
+    if (socialIcons) {
+      newsletterContainer.appendChild(socialIcons.cloneNode(true));
+    }
+  });
+</script>

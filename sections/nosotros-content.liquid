@@ -1,0 +1,49 @@
+
+    {% schema %}
+  {
+    "name": "Nosotros Contenido",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Título de la sección",
+        "default": "Nuestra Historia"
+      },
+      {
+        "type": "textarea",
+        "id": "content",
+        "label": "Contenido",
+        "default": "Conoce más sobre nuestra misión y valores."
+      }
+    ],
+    "presets": [
+      {
+        "name": "Nosotros Contenido"
+      }
+    ]
+  }
+  {% endschema %}
+
+  
+{% stylesheet %}
+    .nosotros-content {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .content-text {
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+{% endstylesheet %}
+
+
+  <div class="nosotros-content">
+    <h2>{{ section.settings.title }}</h2>
+    <div class="content-text">
+      {{ section.settings.content }}
+    </div>
+  </div>
+
+

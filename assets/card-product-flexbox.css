@@ -1,0 +1,51 @@
+/* Product info and button layout styles */
+.product-info-buttons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.product-info-buttons-container .card-information {
+  width: 70%;
+  flex-grow: 1;
+  order: 1;
+  padding-right: 1rem;
+}
+
+.product-info-buttons-container .quick-add {
+  width: auto;
+  align-self: center;
+  margin: 0 !important;
+  order: 2;
+}
+
+.product-info-buttons-container .quick-add__submit.button--circular {
+  margin: 0 !important;
+}
+
+/* FontAwesome icon styling */
+.product-info-buttons-container .fa-bag-shopping,
+.product-info-buttons-container .fa-ban {
+  font-size: 1.25rem;
+}
+
+/* Responsive layout for mobile */
+@media screen and (max-width: 749px) {
+  .product-info-buttons-container {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  .product-info-buttons-container .card-information {
+    width: 65%;
+    padding-right: 0.5rem;
+  }
+
+  .product-info-buttons-container .quick-add {
+    width: auto;
+  }
+}

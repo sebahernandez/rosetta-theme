@@ -1,0 +1,24 @@
+{% comment %}
+  Sección para renderizar una card de producto individual
+  Se usa para el wishlist y otras funcionalidades que necesitan cargar products via AJAX
+{% endcomment %}
+
+{% render 'card-product'
+  , card_product: product
+  , media_aspect_ratio: 'adapt'
+  , image_shape: 'default'
+  , show_secondary_image: false
+  , show_vendor: false
+  , show_rating: false
+  , lazy_load: false
+  , skip_styles: true
+  , section_id: section.id
+  , quick_add: 'standard'
+%}
+
+{% schema %}
+  {
+    "name": "Product Card",
+    "settings": []
+  }
+{% endschema %}

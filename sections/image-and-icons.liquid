@@ -1,0 +1,260 @@
+<section class="como-comprar-section">
+  <div class="page-width">
+    <div class="comprar-wrapper">
+      <!-- Imagen -->
+      <div class="comprar-image">
+        <img src="{{ section.settings.image | image_url: width: 800 }}" alt="Imagen proceso de compra" />
+      </div>
+
+      <!-- Texto -->
+      <div class="comprar-content">
+        <h2>{{ section.settings.title }}</h2>
+        <p class="intro">{{ section.settings.description }}</p>
+
+        <div class="comprar-steps">
+          {% for block in section.blocks %}
+            <div class="step">
+              <div class="step-icon">
+                <img src="{{ block.settings.icon | image_url: width: 64 }}" alt="Ícono" />
+              </div>
+              <div class="step-text">
+                <h3 style="font-size: {{ block.settings.step_title_font_size | default: 18 }}px; color: {{ block.settings.step_title_color | default: '#333333' }};">{{ block.settings.step_title }}</h3>
+                <p style="font-size: {{ block.settings.step_description_font_size | default: 15 }}px; color: {{ block.settings.step_description_color | default: '#555555' }};">{{ block.settings.step_description }}</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .como-comprar-section {
+    padding: 60px 20px;
+    background: #f9f9f9;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .comprar-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: flex-start;
+  }
+
+  .comprar-image,
+  .comprar-content {
+    flex: 1 1 500px;
+  }
+
+  .comprar-image img {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .comprar-content h2 {
+    font-size: {{ section.settings.title_font_size }}px;
+    font-weight: bold;
+    color: {{ section.settings.title_color }};
+    margin-bottom: 10px;
+  }
+
+  .comprar-content .intro {
+    font-size: {{ section.settings.description_font_size }}px;
+    color: {{ section.settings.description_color }};
+    margin-bottom: 25px;
+  }
+
+  .comprar-steps .step {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 50px;
+  }
+
+  .step-icon {
+    flex: 0 0 48px;
+    margin-right: 15px;
+  }
+
+  .step-icon img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .step-text h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
+
+  .step-text p {
+    margin: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    .comprar-wrapper {
+      flex-direction: column;
+    }
+
+    .step {
+      flex-direction: row;
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Imagen con iconos",
+    "tag": "section",
+    "class": "Imagen con iconos",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Título principal",
+        "default": "Cómo Comprar en Rosetta"
+      },
+      {
+        "type": "textarea",
+        "id": "description",
+        "label": "Descripción introductoria",
+        "default": "Hemos diseñado un proceso fácil y flexible para que puedas comprar como prefieras:"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Imagen principal"
+      },
+      {
+        "type": "header",
+        "content": "Configuración de tipografía - Sección principal"
+      }, {
+        "type": "range",
+        "id": "title_font_size",
+        "min": 16,
+        "max": 48,
+        "step": 2,
+        "unit": "px",
+        "label": "Tamaño de fuente del título principal",
+        "default": 32
+      }, {
+        "type": "range",
+        "id": "description_font_size",
+        "min": 12,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "label": "Tamaño de fuente de la descripción",
+        "default": 16
+      }, {
+        "type": "header",
+        "content": "Configuración de colores"
+      }, {
+        "type": "color",
+        "id": "title_color",
+        "label": "Color del título principal",
+        "default": "#222222"
+      }, {
+        "type": "color",
+        "id": "description_color",
+        "label": "Color de la descripción",
+        "default": "#555555"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "step",
+        "name": "Paso",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Ícono del paso"
+          },
+          {
+            "type": "text",
+            "id": "step_title",
+            "label": "Título del paso",
+            "default": "Ejemplo de paso"
+          },
+          {
+            "type": "textarea",
+            "id": "step_description",
+            "label": "Descripción del paso",
+            "default": "Descripción del paso de ejemplo."
+          },
+          {
+            "type": "header",
+            "content": "Configuración de tipografía del paso"
+          }, {
+            "type": "range",
+            "id": "step_title_font_size",
+            "min": 12,
+            "max": 28,
+            "step": 1,
+            "unit": "px",
+            "label": "Tamaño de fuente del título",
+            "default": 18
+          }, {
+            "type": "range",
+            "id": "step_description_font_size",
+            "min": 10,
+            "max": 20,
+            "step": 1,
+            "unit": "px",
+            "label": "Tamaño de fuente de la descripción",
+            "default": 15
+          }, {
+            "type": "color",
+            "id": "step_title_color",
+            "label": "Color del título",
+            "default": "#333333"
+          }, {
+            "type": "color",
+            "id": "step_description_color",
+            "label": "Color de la descripción",
+            "default": "#555555"
+          }
+        ]
+      }
+    ],
+    "max_blocks": 6,
+    "presets": [
+      {
+        "name": "Imagen con iconos",
+        "category": "Secciones personalizadas",
+        "blocks": [
+          {
+            "type": "step",
+            "settings": {
+              "step_title": "Explora Nuestro Catálogo",
+              "step_description": "Encuentra nuestros productos en la tienda online o en nuestras redes sociales."
+            }
+          }, {
+            "type": "step",
+            "settings": {
+              "step_title": "Contáctanos por WhatsApp",
+              "step_description": "Si no tienes una tarjeta internacional, puedes completar tu compra por WhatsApp."
+            }
+          }, {
+            "type": "step",
+            "settings": {
+              "step_title": "Recibe los Datos de Pago",
+              "step_description": "Te enviaremos los detalles para realizar el pago por el método que prefieras."
+            }
+          }, {
+            "type": "step",
+            "settings": {
+              "step_title": "Confirmación y Entrega",
+              "step_description": "Una vez confirmado el pago, te notificaremos sobre la entrega o retiro."
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

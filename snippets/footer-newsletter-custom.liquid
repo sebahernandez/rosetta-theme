@@ -1,0 +1,46 @@
+/* Estilos personalizados para el newsletter del footer */
+<style>
+  .footer-block--newsletter {
+    margin-bottom: 2rem;
+  }
+  
+  .footer-block__newsletter {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 2rem;
+    width: 100%;
+  }
+  
+  .footer-block__newsletter-left {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .footer__newsletter.newsletter-form {
+    flex: 2;
+    max-width: 500px;
+  }
+  
+  .footer__list-social {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  @media screen and (max-width: 990px) {
+    .footer-block__newsletter {
+      flex-direction: column !important;
+    }
+    
+    .footer-block__newsletter-left,
+    .footer__newsletter.newsletter-form,
+    .footer__list-social {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+  }
+</style>

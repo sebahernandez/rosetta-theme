@@ -1,0 +1,262 @@
+<section class="text-and-image-section">
+  <div class="page-width">
+    <div class="content-wrapper {% if section.settings.layout == 'image_first' %}image-first{% else %}text-first{% endif %}">
+      <!-- Texto -->
+      <div class="text-content">
+        <h2>{{ section.settings.title }}</h2>
+        <p>{{ section.settings.text }}</p>
+      </div>
+
+      <!-- Imagen -->
+      <div class="image-content">
+        <img src="{{ section.settings.image | image_url: width: 900 }}" alt="Imagen representativa" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .text-and-image-section {
+    padding: 60px 20px;
+    background-color: #fff;
+  }
+
+  .container {
+    margin: 0 auto;
+  }
+
+  .content-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    min-height: 400px;
+  }
+
+  .content-wrapper.image-first .image-content {
+    order: 1;
+  }
+
+  .content-wrapper.image-first .text-content {
+    order: 2;
+  }
+
+  .content-wrapper.text-first .text-content {
+    order: 1;
+  }
+
+  .content-wrapper.text-first .image-content {
+    order: 2;
+  }
+
+  .text-content {
+    flex: 1;
+    padding: {{ section.settings.text_padding }}px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .text-content h2 {
+    font-size: {{ section.settings.title_font_size }}px;
+    font-weight: bold;
+    color: {{ section.settings.title_color }};
+    margin-bottom: 20px;
+  }
+
+  .text-content p {
+    font-size: {{ section.settings.text_font_size }}px;
+    color: {{ section.settings.text_color }};
+    line-height: 1.6;
+  }
+
+  .image-content {
+    flex: 1;
+    padding: {{ section.settings.image_padding }}px;
+    overflow: hidden;
+  }
+
+  .image-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  /* Media queries para dispositivos móviles */
+  @media screen and (max-width: 768px) {
+    .text-and-image-section {
+      padding: 40px 15px;
+    }
+
+    .content-wrapper {
+      flex-direction: column;
+      min-height: auto;
+      gap: 20px;
+    }
+
+    .content-wrapper.image-first .image-content,
+    .content-wrapper.image-first .text-content,
+    .content-wrapper.text-first .text-content,
+    .content-wrapper.text-first .image-content {
+      order: unset;
+    }
+
+    .text-content {
+      padding: 20px 15px;
+      text-align: center;
+    }
+
+    .text-content h2 {
+      font-size: calc({{ section.settings.title_font_size }}px * 0.8);
+      margin-bottom: 15px;
+    }
+
+    .text-content p {
+      font-size: calc({{ section.settings.text_font_size }}px * 0.9);
+    }
+
+    .image-content {
+      padding: 10px;
+      max-height: 300px;
+    }
+
+    .image-content img {
+      border-radius: 8px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .text-and-image-section {
+      padding: 30px 10px;
+    }
+
+    .content-wrapper {
+      gap: 15px;
+    }
+
+    .text-content {
+      padding: 15px 10px;
+    }
+
+    .text-content h2 {
+      font-size: calc({{ section.settings.title_font_size }}px * 0.7);
+      margin-bottom: 12px;
+    }
+
+    .text-content p {
+      font-size: calc({{ section.settings.text_font_size }}px * 0.85);
+      line-height: 1.5;
+    }
+
+    .image-content {
+      padding: 5px;
+      max-height: 250px;
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Texto + Imagen",
+    "tag": "section",
+    "class": "section text-and-image",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Título principal",
+        "default": "El sabor de lo local y la calidad que mereces ¡con delivery exclusivo!"
+      },
+      {
+        "type": "textarea",
+        "id": "text",
+        "label": "Texto descriptivo",
+        "default": "Productos frescos, artesanales y seleccionados con amor. Somos el único local con delivery en Tucacas. Descubre lo mejor en cada compra. 🍞✨"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Imagen"
+      },
+      {
+        "type": "header",
+        "content": "Configuración de diseño"
+      }, {
+        "type": "select",
+        "id": "layout",
+        "label": "Posición de elementos",
+        "options": [
+          {
+            "value": "text_first",
+            "label": "Texto a la izquierda, imagen a la derecha"
+          }, {
+            "value": "image_first",
+            "label": "Imagen a la izquierda, texto a la derecha"
+          }
+        ],
+        "default": "text_first"
+      }, {
+        "type": "header",
+        "content": "Configuración de espaciado"
+      }, {
+        "type": "range",
+        "id": "text_padding",
+        "min": 10,
+        "max": 60,
+        "step": 5,
+        "unit": "px",
+        "label": "Padding del contenido de texto",
+        "default": 30
+      }, {
+        "type": "range",
+        "id": "image_padding",
+        "min": 0,
+        "max": 60,
+        "step": 5,
+        "unit": "px",
+        "label": "Padding del contenido de imagen",
+        "default": 20
+      }, {
+        "type": "header",
+        "content": "Configuración de tipografía"
+      }, {
+        "type": "range",
+        "id": "title_font_size",
+        "min": 16,
+        "max": 48,
+        "step": 2,
+        "unit": "px",
+        "label": "Tamaño de fuente del título",
+        "default": 32
+      }, {
+        "type": "range",
+        "id": "text_font_size",
+        "min": 12,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "label": "Tamaño de fuente del texto",
+        "default": 16
+      }, {
+        "type": "header",
+        "content": "Configuración de colores"
+      }, {
+        "type": "color",
+        "id": "title_color",
+        "label": "Color del título",
+        "default": "#222222"
+      }, {
+        "type": "color",
+        "id": "text_color",
+        "label": "Color del texto",
+        "default": "#555555"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Texto con imagen",
+        "category": "Secciones personalizadas"
+      }
+    ]
+  }
+{% endschema %}

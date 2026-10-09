@@ -1,0 +1,348 @@
+{% schema %}
+  {
+    "name": "Testimonios",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "testimonial",
+        "name": "Testimonio",
+        "settings": [
+          {
+            "type": "text",
+            "id": "customer_name",
+            "label": "Nombre del cliente",
+            "default": "Nombre Apellido"
+          }, {
+              "type": "richtext",
+              "id": "testimonial_text",
+              "label": "Testimonio (máximo 150 caracteres)",
+              "default": "<p>Este es un testimonio de ejemplo. ¡Me encantó el producto!</p>",
+              "info": "Se truncará automáticamente a 150 caracteres"
+            }, {
+            "type": "image_picker",
+            "id": "customer_image",
+            "label": "Foto del cliente"
+          }, {
+            "type": "range",
+            "id": "rating",
+            "label": "Estrellas",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "default": 5
+          }
+        ]
+      }
+    ],
+    "max_blocks": 10,
+    "presets": [
+      {
+        "name": "Testimonios de Clientes",
+        "category": "Secciones personalizadas",
+        "blocks": [
+          {
+            "type": "testimonial"
+          }, {
+            "type": "testimonial"
+          }, {
+            "type": "testimonial"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+
+{% stylesheet %}
+  .testimonial-section {
+    padding: 5rem 0;
+    background: #f2f2f2;
+  }
+  .testimonial-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  .testimonial-heading {
+    text-align: left;
+    font-size: 2rem;
+    margin-bottom: 0;
+  }
+  .testimonial-carousel-wrapper {
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+    /* Asegura que no se vea fuera del wrapper */
+  }
+  .carousel-navigation {
+    display: flex;
+    gap: 10px;
+  }
+  .carousel-btn {
+    background-color: #ff69b4;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1;
+  }
+  .testimonial-carousel {
+    display: flex;
+    gap: 1.5rem;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  .testimonial-card {
+    flex: 0 0 calc((100% - 3rem) / 3);
+    /* 2 gaps de 1.5rem = 3rem */
+    max-width: calc((100% - 3rem) / 3);
+    background: #fff;
+    padding: 1.5rem 1.25rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    /* Altura fija para todas las tarjetas */
+    box-sizing: border-box;
+    margin: 0;
+  }
+  .quote {
+    font-style: normal;
+    margin-bottom: 1rem;
+    flex: 1;
+    /* Toma el espacio disponible */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    /* Limita a 4 líneas */
+    -webkit-box-orient: vertical;
+    line-height: 1.4;
+    max-height: calc(1.4em * 4);
+    /* 4 líneas con line-height 1.4 */
+  }
+  .testimonial-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: auto;
+    /* Empuja el footer hacia abajo */
+  }
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #eee;
+  }
+  .info {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .info strong {
+    display: block;
+    font-weight: bold;
+  }
+  .role {
+    font-size: 0.85rem;
+    color: #666;
+  }
+  .stars {
+    color: #FF8A00;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+  }
+  @media (max-width: 1024px) {
+    .testimonial-card {
+      flex: 0 0 calc(50% - 0.6rem);
+      max-width: calc(50% - 0.6rem);
+    }
+  }
+  @media (max-width: 768px) {
+    .testimonial-carousel {
+      gap: 0.5rem;
+      padding: 0;
+    }
+    .testimonial-card {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+    .carousel-btn {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+<section class="testimonial-section">
+  <div class="page-width">
+    <div class="testimonial-header">
+      <h2>Testimonios de clientes</h2>
+      <div class="carousel-navigation">
+        <button class="carousel-btn prev">←</button>
+        <button class="carousel-btn next">→</button>
+      </div>
+    </div>
+    <div class="testimonial-carousel-wrapper">
+      <div class="testimonial-carousel" id="testimonialCarousel">
+        {% for block in section.blocks %}
+          <div class="testimonial-card">
+
+            <p class="quote">“{{ block.settings.testimonial_text | strip_html | truncate: 150 }}”</p>
+            <div class="testimonial-footer">
+              <div class="info" style="display: flex; align-items: center; gap: 0.75rem;">
+                <img
+                  src="{{ block.settings.customer_image | img_url: '80x80' }}"
+                  alt="{{ block.settings.customer_name }}"
+                  class="avatar">
+                <div>
+                  <strong>{{ block.settings.customer_name }}</strong>
+                  <p class="role">Cliente</p>
+                </div>
+              </div>
+              <div class="stars">
+                {% for i in (1..block.settings.rating) %}
+                  <span>★</span>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const slider = document.getElementById('testimonialCarousel');
+    const prev = document.querySelector('.carousel-btn.prev');
+    const next = document.querySelector('.carousel-btn.next');
+    const cardsPerView = 3;
+    let cardWidth, scrollAmount;
+    let autoScrollInterval;
+    let isHovered = false;
+    let isTransitioning = false;
+    let clonesAdded = false;
+
+    function updateSizes() {
+      cardWidth = slider.querySelector('.testimonial-card').offsetWidth;
+      const gap = parseFloat(getComputedStyle(slider).gap) || 0;
+      scrollAmount = cardWidth * cardsPerView + gap * (cardsPerView - 1);
+      
+      // Ajuste fino para evitar que se vea la cuarta card
+      slider.style.scrollSnapType = 'x mandatory';
+      slider.querySelectorAll('.testimonial-card').forEach(card => {
+        card.style.scrollSnapAlign = 'start';
+      });
+    }
+
+    // Clonar nodos para efecto infinito
+    function cloneCards() {
+      if (clonesAdded) return;
+      const cards = Array.from(slider.children);
+      for (let i = 0; i < cardsPerView; i++) {
+        slider.appendChild(cards[i].cloneNode(true));
+        slider.insertBefore(cards[cards.length - 1 - i].cloneNode(true), slider.firstChild);
+      }
+      clonesAdded = true;
+    }
+
+    function jumpToReal(direction) {
+      // Sin animación, saltar al set real
+      const cards = slider.children;
+      const cardCount = cards.length - 2 * cardsPerView;
+      if (direction === 'end') {
+        slider.scrollLeft = scrollAmount;
+      } else if (direction === 'start') {
+        slider.scrollLeft = scrollAmount * (cardCount / cardsPerView);
+      }
+    }
+
+    function handleScroll() {
+      const cards = slider.children;
+      const cardCount = cards.length - 2 * cardsPerView;
+      // Si estamos en clones al final
+      if (slider.scrollLeft >= scrollAmount * (cardCount / cardsPerView + 1)) {
+        slider.style.scrollBehavior = 'auto';
+        jumpToReal('end');
+        slider.style.scrollBehavior = '';
+      }
+      // Si estamos en clones al inicio
+      if (slider.scrollLeft <= 0) {
+        slider.style.scrollBehavior = 'auto';
+        jumpToReal('start');
+        slider.style.scrollBehavior = '';
+      }
+    }
+
+    function scrollByAmount(amount) {
+      isTransitioning = true;
+      slider.style.scrollBehavior = 'smooth';
+      slider.scrollBy({ left: amount, behavior: 'smooth' });
+      setTimeout(() => {
+        isTransitioning = false;
+        handleScroll();
+      }, 500);
+    }
+
+    function startAutoScroll() {
+      autoScrollInterval = setInterval(() => {
+        if (!isHovered && !isTransitioning) {
+          scrollByAmount(scrollAmount);
+        }
+      }, 5000);
+    }
+
+    function stopAutoScroll() {
+      clearInterval(autoScrollInterval);
+    }
+
+    slider.addEventListener('mouseenter', function () {
+      isHovered = true;
+      stopAutoScroll();
+    });
+    slider.addEventListener('mouseleave', function () {
+      isHovered = false;
+      startAutoScroll();
+    });
+
+    prev.addEventListener('click', () => {
+      if (!isTransitioning) {
+        scrollByAmount(-scrollAmount);
+      }
+    });
+
+    next.addEventListener('click', () => {
+      if (!isTransitioning) {
+        scrollByAmount(scrollAmount);
+      }
+    });
+
+    slider.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('resize', () => {
+      updateSizes();
+    });
+
+    // Inicialización
+    cloneCards();
+    updateSizes();
+    // Posicionar en el primer set real
+    setTimeout(() => {
+      slider.scrollLeft = scrollAmount;
+    }, 10);
+    startAutoScroll();
+  });
+</script>

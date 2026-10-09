@@ -1,0 +1,406 @@
+<section class="nuestro-compromiso-section" style="background-color: {{ section.settings.background_color }};">
+  <div class="page-width">
+    <div class="compromiso-wrapper">
+      <!-- Texto -->
+      <div class="compromiso-text">
+        <h2 style="font-size: {{ section.settings.title_font_size }}rem;">{{ section.settings.title }}</h2>
+        <p class="compromiso-description" style="font-size: {{ section.settings.description_font_size }}rem;">{{ section.settings.description }}</p>
+
+        <ul class="compromiso-list" style="font-size: {{ section.settings.list_font_size }}rem;">
+          {% for block in section.blocks %}
+            <li style="{% if block.settings.custom_font_size %}font-size: {{ block.settings.custom_font_size }}rem;{% endif %}">
+              {{ block.settings.point }}
+            </li>
+          {% endfor %}
+        </ul>
+
+        {% if section.settings.button_label != blank and section.settings.button_url != blank %}
+          <a
+            href="{{ section.settings.button_url }}"
+            class="compromiso-button"
+            style="font-size: {{ section.settings.button_font_size }}rem;">
+            {{ section.settings.button_label }} →
+          </a>
+        {% endif %}
+      </div>
+
+      <!-- Imagen con overflow completo -->
+      <div class="compromiso-image">
+        <img
+          src="{{ section.settings.image | image_url: width: 1200 }}"
+          alt="Imagen de compromiso"
+          class="compromiso-image-overflow"
+          style="
+            height: {{ section.settings.image_size }}px; 
+            width: auto;
+            transform: translate({{ section.settings.image_left }}px, {{ section.settings.image_top }}px);
+          " />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .nuestro-compromiso-section {
+    padding: 40px 0;
+    overflow: visible;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .compromiso-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: visible;
+    width: 100%;
+    height: {{ section.settings.desktop_height }}px;
+    /* Desktop height */
+    gap: 40px;
+  }
+
+  .compromiso-text {
+    flex: 0 0 50%;
+    padding: 0;
+    z-index: 2;
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .compromiso-text h2 {
+    font-weight: bold;
+    color: #111;
+    margin-bottom: 15px;
+  }
+
+  .compromiso-description {
+    color: #444;
+    margin-bottom: 20px;
+  }
+
+  .compromiso-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 25px;
+  }
+
+  .compromiso-list li {
+    margin-bottom: 10px;
+    padding-left: 20px;
+    position: relative;
+    color: #333;
+  }
+
+  .compromiso-list li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    color: #ff49b3;
+    font-weight: bold;
+  }
+
+  .compromiso-button {
+    display: inline-block;
+    background-color: #ff49b3;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    width: auto;
+    min-width: fit-content;
+    white-space: nowrap;
+    align-self: flex-start;
+    flex-shrink: 0;
+  }
+
+  .compromiso-button:hover {
+    background-color: #e03a9c;
+  }
+
+  .compromiso-image {
+    flex: 0 0 50%;
+    position: relative;
+    z-index: 1;
+    overflow: visible;
+    order: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .compromiso-image img {
+    position: relative;
+    width: auto;
+    max-width: none;
+    height: auto;
+    /* Será sobrescrito por el estilo inline */
+    object-fit: contain;
+    z-index: 1;
+    display: block;
+  }
+
+  /* Clase específica para overflow completo */
+  .compromiso-image-overflow {
+    overflow: visible !important;
+    clip: unset !important;
+    clip-path: unset !important;
+  }
+
+  /* Asegurar que todos los contenedores padres permitan overflow */
+  .nuestro-compromiso-section .page-width {
+    overflow: visible !important;
+  }
+
+  .compromiso-wrapper,
+  .compromiso-image {
+    overflow: visible !important;
+  }
+
+  /* Tablet styles */
+  @media screen and (max-width: 990px) and(min-width: 769px) {
+    .compromiso-wrapper {
+      height: {{ section.settings.tablet_height }}px;
+      /* Tablet height */
+    }
+
+    .compromiso-image {
+      display: none;
+    }
+
+    .compromiso-text {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+  }
+
+  /* Mobile styles */
+  @media screen and (max-width: 768px) {
+    .nuestro-compromiso-section {
+      padding: 40px 20px;
+    }
+
+    .compromiso-wrapper {
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      align-items: center;
+      height: {{ section.settings.mobile_height }}px;
+      /* Mobile height */
+    }
+
+    .compromiso-text {
+      max-width: 100%;
+      padding: 0;
+      text-align: center;
+      flex: 1 1 100%;
+    }
+
+    .compromiso-image {
+      display: none;
+    }
+
+    .compromiso-list {
+      text-align: left;
+      display: inline-block;
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Nuestro Compromiso",
+    "tag": "section",
+    "class": "section nuestro-compromiso",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Color de fondo",
+        "default": "#84f3d3"
+      },
+      {
+        "type": "header",
+        "content": "Configuración de sección"
+      },
+      {
+        "type": "header",
+        "content": "Altura del contenedor por dispositivo"
+      },
+      {
+        "type": "range",
+        "id": "desktop_height",
+        "label": "Altura en escritorio",
+        "min": 400,
+        "max": 800,
+        "step": 10,
+        "default": 500,
+        "unit": "px",
+        "info": "Define la altura del contenedor en pantallas de escritorio (>990px)"
+      }, {
+        "type": "range",
+        "id": "tablet_height",
+        "label": "Altura en tablet",
+        "min": 350,
+        "max": 700,
+        "step": 10,
+        "default": 550,
+        "unit": "px",
+        "info": "Define la altura del contenedor en pantallas tipo tablet (769px-990px)"
+      }, {
+        "type": "range",
+        "id": "mobile_height",
+        "label": "Altura en móvil",
+        "min": 300,
+        "max": 600,
+        "step": 10,
+        "default": 500,
+        "unit": "px",
+        "info": "Define la altura del contenedor en pantallas móviles (<768px)"
+      }, {
+        "type": "text",
+        "id": "title",
+        "label": "Título principal",
+        "default": "Nuestro Compromiso"
+      }, {
+        "type": "textarea",
+        "id": "description",
+        "label": "Descripción",
+        "default": "Cada producto que entregamos refleja nuestro compromiso con la calidad, el trabajo local y una experiencia cercana."
+      }, {
+        "type": "header",
+        "content": "Tipografía"
+      }, {
+        "type": "range",
+        "id": "title_font_size",
+        "label": "Tamaño del título",
+        "min": 1.5,
+        "max": 4,
+        "step": 0.1,
+        "default": 2,
+        "unit": "rem"
+      }, {
+        "type": "range",
+        "id": "description_font_size",
+        "label": "Tamaño de la descripción",
+        "min": 0.8,
+        "max": 2,
+        "step": 0.1,
+        "default": 1,
+        "unit": "rem"
+      }, {
+        "type": "range",
+        "id": "list_font_size",
+        "label": "Tamaño de la lista",
+        "min": 0.8,
+        "max": 1.8,
+        "step": 0.1,
+        "default": 1,
+        "unit": "rem"
+      }, {
+        "type": "range",
+        "id": "button_font_size",
+        "label": "Tamaño del botón",
+        "min": 0.8,
+        "max": 1.5,
+        "step": 0.1,
+        "default": 1,
+        "unit": "rem"
+      }, {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Imagen destacada"
+      }, {
+        "type": "range",
+        "id": "image_size",
+        "label": "Tamaño de la imagen (px)",
+        "min": 200,
+        "max": 1200,
+        "step": 10,
+        "default": 500,
+        "unit": "px"
+      }, {
+        "type": "header",
+        "content": "Posición de la imagen"
+      }, {
+        "type": "number",
+        "id": "image_top",
+        "label": "Margen superior personalizado (px)",
+        "default": 0,
+        "info": "Puedes ingresar valores positivos o negativos (e.g., -120)"
+      }, {
+        "type": "number",
+        "id": "image_left",
+        "label": "Margen superior personalizado (px)",
+        "default": 0,
+        "info": "Puedes ingresar valores positivos o negativos (e.g., -120)"
+      }, {
+        "type": "text",
+        "id": "button_label",
+        "label": "Texto del botón",
+        "default": "Comprar ahora"
+      }, {
+        "type": "url",
+        "id": "button_url",
+        "label": "Enlace del botón"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "point",
+        "name": "Punto de compromiso",
+        "settings": [
+          {
+            "type": "text",
+            "id": "point",
+            "label": "Texto del punto",
+            "default": "Productos seleccionados con la mejor calidad"
+          }, {
+            "type": "range",
+            "id": "custom_font_size",
+            "label": "Tamaño de fuente personalizado (opcional)",
+            "min": 0.8,
+            "max": 2,
+            "step": 0.1,
+            "default": 1,
+            "unit": "rem",
+            "info": "Deja en blanco para usar el tamaño general de la lista"
+          }
+        ]
+      }
+    ],
+    "max_blocks": 6,
+    "presets": [
+      {
+        "name": "Texto con imagen flotante",
+        "category": "Secciones personalizadas",
+        "blocks": [
+          {
+            "type": "point",
+            "settings": {
+              "point": "Productos seleccionados con la mejor calidad"
+            }
+          }, {
+            "type": "point",
+            "settings": {
+              "point": "Apoyo a productores locales y pequeños emprendedores"
+            }
+          }, {
+            "type": "point",
+            "settings": {
+              "point": "Una experiencia de compra cálida y personalizada"
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

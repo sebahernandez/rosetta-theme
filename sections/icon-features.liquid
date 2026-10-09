@@ -1,0 +1,142 @@
+{% schema %}
+  {
+    "name": "Icon Features",
+    "tag": "section",
+    "class": "icon-features-section",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "feature",
+        "name": "Feature item",
+        "settings": [
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Título",
+            "default": "Envío gratuito"
+          },
+          {
+            "type": "range",
+            "id": "heading_font_size",
+            "label": "Tamaño de fuente (título)",
+            "min": 14,
+            "max": 28,
+            "step": 1,
+            "unit": "px",
+            "default": 18
+          },
+          {
+            "type": "text",
+            "id": "subtext",
+            "label": "Descripción",
+            "default": "Sin costo en tus pedidos"
+          },
+          {
+            "type": "range",
+            "id": "subtext_font_size",
+            "label": "Tamaño de fuente (descripción)",
+            "min": 12,
+            "max": 24,
+            "step": 1,
+            "unit": "px",
+            "default": 14
+          }, {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Ícono (SVG o PNG recomendado)"
+          }
+        ]
+      }
+    ],
+    "max_blocks": 6,
+    "presets": [
+      {
+        "name": "Icon Features",
+        "blocks": [
+          {
+            "type": "feature"
+          }, {
+            "type": "feature"
+          }, {
+            "type": "feature"
+          }, {
+            "type": "feature"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+
+
+  .icon-features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-radius: 14px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .icon-feature {
+    display: flex;
+    gap: 1rem;
+    padding: 2rem;
+    border-radius: 16px;
+    align-items: flex-start;
+    box-sizing: border-box;
+  }
+
+  .icon-feature__icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+  }
+
+  .icon-feature__icon img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin: 0;
+  }
+
+  .icon-feature__text h4 {
+    margin: 0;
+    font-weight: bold;
+  }
+
+  .icon-feature__text p {
+    margin: 0;
+    color: #666;
+  }
+{% endstylesheet %}
+
+
+<div class="icon-features page-width">
+  {% for block in section.blocks %}
+    <div class="icon-feature">
+      <div class="icon-feature__icon">
+        {% if block.settings.icon %}
+          <img
+            src="{{ block.settings.icon | image_url }}"
+            alt="Ícono"
+            width="40"
+            height="40">
+        {% endif %}
+      </div>
+      <div class="icon-feature__text">
+        <h4 style="font-size: {{ block.settings.heading_font_size }}px;">
+          {{ block.settings.heading }}
+        </h4>
+        <p style="font-size: {{ block.settings.subtext_font_size }}px;">
+          {{ block.settings.subtext }}
+        </p>
+      </div>
+    </div>
+  {% endfor %}
+</div>

@@ -1,0 +1,250 @@
+{% schema %}
+{
+  "name": "Ofertas con temporizador",
+  "tag": "section",
+  "class": "ofertas-con-timer",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "oferta",
+      "name": "Bloque de oferta",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "bg_image",
+          "label": "Imagen de fondo"
+        },
+        {
+          "type": "text",
+          "id": "etiqueta",
+          "label": "Etiqueta superior",
+          "default": "LAS MEJORES OFERTAS"
+        },
+        {
+          "type": "text",
+          "id": "titulo",
+          "label": "Título principal",
+          "default": "Venta del mes"
+        },
+        {
+          "type": "text",
+          "id": "subtexto",
+          "label": "Texto adicional",
+          "default": "Comenzó en $79.99"
+        },
+        {
+          "type": "text",
+          "id": "boton_texto",
+          "label": "Texto del botón",
+          "default": "Comprar ahora"
+        },
+        {
+          "type": "range",
+          "id": "button_text_size",
+          "label": "Tamaño texto enlace (px)",
+          "unit": "px",
+          "min": 12,
+          "max": 48,
+          "step": 1,
+          "default": 24
+        },
+        {
+          "type": "url",
+          "id": "boton_url",
+          "label": "Enlace del botón"
+        },
+        {
+          "type": "text",
+          "id": "fecha_fin",
+          "label": "Fecha de finalización (AAAA-MM-DD HH:MM:SS)",
+          "default": "2025-06-01 23:59:59"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Color del título",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "font_px",
+          "label": "Tamaño del título (px)",
+          "unit": "px",
+          "min": 12,
+          "max": 48,
+          "step": 1,
+          "default": 24
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ofertas con Timer",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+.ofertas-con-timer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.oferta-block {
+  flex: 1 1 calc(33.333% - 1rem);
+  min-width: 440px;
+  min-height: 500px;
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  color: #fff;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.oferta-contenido {
+  width: 100%;
+  max-width: 90%;
+}
+
+.oferta-contenido h3 {
+  margin: 0.5rem 0;
+}
+
+.oferta-contenido .etiqueta {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.3rem;
+}
+
+.oferta-contenido .subtexto {
+  font-size: 1rem;
+  margin: 1rem 0;
+}
+
+.oferta-contenido .btn {
+  display: inline-block;
+  background: #fff;
+  color: #ff71db;
+  padding: 0.7rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.oferta-contenido .btn:hover {
+  background: #ff71db;
+  color: #fff;
+}
+
+.timer {
+  font-size: 2rem;
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  color: #ff71db;
+  font-weight: bold;
+}
+
+.timer span {
+  text-align: center;
+  font-size: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  .oferta-block {
+    flex: 1 1 100%;
+  }
+}
+{% endstylesheet %}
+
+<div class="ofertas-con-timer page-width">
+  {% for block in section.blocks %}
+    <div class="oferta-block" style="background-image: url({{ block.settings.bg_image | image_url: width: 800 }});">
+      <div class="oferta-contenido">
+        <div class="etiqueta">{{ block.settings.etiqueta }}</div>
+        <h3 style="color: {{ block.settings.text_color }}; font-size: {{ block.settings.font_px }}px;">
+          {{ block.settings.titulo }}
+        </h3>
+        {% if block.settings.fecha_fin != blank %}
+          <div class="timer" data-deadline="{{ block.settings.fecha_fin }}"></div>
+        {% else %}
+          <div class="timer" style="display:none">Configura una fecha válida</div>
+        {% endif %}
+        <div class="subtexto">{{ block.settings.subtexto }}</div>
+        <a href="{{ block.settings.boton_url }}" class="btn" style="font-size: {{ block.settings.button_text_size }}px;">{{ block.settings.boton_texto }} →</a>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<script>
+  function initCountdownTimers() {
+    document.querySelectorAll(".timer").forEach(function (el) {
+      const deadlineStr = el.dataset.deadline;
+      const deadline = new Date(deadlineStr);
+
+      if (isNaN(deadline.getTime())) {
+        el.innerHTML = "Fecha inválida";
+        return;
+      }
+
+      function updateTimer() {
+        const now = new Date().getTime();
+        const distance = deadline - now;
+
+        if (distance < 0) {
+          el.innerHTML = "Finalizado";
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+       el.innerHTML = `
+        <span><strong>${String(days).padStart(2, '0')}</strong><br>DÍAS</span>
+        <span>:</span>
+        <span><strong>${String(hours).padStart(2, '0')}</strong><br>HORAS</span>
+        <span>:</span>
+        <span><strong>${String(minutes).padStart(2, '0')}</strong><br>MIN</span>
+        <span>:</span>
+        <span><strong>${String(seconds).padStart(2, '0')}</strong><br>SEG</span>
+      `;
+
+      }
+
+      updateTimer();
+      setInterval(updateTimer, 1000);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    initCountdownTimers();
+  });
+
+  // Soporte para el editor visual de Shopify
+  if (Shopify.designMode) {
+    document.addEventListener("shopify:section:load", function () {
+      initCountdownTimers();
+    });
+  }
+</script>
+

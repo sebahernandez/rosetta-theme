@@ -1,0 +1,150 @@
+<style>
+  .bcv-convertido {
+    font-size: 14px;
+    color: #707070;
+  }
+</style>
+
+<span class="bcv-convertido" data-precio="{{ product.price | money_without_currency | remove: ',' }}">
+  Cargando...
+</span>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const PRECIO_CONVERTER = {
+      // Configuración
+      config: {
+        selector: '.bcv-convertido',
+        tasaSelector: '.tasa-bcv',
+        tasaFallback: 36.5,
+        apis: [
+          {
+            url: "https://api.exchangerate-api.com/v4/latest/USD",
+            parse: (data) => ({
+              valor: data.rates.VED || data.rates.VES || this.config.tasaFallback,
+              fecha: new Date().toLocaleDateString()
+            })
+          },
+          {
+            url: "https://api.allorigins.win/get?url=" + encodeURIComponent("https://pydolarvenezuela-api.vercel.app/api/v1/dollarbcv"),
+            parse: (data) => {
+              const content = JSON.parse(data.contents);
+              return {
+                valor: parseFloat(content.valor),
+                fecha: content.fecha
+              };
+            }
+          }
+        ]
+      },
+
+      // Cache para la tasa
+      cache: {
+        tasa: null,
+        fecha: null
+      },
+
+      // Obtener todos los elementos de precio
+      obtenerElementos() {
+        return document.querySelectorAll(this.config.selector);
+      },
+
+      // Validar precio
+      validarPrecio(precio) {
+        const precioNum = parseFloat(precio);
+        return !isNaN(precioNum) && precioNum > 0 ? precioNum : null;
+      },
+
+      // Obtener div de tasa asociado
+      obtenerDivTasa(elemento) {
+        const tasaDiv = elemento.nextElementSibling;
+        return tasaDiv && tasaDiv.classList.contains(this.config.tasaSelector.replace('.', '')) 
+          ? tasaDiv 
+          : null;
+      },
+
+      // Obtener tasa de cambio
+      async obtenerTasa() {
+        // Retornar cache si existe
+        if (this.cache.tasa !== null) {
+          return { tasa: this.cache.tasa, fecha: this.cache.fecha };
+        }
+
+        // Intentar con cada API
+        for (let i = 0; i < this.config.apis.length; i++) {
+          try {
+            const api = this.config.apis[i];
+            const response = await fetch(api.url);
+            const data = await response.json();
+            const result = api.parse(data);
+            // Guardar en cache
+            this.cache.tasa = parseFloat(result.valor);
+            this.cache.fecha = result.fecha;
+            return { tasa: this.cache.tasa, fecha: this.cache.fecha };
+          } catch (error) {
+            console.warn(`⚠️ Error con API ${i + 1}:`, error.message);
+          }
+        }
+        throw new Error('❌ No se pudo obtener la tasa de ninguna API');
+      },
+
+      // Actualizar elemento con precio convertido
+      actualizarElemento(elemento, precioUSD, tasa, fecha) {
+        const precioBs = (precioUSD * tasa).toFixed(2);
+        
+        // Actualizar precio
+        elemento.innerHTML = `≈ Bs ${precioBs}`;
+        
+        // Actualizar información de tasa
+        const tasaDiv = this.obtenerDivTasa(elemento);
+        if (tasaDiv) {
+          tasaDiv.innerText = `💱 Tasa BCV: Bs ${tasa.toFixed(2)} (${fecha})`;
+        }
+      },
+
+      // Mostrar error en elemento
+      mostrarError(elemento, mensaje) {
+        elemento.innerHTML = "Bs (error)";
+        const tasaDiv = this.obtenerDivTasa(elemento);
+        if (tasaDiv) {
+          tasaDiv.innerText = mensaje;
+        }
+      },
+
+      // Procesar un elemento individual
+      async procesarElemento(elemento, index) {
+        const precioUSD = this.validarPrecio(elemento.dataset.precio);
+        if (!precioUSD) {
+          this.mostrarError(elemento, "Precio no válido");
+          return;
+        }
+        try {
+          const { tasa, fecha } = await this.obtenerTasa();
+          this.actualizarElemento(elemento, precioUSD, tasa, fecha);
+        } catch (error) {
+          this.mostrarError(elemento, "Error obteniendo tasa");
+        }
+      },
+
+      // Inicializar conversor
+      async inicializar() {
+        const elementos = this.obtenerElementos();
+        if (elementos.length === 0) {
+          console.warn('⚠️ No se encontraron elementos para convertir');
+          return;
+        }
+
+        // Procesar elementos en paralelo para mejor rendimiento
+        const promesas = Array.from(elementos).map((elemento, index) => 
+          this.procesarElemento(elemento, index)
+        );
+        await Promise.allSettled(promesas);
+      }
+    };
+
+    // Inicializar el conversor
+    PRECIO_CONVERTER.inicializar().catch(error => {
+      console.error('❌ Error fatal en el conversor:', error);
+    });
+  });
+</script>

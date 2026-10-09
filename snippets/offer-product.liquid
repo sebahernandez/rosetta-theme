@@ -1,0 +1,493 @@
+{{ 'quick-add.css' | asset_url | stylesheet_tag }}
+{% comment %} <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script> {% endcomment %}
+
+{{ 'product-form.js' | asset_url | script_tag }}
+
+<style>
+  .custom-product-card {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 1px solid #2C742F;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    height: 100%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    position: relative;
+    /* Agregado para posicionar el overlay */
+  }
+
+  .custom-img-container {
+    position: relative;
+  }
+
+  .custom-img-container .aspect-square {
+    aspect-ratio: 1 / 1;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .custom-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+    margin-top: -1.5rem;
+  }
+
+  .custom-add-cart {
+    background-color: #FF71DB;
+    color: white;
+    border-radius: 9999px;
+    width: 360px;
+    margin: 0 0.5rem !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: none;
+    font-size: 1.5rem;
+    padding: 1.5rem 1rem !important;
+    box-sizing: border-box;
+    box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px !important;
+    border: none;
+    transform: none !important;
+    will-change: auto;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .custom-add-cart .cart-icon {
+    margin-left: 0.5rem;
+    transition: opacity 0.2s ease;
+  }
+
+  .custom-add-cart:hover {
+    background-color: #e55ec2;
+    transform: none;
+    box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+  }
+
+  /* Loading state styles */
+  .custom-add-cart.loading {
+    color: white;
+  }
+
+  .custom-add-cart.loading .cart-icon {
+    opacity: 0;
+  }
+
+  .custom-add-cart .loading__spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1.8rem;
+    height: 1.8rem;
+    z-index: 2;
+  }
+
+  .custom-add-cart .loading__spinner .spinner {
+    width: fit-content;
+  }
+
+  .custom-add-cart .loading__spinner .path {
+    stroke: white;
+  }
+
+  /* Disabled state */
+  .custom-add-cart:disabled,
+  .custom-add-cart[aria-disabled="true"] {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .product-info {
+    padding: 1rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: center;
+  }
+
+  .product-info h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0.5rem 0 0;
+  }
+
+  .product-vendor {
+    margin: 0.25rem 0 0.5rem;
+    color: #6b7280;
+    font-size: 0.9rem;
+  }
+
+  .product-price {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    margin: 0;
+  }
+
+  .product-price p {
+    font-size: 3rem;
+    font-weight: 700;
+  }
+
+  .product-price .compare {
+    margin-left: 0.5rem;
+    text-decoration: line-through;
+    color: #9ca3af;
+    font-size: 2rem;
+  }
+
+  .product-rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.875rem;
+    color: #facc15;
+  }
+
+  .product-rating span:last-child {
+    color: #6b7280;
+    margin-left: 0.25rem;
+    font-size: 0.75rem;
+  }
+
+  .product-timer {
+    margin-top: 1rem;
+    text-align: center;
+    color: #4b5563;
+    font-size: 0.875rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out
+    , visibility 0.3s ease-in-out;
+  }
+
+  .product-timer p {
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+
+  .product-timer.timer-loaded {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .timer-box {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    color: #111827;
+  }
+
+  .timer-box div {
+    padding: 0.5rem;
+    min-width: 40px;
+    text-align: center;
+  }
+
+  .timer-box .days,
+  .timer-box .hours,
+  .timer-box .minutes,
+  .timer-box .seconds {
+    font-size: 2.6rem;
+    line-height: 1.2;
+  }
+
+  .timer-box small {
+    display: block;
+    font-size: 1.2rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+  }
+
+  @media (max-width: 789px) {
+    .custom-add-cart {
+      width: 200px;
+    }
+  }
+</style>
+
+<div class="custom-product-card" data-product-id="{{ featured_product.id }}">
+  <div class="custom-img-container">
+    <div class="aspect-square {% if featured_product.featured_media == blank %}bg-gray-100 flex items-center justify-center{% endif %}">
+      {% if featured_product.featured_media %}
+        <img
+          src="{{ featured_product.featured_media | img_url: '600x600', crop: 'center' }}"
+          alt="{{ featured_product.featured_media.alt | escape }}"
+          class="w-full h-auto object-cover"
+          loading="lazy">
+      {% else %}
+        <span class="text-gray-400">Imagen Producto</span>
+      {% endif %}
+    </div>
+
+    <div class="custom-buttons">
+      <!-- Favorito -->
+      {% if settings.enable-wishlist %}
+        <button
+          onclick="toggleOfferWishlist('{{ featured_product.title | escape }}', '{{ featured_product.featured_image | img_url: '600x600' }}', '{{ featured_product.price | money | remove_first: '' }}', '{{ featured_product.url }}', event); return false;"
+          class="custom-btn-icon wishlist_button"
+          data-product-title="{{ featured_product.title | escape }}"
+          data-product-id="{{ featured_product.id }}"
+          data-product-handle="{{ featured_product.handle }}"
+          type="button"
+          aria-label="Agregar a favoritos">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+      {% else %}
+        <button class="custom-btn-icon" aria-label="No disponible">
+          <i class="fa-regular fa-heart" style="color: #ccc;"></i>
+        </button>
+      {% endif %}
+      <!-- Agregar al carrito -->
+      {% if featured_product != blank %}
+        <product-form class="w-full mx-2" data-hide-errors="false">
+          {%- form 'product'
+            , featured_product
+            , id: 'featured-product-form-{{ featured_product.id }}'
+                                                                                                                                                                                                            , class: 'form'
+                                                                                                                                                                                                            , novalidate: 'novalidate'
+                                                                                                                                                                                                            , data-type: 'add-to-cart-form' -%}
+            <input
+              type="hidden"
+              name="id"
+              value="{{ featured_product.selected_or_first_available_variant.id }}"
+              class="product-variant-id"
+              {% if featured_product.selected_or_first_available_variant.available == false %}
+              disabled
+              {% endif %}>
+            <button
+              type="submit"
+              name="add"
+              class="custom-add-cart quick-add__submit"
+              {% if featured_product.selected_or_first_available_variant.available == false %}
+              disabled
+              aria-disabled="true"
+              {% else %}
+              aria-disabled="false"
+              {% endif %}
+              {% if settings.cart_type == 'drawer' %}
+              aria-haspopup="dialog"
+              {% endif %}>
+              <span class="quick-add__label">
+                {%- if featured_product.selected_or_first_available_variant.available -%}
+                  {{ 'products.product.add_to_cart' | t }}
+                {%- else -%}
+                  {{ 'products.product.sold_out' | t }}
+                {%- endif -%}
+              </span>
+              <i class="fa-solid fa-bag-shopping ml-2 cart-icon"></i>
+              {%- render 'loading-spinner' -%}
+            </button>
+          {%- endform -%}
+        </product-form>
+      {% endif %}
+
+      <!-- Vista rápida -->
+      <button class="custom-btn-icon" aria-label="Vista rápida">
+        <a href="{{ featured_product.url }}">
+          <i class="fa-regular fa-eye"></i>
+        </a>
+      </button>
+    </div>
+  </div>
+
+  <div class="product-info">
+    <h2 class="h2">{{ featured_product.title | default: "Nombre producto" }}</h2>
+
+    {% if show_vendor and featured_product.vendor %}
+      <div class="product-vendor">
+        <p>{{ featured_product.vendor }}</p>
+      </div>
+    {% endif %}
+
+    <div class="product-price">
+      <p>{{ featured_product.price | money | default: "$12.00" }}</p>
+      {% if featured_product.compare_at_price > featured_product.price %}
+        <span class="compare">{{ featured_product.compare_at_price | money }}</span>
+      {% else %}
+        <span class="compare">$24.00</span>
+      {% endif %}
+
+
+    </div>
+
+    {% if featured_product.price %}
+      <div>
+        {% render 'bs-price' product: featured_product %}
+      </div>
+    {% endif %}
+
+    {% comment %}  <div class="product-rating">
+                                                                                                                                                                                                                                                                        <span>★★★★★</span>
+                                                                                                                                                                                                                                                                        <span>(524 Feedback)</span>
+                                                                                                                                                </div> {% endcomment %}
+
+    <div class="product-timer">
+      <p>¡Date prisa! La oferta termina en:</p>
+      <div
+        class="timer-box"
+        id="countdown-timer"
+        data-days="{{ timer_days | default: '01' }}"
+        data-hours="{{ timer_hours | default: '23' }}"
+        data-minutes="{{ timer_minutes | default: '34' }}"
+        data-seconds="{{ timer_seconds | default: '57' }}">
+        <div>
+          <div class="days">{{ timer_days | default: "01" }}</div>
+          <small>DÍAS</small>
+        </div>
+        <div>
+          <div class="hours">{{ timer_hours | default: "23" }}</div>
+          <small>HORAS</small>
+        </div>
+        <div>
+          <div class="minutes">{{ timer_minutes | default: "34" }}</div>
+          <small>MIN</small>
+        </div>
+        <div>
+          <div class="seconds">{{ timer_seconds | default: "57" }}</div>
+          <small>SEG</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay cuando expira la oferta -->
+  {% if expired_overlay_image %}
+    <div class="expired-overlay" id="expired-overlay-{{ featured_product.id }}">
+      <img
+        src="{{ expired_overlay_image | img_url: '1200x1200' }}"
+        alt="Oferta expirada"
+        loading="lazy">
+    </div>
+  {% endif %}
+</div>
+
+{{ 'product-offer-timer.js' | asset_url | script_tag }}
+
+
+<script>
+  // Initialization for the wishlist button in offer-product
+  document.addEventListener('DOMContentLoaded', function() {
+    const productId = '{{ featured_product.id }}';
+    const productTitle = '{{ featured_product.title | escape }}';
+    const productHandle = '{{ featured_product.handle }}';
+    
+    // 1. Make sure we have a valid product
+    if (!productTitle || productTitle.trim() === '') {
+      console.error('❌ OFFER PRODUCT: No valid product title to initialize wishlist button');
+      return;
+    }
+
+    console.log('🔄 OFFER PRODUCT: Initializing wishlist for:', productTitle);
+    
+    // 2. Function to find and configure the button
+    function findWishlistButton() {
+      // Multiple strategies to find the button
+      let wishlistButton;
+      
+      // By card and data attributes
+      const productCard = document.querySelector(`[data-product-id="${productId}"]`);
+      wishlistButton = productCard ? productCard.querySelector('.wishlist_button') : null;
+      
+      if (!wishlistButton) {
+        // By data-product-title attribute
+        wishlistButton = document.querySelector(`.wishlist_button[data-product-title="${productTitle}"]`);
+      }
+      
+      return wishlistButton;
+    }
+    
+    // 3. Configure button state based on localStorage
+    function configureButtonState(button) {
+      if (!button) return false;
+      
+      // Get current wishlist data
+      const wishlistData = JSON.parse(localStorage.getItem('wishlist')) || [];
+      
+      // Check if product is in wishlist by exact title match
+      const isInWishlist = wishlistData.some(item => {
+        const match = item.productTitle === productTitle;
+        if (match) console.log('✓ Product found in wishlist');
+        return match;
+      });
+      
+      // Set correct UI state
+      if (isInWishlist) {
+        button.innerHTML = `<i class="fa-solid fa-heart"></i>`;
+        button.setAttribute('aria-label', 'Quitar de favoritos');
+        button.classList.add('active');
+        console.log('❤️ Setting filled heart icon (product in wishlist)');
+      } else {
+        button.innerHTML = `<i class="fa-regular fa-heart"></i>`;
+        button.setAttribute('aria-label', 'Agregar a favoritos');
+        button.classList.remove('active');
+        console.log('🤍 Setting empty heart icon (product not in wishlist)');
+      }
+      
+      // Ensure all data attributes are present
+      button.setAttribute('data-product-title', productTitle);
+      button.setAttribute('data-product-id', productId);
+      if (productHandle) button.setAttribute('data-product-handle', productHandle);
+      
+      return true;
+    }
+    
+    // 4. Initialize with multiple strategies
+    
+    // Try with main function if available
+    if (typeof initProductWishlistState === 'function') {
+      initProductWishlistState(productId, productTitle);
+      console.log('✅ Used global initProductWishlistState function');
+    }
+    
+    // Always run our custom configuration as well
+    setTimeout(function() {
+      const button = findWishlistButton();
+      if (button) {
+        const success = configureButtonState(button);
+        console.log(success ? '✅ Button state configured successfully' : '❌ Failed to configure button state');
+      } else {
+        console.error('❌ Could not find wishlist button for:', productTitle);
+      }
+    }, 50);
+    
+    // Final check to ensure consistency
+    setTimeout(function() {
+      const button = findWishlistButton();
+      if (button) configureButtonState(button);
+    }, 500);
+  });
+
+  // Add listener for storage events to update buttons when wishlist changes
+  window.addEventListener('storage', function(e) {
+    if (e.key === 'wishlist') {
+      const productTitle = '{{ featured_product.title | escape }}';
+      const productCard = document.querySelector('[data-product-id="{{ featured_product.id }}"]');
+      const wishlistButton = productCard ? productCard.querySelector('.wishlist_button') : null;
+      
+      if (wishlistButton) {
+        const wishlistData = JSON.parse(localStorage.getItem('wishlist')) || [];
+        const isInWishlist = wishlistData.some(item => item.productTitle === productTitle);
+        
+        if (isInWishlist) {
+          wishlistButton.innerHTML = `<i class="fa-solid fa-heart"></i>`;
+          wishlistButton.setAttribute('aria-label', 'Quitar de favoritos');
+        } else {
+          wishlistButton.innerHTML = `<i class="fa-regular fa-heart"></i>`;
+          wishlistButton.setAttribute('aria-label', 'Agregar a favoritos');
+        }
+        
+        console.log('♻️ Updated offer product button from storage event');
+      }
+    }
+  });
+</script>

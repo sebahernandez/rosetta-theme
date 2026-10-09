@@ -1,0 +1,489 @@
+<section class="promo-cards-section">
+  <div class="promo-cards-container page-width">
+    {% for block in section.blocks %}
+      <div class="promo-card" style="background-image: url('{{ block.settings.image | image_url: width: 800 }}')">
+        {% if section.settings.enable_overlay or block.settings.use_custom_overlay %}
+          <div class="promo-overlay" style="
+            opacity: {% if block.settings.use_custom_overlay %}{{ block.settings.overlay_opacity }}{% else %}{{ section.settings.overlay_opacity }}{% endif %}; 
+            background-color: {% if block.settings.use_custom_overlay %}{{ block.settings.overlay_color }}{% else %}{{ section.settings.overlay_color | default: '#000000' }}{% endif %};">
+</div>
+        {% endif %}
+        <div class="promo-content">
+          {% if block.settings.subheading != blank %}
+            <p class="promo-subheading" style="{% if block.settings.use_custom_text_sizes %}font-size: {{ block.settings.custom_subheading_size }}rem;{% endif %}
+              {% if block.settings.use_custom_colors %}color: {{ block.settings.custom_subheading_color }};{% endif %}">
+              {{ block.settings.subheading }}
+            </p>
+          {% endif %}
+          <h3 class="promo-title" style="{% if block.settings.use_custom_text_sizes %}font-size: {{ block.settings.custom_title_size }}rem;{% endif %}
+            {% if block.settings.use_custom_colors %}color: {{ block.settings.custom_title_color }};{% endif %}">
+            {{ block.settings.title }}
+          </h3>
+          {% if block.settings.price != blank %}
+            <p class="promo-price" style="{% if block.settings.use_custom_text_sizes %}font-size: {{ block.settings.custom_price_size }}rem;{% endif %}
+              {% if block.settings.use_custom_colors %}color: {{ block.settings.custom_price_color }};{% endif %}">
+              A partir de
+              <strong>{{ block.settings.price }}</strong>
+            </p>
+          {% endif %}
+          {% if block.settings.button_label != blank and block.settings.button_url != blank %}
+            <a
+              href="{{ block.settings.button_url }}"
+              class="promo-button"
+              style="{% if block.settings.use_custom_text_sizes %}font-size: {{ block.settings.custom_button_size }}rem;{% endif %}
+              {% if block.settings.use_custom_colors %}color: {{ block.settings.custom_button_text_color }}; 
+              background-color: {{ block.settings.custom_button_background_color }};{% endif %}">
+              {{ block.settings.button_label }} →
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+  .promo-cards-section {
+    padding: 40px 20px;
+  }
+
+  .promo-cards-container {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.cards_per_row_desktop | default: 3 }}, 1fr);
+    gap: {{ section.settings.card_gap | default: 20 }}px;
+    width: 100%;
+  }
+
+  .promo-card {
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    position: relative;
+    height: {{ section.settings.card_height | default: 280 }}px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .promo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    /* Permite que los clics pasen a través del overlay */
+  }
+
+  .promo-content {
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+    width: 100%;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .promo-subheading {
+    font-size: {{ section.settings.subheading_size | default: 0.8 }}rem;
+    color: {{ section.settings.subheading_color | default: "#555" }};
+    margin-bottom: 5px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .promo-title {
+    font-size: {{ section.settings.title_size | default: 1.3 }}rem;
+    color: {{ section.settings.title_color | default: "#111" }};
+    margin: 0;
+    font-weight: bold;
+  }
+
+  .promo-price {
+    font-size: {{ section.settings.price_size | default: 1.0 }}rem;
+    color: {{ section.settings.price_color | default: "#444" }};
+    margin-bottom: 15px;
+  }
+
+  .promo-button {
+    display: inline-block;
+    background-color: {{ section.settings.button_background_color | default: "#ff49b3" }};
+    color: {{ section.settings.button_text_color | default: "#ffffff" }};
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: {{ section.settings.button_size | default: 0.9 }}rem;
+    transition: background 0.3s ease;
+  }
+
+  .promo-button:hover {
+    background-color: {{ section.settings.button_hover_color | default: "#e03a9c" }};
+  }
+
+  /* Responsive layouts using Grid */
+  @media screen and (min-width: 769px) and(max-width: 989px) {
+    .promo-cards-container {
+      grid-template-columns: repeat({{ section.settings.cards_per_row_tablet | default: 2 }}, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .promo-cards-container {
+      grid-template-columns: 1fr;
+      max-width: 450px;
+      margin: 0 auto;
+    }
+
+    .promo-card {
+      height: calc({{ section.settings.card_height | default: 280 }}px - 40px);
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Tarjetas Promocionales",
+    "tag": "section",
+    "class": "section promo-cards",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Configuración del layout"
+      },
+      {
+        "type": "range",
+        "id": "card_height",
+        "min": 200,
+        "max": 400,
+        "step": 10,
+        "default": 280,
+        "label": "Altura de tarjetas (px)",
+        "info": "Altura de las tarjetas promocionales en píxeles"
+      },
+      {
+        "type": "range",
+        "id": "card_gap",
+        "min": 10,
+        "max": 50,
+        "step": 5,
+        "default": 20,
+        "label": "Espacio entre tarjetas (px)",
+        "info": "Espacio entre las tarjetas en píxeles"
+      },
+      {
+        "type": "select",
+        "id": "cards_per_row_desktop",
+        "options": [
+          {
+            "value": "2",
+            "label": "2 tarjetas"
+          }, {
+            "value": "3",
+            "label": "3 tarjetas"
+          }, {
+            "value": "4",
+            "label": "4 tarjetas"
+          }
+        ],
+        "default": "3",
+        "label": "Tarjetas por fila (escritorio)"
+      }, {
+        "type": "select",
+        "id": "cards_per_row_tablet",
+        "options": [
+          {
+            "value": "1",
+            "label": "1 tarjeta"
+          }, {
+            "value": "2",
+            "label": "2 tarjetas"
+          }
+        ],
+        "default": "2",
+        "label": "Tarjetas por fila (tablet)"
+      }, {
+        "type": "header",
+        "content": "Configuración de overlay"
+      }, {
+        "type": "checkbox",
+        "id": "enable_overlay",
+        "label": "Activar overlay",
+        "default": true,
+        "info": "Añade una capa semi-transparente sobre la imagen para mejorar la legibilidad del texto"
+      }, {
+        "type": "color",
+        "id": "overlay_color",
+        "label": "Color del overlay",
+        "default": "#000000"
+      }, {
+        "type": "range",
+        "id": "overlay_opacity",
+        "min": 0.1,
+        "max": 0.9,
+        "step": 0.1,
+        "default": 0.4,
+        "label": "Opacidad del overlay",
+        "info": "Ajusta la transparencia del overlay (0.1 = muy transparente, 0.9 = casi opaco)"
+      }, {
+        "type": "header",
+        "content": "Configuración de tipografía"
+      }, {
+        "type": "range",
+        "id": "subheading_size",
+        "min": 0.7,
+        "max": 4.0,
+        "step": 0.1,
+        "default": 0.8,
+        "label": "Tamaño del subtítulo",
+        "unit": "rem",
+        "info": "Tamaño de fuente para el subtítulo de la tarjeta"
+      }, {
+        "type": "range",
+        "id": "title_size",
+        "min": 1.0,
+        "max": 10.0,
+        "step": 0.1,
+        "default": 1.3,
+        "label": "Tamaño del título",
+        "unit": "rem",
+        "info": "Tamaño de fuente para el título principal"
+      }, {
+        "type": "range",
+        "id": "price_size",
+        "min": 0.8,
+        "max": 10.0,
+        "step": 0.1,
+        "default": 1.0,
+        "label": "Tamaño del precio",
+        "unit": "rem",
+        "info": "Tamaño de fuente para el texto de precio"
+      }, {
+        "type": "range",
+        "id": "button_size",
+        "min": 0.8,
+        "max": 1.3,
+        "step": 0.1,
+        "default": 0.9,
+        "label": "Tamaño del botón",
+        "unit": "rem",
+        "info": "Tamaño de fuente para el texto del botón"
+      }, {
+        "type": "header",
+        "content": "Colores de texto"
+      }, {
+        "type": "color",
+        "id": "subheading_color",
+        "label": "Color del subtítulo",
+        "default": "#555555"
+      }, {
+        "type": "color",
+        "id": "title_color",
+        "label": "Color del título",
+        "default": "#111111"
+      }, {
+        "type": "color",
+        "id": "price_color",
+        "label": "Color del precio",
+        "default": "#444444"
+      }, {
+        "type": "color",
+        "id": "button_text_color",
+        "label": "Color del texto del botón",
+        "default": "#ffffff"
+      }, {
+        "type": "color",
+        "id": "button_background_color",
+        "label": "Color de fondo del botón",
+        "default": "#ff49b3"
+      }, {
+        "type": "color",
+        "id": "button_hover_color",
+        "label": "Color de fondo del botón al pasar el cursor",
+        "default": "#e03a9c"
+      }
+    ],
+    "max_blocks": 12,
+    "blocks": [
+      {
+        "type": "promo",
+        "name": "Tarjeta",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Imagen de fondo"
+          },
+          {
+            "type": "text",
+            "id": "subheading",
+            "label": "Subtítulo",
+            "default": "100% fresca"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Título principal",
+            "default": "Leche de vaca"
+          },
+          {
+            "type": "text",
+            "id": "price",
+            "label": "Texto de precio",
+            "default": "$4.99"
+          }, {
+            "type": "text",
+            "id": "button_label",
+            "label": "Texto del botón",
+            "default": "Comprar ahora"
+          }, {
+            "type": "url",
+            "id": "button_url",
+            "label": "Enlace del botón"
+          }, {
+            "type": "header",
+            "content": "Tamaños de texto personalizados"
+          }, {
+            "type": "checkbox",
+            "id": "use_custom_text_sizes",
+            "label": "Usar tamaños personalizados",
+            "default": false,
+            "info": "Activa para personalizar los tamaños de texto de esta tarjeta"
+          }, {
+            "type": "range",
+            "id": "custom_subheading_size",
+            "min": 0.7,
+            "max": 1.2,
+            "step": 0.1,
+            "default": 0.8,
+            "label": "Tamaño del subtítulo",
+            "unit": "rem",
+            "info": "Personaliza el tamaño de fuente para el subtítulo"
+          }, {
+            "type": "range",
+            "id": "custom_title_size",
+            "min": 1.0,
+            "max": 2.0,
+            "step": 0.1,
+            "default": 1.3,
+            "label": "Tamaño del título",
+            "unit": "rem",
+            "info": "Personaliza el tamaño de fuente para el título principal"
+          }, {
+            "type": "range",
+            "id": "custom_price_size",
+            "min": 0.8,
+            "max": 1.5,
+            "step": 0.1,
+            "default": 1.0,
+            "label": "Tamaño del precio",
+            "unit": "rem",
+            "info": "Personaliza el tamaño de fuente para el texto de precio"
+          }, {
+            "type": "range",
+            "id": "custom_button_size",
+            "min": 0.8,
+            "max": 1.3,
+            "step": 0.1,
+            "default": 0.9,
+            "label": "Tamaño del botón",
+            "unit": "rem",
+            "info": "Personaliza el tamaño de fuente para el texto del botón"
+          }, {
+            "type": "header",
+            "content": "Overlay personalizado"
+          }, {
+            "type": "checkbox",
+            "id": "use_custom_overlay",
+            "label": "Usar overlay personalizado",
+            "default": false,
+            "info": "Activa para personalizar el overlay de esta tarjeta"
+          }, {
+            "type": "color",
+            "id": "overlay_color",
+            "label": "Color del overlay",
+            "default": "#000000"
+          }, {
+            "type": "range",
+            "id": "overlay_opacity",
+            "min": 0.1,
+            "max": 0.9,
+            "step": 0.1,
+            "default": 0.4,
+            "label": "Opacidad del overlay",
+            "info": "Personaliza la transparencia del overlay para esta tarjeta"
+          }, {
+            "type": "header",
+            "content": "Colores personalizados"
+          }, {
+            "type": "checkbox",
+            "id": "use_custom_colors",
+            "label": "Usar colores personalizados",
+            "default": false,
+            "info": "Activa para personalizar los colores de esta tarjeta"
+          }, {
+            "type": "color",
+            "id": "custom_subheading_color",
+            "label": "Color del subtítulo",
+            "default": "#555555"
+          }, {
+            "type": "color",
+            "id": "custom_title_color",
+            "label": "Color del título",
+            "default": "#111111"
+          }, {
+            "type": "color",
+            "id": "custom_price_color",
+            "label": "Color del precio",
+            "default": "#444444"
+          }, {
+            "type": "color",
+            "id": "custom_button_text_color",
+            "label": "Color del texto del botón",
+            "default": "#ffffff"
+          }, {
+            "type": "color",
+            "id": "custom_button_background_color",
+            "label": "Color de fondo del botón",
+            "default": "#ff49b3"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Tarjetas Promocionales",
+        "category": "Secciones personalizadas",
+        "blocks": [
+          {
+            "type": "promo",
+            "settings": {
+              "subheading": "100% fresca",
+              "title": "Leche de vaca",
+              "price": "$4.99",
+              "button_label": "Comprar ahora"
+            }
+          }, {
+            "type": "promo",
+            "settings": {
+              "subheading": "Venta de bebidas",
+              "title": "Agua y Refrescos",
+              "button_label": "Comprar ahora"
+            }
+          }, {
+            "type": "promo",
+            "settings": {
+              "subheading": "100% orgánico",
+              "title": "Desayuno rápido",
+              "button_label": "Comprar ahora"
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

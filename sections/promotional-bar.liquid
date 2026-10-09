@@ -1,0 +1,200 @@
+<!-- sections/promotional-banner.liquid -->
+
+<style>
+  .promotional-banner {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .promotional-banner__image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    border-radius: 16px;
+  }
+
+  .promotional-banner__link {
+    display: block;
+    width: 100%;
+  }
+
+  /* Hide all images by default */
+  .promotional-banner__image--desktop,
+  .promotional-banner__image--tablet,
+  .promotional-banner__image--mobile {
+    display: none;
+  }
+
+  /* Desktop styles - 990px and up */
+  @media screen and (min-width: 990px) {
+    .promotional-banner__image--desktop {
+      display: block;
+    }
+
+    .promotional-banner__image--mobile,
+    .promotional-banner__image--tablet {
+      display: none !important;
+    }
+  }
+
+  /* Tablet styles - 768px to 989px */
+  @media screen and (min-width: 768px) and (max-width: 989px) {
+    .promotional-banner__image--tablet {
+      display: block;
+    }
+
+    .promotional-banner__image--desktop,
+    .promotional-banner__image--mobile {
+      display: none !important;
+    }
+  }
+
+  /* Mobile styles - up to 767px */
+  @media screen and (max-width: 767px) {
+    .promotional-banner__image--mobile {
+      display: block;
+    }
+
+    .promotional-banner__image--desktop,
+    .promotional-banner__image--tablet {
+      display: none !important;
+    }
+  }
+</style>
+
+<section class="promotional-banner page-width">
+  {% if section.settings.banner_link != blank %}
+    <a
+      href="{{ section.settings.banner_link }}"
+      class="promotional-banner__link"
+      {% if section.settings.open_in_new_tab %}
+      target="_blank"
+      rel="noopener"
+      {% endif %}>
+{% endif %}
+
+  <!-- Desktop Image -->
+  {% assign desktop_image = section.settings.banner_image_desktop %}
+  {% if desktop_image != blank %}
+    <img
+      src="{{ desktop_image | img_url: '1920x' }}"
+      alt="{{ section.settings.banner_alt_text | default: section.settings.banner_title }}"
+      class="promotional-banner__image promotional-banner__image--desktop"
+      loading="lazy"
+      width="{{ desktop_image.width }}"
+      height="{{ desktop_image.height }}">
+  {% endif %}
+
+  <!-- Tablet Image -->
+  {% if section.settings.banner_image_tablet != blank %}
+    <img
+      src="{{ section.settings.banner_image_tablet | img_url: '1024x' }}"
+      alt="{{ section.settings.banner_alt_text | default: section.settings.banner_title }}"
+      class="promotional-banner__image promotional-banner__image--tablet"
+      loading="lazy"
+      width="{{ section.settings.banner_image_tablet.width }}"
+      height="{{ section.settings.banner_image_tablet.height }}">
+  {% elsif desktop_image != blank %}
+    <img
+      src="{{ desktop_image | img_url: '1024x' }}"
+      alt="{{ section.settings.banner_alt_text | default: section.settings.banner_title }}"
+      class="promotional-banner__image promotional-banner__image--tablet"
+      loading="lazy"
+      width="{{ desktop_image.width }}"
+      height="{{ desktop_image.height }}">
+  {% endif %}
+
+  <!-- Mobile Image -->
+  {% if section.settings.banner_image_mobile != blank %}
+    <img
+      src="{{ section.settings.banner_image_mobile | img_url: '767x' }}"
+      alt="{{ section.settings.banner_alt_text | default: section.settings.banner_title }}"
+      class="promotional-banner__image promotional-banner__image--mobile"
+      loading="lazy"
+      width="{{ section.settings.banner_image_mobile.width }}"
+      height="{{ section.settings.banner_image_mobile.height }}">
+  {% elsif section.settings.banner_image_tablet != blank %}
+    <img
+      src="{{ section.settings.banner_image_tablet | img_url: '767x' }}"
+      alt="{{ section.settings.banner_alt_text | default: section.settings.banner_title }}"
+      class="promotional-banner__image promotional-banner__image--mobile"
+      loading="lazy"
+      width="{{ section.settings.banner_image_tablet.width }}"
+      height="{{ section.settings.banner_image_tablet.height }}">
+  {% elsif desktop_image != blank %}
+    <img
+      src="{{ desktop_image | img_url: '767x' }}"
+      alt="{{ section.settings.banner_alt_text | default: section.settings.banner_title }}"
+      class="promotional-banner__image promotional-banner__image--mobile"
+      loading="lazy"
+      width="{{ desktop_image.width }}"
+      height="{{ desktop_image.height }}">
+  {% endif %}
+
+  {% if section.settings.banner_link != blank %}
+    </a>
+  {% endif %}
+</section>
+
+{% schema %}
+  {
+    "name": "Promotional Banner",
+    "tag": "section",
+    "class": "section-promotional-banner",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Configuración del Banner"
+      },
+      {
+        "type": "text",
+        "id": "banner_title",
+        "label": "Título del Banner",
+        "info": "Solo para referencia en el admin"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner_image_desktop",
+        "label": "Imagen Desktop (1920px recomendado)",
+        "info": "Imagen que se mostrará en dispositivos desktop"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner_image_tablet",
+        "label": "Imagen Tablet (1024px recomendado)",
+        "info": "Imagen que se mostrará en tablets. Si no se selecciona, usará la imagen desktop"
+      }, {
+        "type": "image_picker",
+        "id": "banner_image_mobile",
+        "label": "Imagen Mobile (767px recomendado)",
+        "info": "Imagen que se mostrará en dispositivos móviles. Si no se selecciona, usará la imagen tablet o desktop"
+      }, {
+        "type": "text",
+        "id": "banner_alt_text",
+        "label": "Texto alternativo",
+        "info": "Descripción de la imagen para accesibilidad"
+      }, {
+        "type": "header",
+        "content": "Configuración de Enlaces"
+      }, {
+        "type": "url",
+        "id": "banner_link",
+        "label": "URL del enlace",
+        "info": "Deja en blanco si no quieres que el banner sea clickeable"
+      }, {
+        "type": "checkbox",
+        "id": "open_in_new_tab",
+        "label": "Abrir enlace en nueva pestaña",
+        "default": false
+      }
+    ],
+    "presets": [
+      {
+        "name": "Promotional Banner",
+        "category": "Secciones personalizadas"
+      }
+    ]
+  }
+{% endschema %}

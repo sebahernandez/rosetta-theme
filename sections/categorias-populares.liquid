@@ -1,0 +1,206 @@
+{% schema %}
+  {
+    "name": "Categorías populares",
+    "tag": "section",
+    "class": "categorias-populares-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Título",
+        "default": "Categorías populares"
+      }, {
+        "type": "url",
+        "id": "ver_todos_url",
+        "label": "Enlace 'Ver todos'",
+        "default": "/collections"
+      }, {
+        "type": "text",
+        "id": "ver_todos_text",
+        "label": "Texto 'Ver todos'",
+        "default": "Ver todos"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "collection_item",
+        "name": "Colección",
+        "settings": [
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Selecciona colección"
+          }
+        ]
+      }
+    ],
+    "max_blocks": 20,
+    "presets": [
+      {
+        "name": "Categorías populares",
+        "blocks": []
+      }
+    ]
+  }
+
+
+{% endschema %}
+
+{% stylesheet %}
+  .categorias-populares {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0 15px;
+  }
+
+  .categorias-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .categorias-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .categorias-grid a {
+    text-decoration: none;
+  }
+
+  @media screen and (min-width: 768px) {
+    .categorias-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .categorias-grid {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  .categoria-card {
+    text-align: center;
+    border: 1px solid #e6e6e6;
+    /* borde semi negro */
+    border-radius: 8px;
+    padding: 1rem;
+    transition: border 0.2s ease
+    , color 0.2s ease;
+    background: transparent;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .categoria-card:hover {
+    border-color: #ff71db;
+    color: #ff71db;
+  }
+
+  .categoria-card:hover span {
+    color: #ff71db;
+  }
+
+  .categoria-card img {
+    max-height: 100px;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .categoria-card span {
+    display: block;
+    font-weight: 500;
+    font-size: 1.4rem;
+    transition: color 0.2s ease;
+    color: #000;
+    word-break: break-word;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .categoria-card a {
+    text-decoration: none;
+  }
+
+  .ver-todos-link {
+    font-size: 1.6rem;
+    color: #ff71db;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .ver-todos-link:hover {
+    text-decoration: underline;
+  }
+
+  @media screen and (min-width: 768px) {
+    .ver-todos-link {
+      font-size: 2rem;
+    }
+  }
+{% endstylesheet %}
+
+
+<div class="categorias-populares page-width">
+  <div class="categorias-header">
+    <h2>{{ section.settings.title }}</h2>
+    <a href="{{ section.settings.ver_todos_url }}" class="ver-todos-link">
+      {{ section.settings.ver_todos_text }}
+      <span style="margin-left: 5px;">→</span>
+    </a>
+  </div>
+
+  <div class="categorias-grid">
+    {% for block in section.blocks %}
+      {% assign collection = block.settings.collection %}
+      {% if collection != blank %}
+        <a href="{{ collection.url }}" class="categoria-card">
+          {% if collection.image != blank %}
+            <img
+              src="{{ collection.image | image_url: width: 200 }}"
+              alt="{{ collection.title }}"
+              loading="lazy">
+          {% else %}
+            {% if collection.products.first != blank %}
+              <img
+                src="{{ collection.products.first.featured_image | image_url: width: 200 }}"
+                alt="{{ collection.title }}"
+                loading="lazy">
+            {% else %}
+              <div style="width: 100px; height: 100px; background-color: #f6f6f6; display: flex; align-items: center; justify-content: center;">
+                <svg
+                  width="40"
+                  height="40"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect
+                    width="24"
+                    height="24"
+                    fill="none" />
+                  <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM19 19H5V5H19V19ZM13.96 12.29L11.21 15.83L9.25 13.47L6.5 17H17.5L13.96 12.29Z" fill="#CCCCCC" />
+                </svg>
+              </div>
+            {% endif %}
+          {% endif %}
+          <span>{{ collection.title }}</span>
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>

@@ -1,0 +1,123 @@
+{% schema %}
+  {
+    "name": "Barra de marcas",
+    "tag": "section",
+    "class": "marcas-barra",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "marca",
+        "name": "Logo de marca",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "logo",
+            "label": "Logo de la marca"
+          }, {
+            "type": "url",
+            "id": "enlace",
+            "label": "Enlace (opcional)"
+          }, {
+            "type": "checkbox",
+            "id": "activo",
+            "label": "Resaltar esta marca (color activo)",
+            "default": false
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Barra de Marcas"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+  .marcas-barra {
+    padding: 2rem 0;
+    background: #fff;
+  }
+
+  .marcas-barra-contenedor {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    text-align: center;
+  }
+
+  .marca-item {
+    flex: 1 1 auto;
+    min-width: 80px;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .marca-item:not(:first-child)::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 30px;
+    background-color: #ccc;
+  }
+
+  .marca-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 30px;
+    background-color: #e6e6e6;
+  }
+
+  .marca-logo {
+    max-height: 80px;
+    max-width: 140px;
+  }
+
+
+  @media screen and (max-width: 768px) {
+    .marca-item {
+      flex: 1 1 50%;
+      padding: 1rem;
+    }
+  }
+{% endstylesheet %}
+
+<div class="marcas-barra page-width pt-4">
+  <div class="marcas-barra-contenedor">
+    {% for block in section.blocks %}
+      {% if block.settings.logo != blank %}
+        <div class="marca-item">
+          {% if block.settings.enlace != blank %}
+            <a
+              href="{{ block.settings.enlace }}"
+              target="_blank"
+              rel="noopener">
+              <img
+                src="{{ block.settings.logo | image_url: width: 200 }}"
+                class="marca-logo {% if block.settings.activo %}activo{% endif %}"
+                alt="Marca {{ forloop.index }}">
+            </a>
+          {% else %}
+            <img
+              src="{{ block.settings.logo | image_url: width: 200 }}"
+              class="marca-logo {% if block.settings.activo %}activo{% endif %}"
+              alt="Marca {{ forloop.index }}">
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>

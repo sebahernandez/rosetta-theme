@@ -1,0 +1,322 @@
+{% comment %}
+  Sección de Ofertas con una tarjeta destacada personalizada y productos regulares
+{% endcomment %}
+
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'quick-add.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+{% assign featured_collection = section.settings.collection | default: 'all' %}
+{% assign featured_product = all_products[section.settings.featured_product] %}
+{% assign products = collections[featured_collection].products %}
+
+
+<style>
+  .offers-product-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .offers-product-grid li {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    /* Evita que los elementos se desborden */
+  }
+
+  .offers-product-grid li.featured-product {
+    grid-column: span 2 / span 2;
+    grid-row: span 2 / span 2;
+  }
+
+  /* Asegurarse de que las imágenes de los productos no se desborden */
+  .offers-product-grid img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    /* Elimina espacio extra debajo de las imágenes */
+  }
+
+  .product-empty-placeholder {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    /* Mantiene aspecto cuadrado */
+    overflow: hidden;
+  }
+
+  /* Estilos responsivos */
+  @media screen and (max-width: 989px) {
+    .offers-product-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 0 10px;
+    }
+
+    .offers-product-grid li.featured-product {
+      grid-column: span 3 / span 3;
+      grid-row: span 1 / span 1;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .offers-product-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .offers-product-grid li.featured-product {
+      grid-column: span 2 / span 2;
+      grid-row: span 1 / span 1;
+    }
+
+    /* Ajustes para tablet y móvil */
+    .offers-product-grid img {
+      height: auto !important;
+      /* Fuerza altura automática */
+      aspect-ratio: 1 / 1;
+      /* Mantiene proporción cuadrada */
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .offers-product-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .offers-product-grid li.featured-product {
+      grid-column: span 2 / span 2;
+    }
+
+    /* Texto más pequeño en móviles */
+    .offers-product-grid .card__information {
+      padding: 8px;
+    }
+
+    .offers-product-grid .card-information__text {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+
+<section class="py-8 md:py-16" style="background-color: #f8f9fa; padding: 2rem 0;">
+  <div class="page-width sm:px-10">
+    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 md:mb-8">
+      <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-3 sm:mb-0">
+        {{ section.settings.title | default: 'Ofertas Destacadas' }}
+      </h2>
+      {% if section.settings.view_all_url != blank %}
+        <a href="{{ section.settings.view_all_url }}" class="text-pink-500 hover:text-pink-600 font-medium flex items-center">
+          Ver todas
+          <svg
+            class="w-4 h-4 ml-1"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      {% endif %}
+    </div>
+
+
+    <ul class="offers-product-grid">
+
+      <li class="featured-product">
+        {% render 'offer-product'
+          , featured_product: featured_product
+          , show_vendor: section.settings.show_vendor
+          , timer_days: section.settings.days
+          , timer_hours: section.settings.hours
+          , timer_minutes: section.settings.minutes
+          , timer_seconds: section.settings.seconds
+          , expired_overlay_image: section.settings.expired_overlay_image %}
+      </li>
+
+      {% if products.size > 0 %}
+        {% assign count = section.settings.products_count | default: 11 %}
+        {% for product in products limit: count %}
+          {% if featured_product != blank and product.id == featured_product.id %}
+            {% continue %}
+          {% endif %}
+          <li class="regular-product">
+            {% render 'card-product', card_product: product, show_vendor: section.settings.show_vendor, show_rating: true, show_quick_add: section.settings.quick_add, quick_add: section.settings.quick_add, link_to_pdp: section.settings.link_to_pdp, show_secondary_image: true, media_aspect_ratio: 'square' %}
+          </li>
+        {% endfor %}
+
+        {% assign real_product_count = products.size %}
+        {% if featured_product != blank %}
+          {% for product in products %}
+            {% if product.id == featured_product.id %}
+              {% assign real_product_count = real_product_count | minus: 1 %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+
+        {% if real_product_count < count %}
+          {% assign remaining = count | minus: real_product_count %}
+          {% for i in (1..remaining) %}
+            <li class="regular-product">
+              <div class="product-empty-placeholder">
+                <p class="text-gray-400 text-sm text-center py-8">Producto no disponible</p>
+              </div>
+            </li>
+          {% endfor %}
+        {% endif %}
+      {% endif %}
+    </ul>
+  </div>
+</section>
+
+
+{% schema %}
+  {
+    "name": "Ofertas destacadas",
+    "tag": "section",
+    "class": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Título de la sección",
+        "default": "Ofertas Destacadas"
+      },
+      {
+        "type": "url",
+        "id": "view_all_url",
+        "label": "Enlace 'Ver todas'"
+      },
+      {
+        "type": "collection",
+        "id": "collection",
+        "label": "Colección de productos",
+        "info": "Colección de la que se mostrarán los productos"
+      },
+      {
+        "type": "product",
+        "id": "featured_product",
+        "label": "Producto destacado",
+        "info": "Selecciona el producto que aparecerá como destacado con temporizador"
+      }, {
+        "type": "range",
+        "id": "products_count",
+        "min": 5,
+        "max": 11,
+        "step": 1,
+        "default": 11,
+        "label": "Número máximo de productos",
+        "info": "Se mostrarán los productos en una cuadrícula de 5 columnas"
+      }, {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Mostrar vendor (marca)",
+        "default": true,
+        "info": "Activa o desactiva la visualización de la marca del producto"
+      }, {
+        "type": "select",
+        "id": "quick_add",
+        "default": "standard",
+        "label": "Agregado rápido",
+        "info": "Permite a los clientes agregar productos al carrito rápidamente",
+        "options": [
+          {
+            "value": "none",
+            "label": "Desactivado"
+          }, {
+            "value": "standard",
+            "label": "Estándar (Recomendado)"
+          }, {
+            "value": "bulk",
+            "label": "Agregado en masa"
+          }
+        ]
+      }, {
+        "type": "checkbox",
+        "id": "link_to_pdp",
+        "default": false,
+        "label": "Link to PDP"
+      }, {
+        "type": "header",
+        "content": "Configuración del temporizador"
+      }, {
+        "type": "text",
+        "id": "days",
+        "label": "Días",
+        "default": "01"
+      }, {
+        "type": "text",
+        "id": "hours",
+        "label": "Horas",
+        "default": "23"
+      }, {
+        "type": "text",
+        "id": "minutes",
+        "label": "Minutos",
+        "default": "34"
+      }, {
+        "type": "text",
+        "id": "seconds",
+        "label": "Segundos",
+        "default": "57"
+      }, {
+        "type": "header",
+        "content": "Imagen de overlay cuando termina la oferta"
+      }, {
+        "type": "image_picker",
+        "id": "expired_overlay_image",
+        "label": "Imagen de overlay cuando expira",
+        "info": "Esta imagen se mostrará cuando termine el temporizador de la oferta"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Ofertas destacadas",
+        "category": "Promociones",
+        "settings": {
+          "collection": "all",
+          "title": "Ofertas Destacadas",
+          "quick_add": "standard"
+        }
+      }
+    ]
+  }
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'card-product'\n              , card_product: product\n              ,
+    show_vendor: section.settings.show_vendor\n              , show_rating: true\n
+    \             , show_quick_add: section.settings.quick_add != 'none' \n              ,
+    quick_add: section.settings.quick_add\n              , link_to_pdp: section.settings.link_to_pdp\n
+    \             , show_secondary_image: true\n              , media_aspect_ratio:
+    'square'\n            %}"
+  to: "{% render 'card-product', card_product: product, show_vendor: section.settings.show_vendor,
+    show_rating: true, show_quick_add: section.settings.quick_add, quick_add: section.settings.quick_add,
+    link_to_pdp: section.settings.link_to_pdp, show_secondary_image: true, media_aspect_ratio:
+    'square' %}"
+  position: 4705..5001
+{%- endcomment -%}

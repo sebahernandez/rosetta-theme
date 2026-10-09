@@ -1,0 +1,394 @@
+{% comment %}
+  Usage: {% render 'slider-movil',
+  slide1_image: section.settings.mobile_slide1_image,
+  slide1_title: section.settings.mobile_slide1_title,
+  slide1_description: section.settings.mobile_slide1_description,
+  slide2_image: section.settings.mobile_slide2_image,
+  slide2_title: section.settings.mobile_slide2_title,
+  slide2_description: section.settings.mobile_slide2_description,
+  slide3_image: section.settings.mobile_slide3_image,
+  slide3_title: section.settings.mobile_slide3_title,
+  slide3_description: section.settings.mobile_slide3_description,
+  button_text: section.settings.mobile_button_text,
+  button_url: section.settings.mobile_button_url,
+  title_color: section.settings.mobile_title_color,
+  title_size: section.settings.mobile_title_size,
+  description_color: section.settings.mobile_description_color,
+  description_size: section.settings.mobile_description_size,
+  button_bg_color: section.settings.mobile_button_bg_color,
+  button_text_color: section.settings.mobile_button_text_color,
+  show_description: section.settings.mobile_show_description %}
+{% endcomment %}
+
+{% comment %} Asignar valores con fallbacks por defecto {% endcomment %}
+{% assign slide1_title_final = slide1_title | default: 'Productos frescos' %}
+{% assign slide1_description_final = slide1_description | default: 'Sabores locales, recetas que enamoran.' %}
+
+{% assign slide2_title_final = slide2_title | default: 'Panadería artesanal' %}
+{% assign slide2_description_final = slide2_description | default: 'Delicias recién horneadas cada mañana.' %}
+
+{% assign slide3_title_final = slide3_title | default: 'Postres irresistibles' %}
+{% assign slide3_description_final = slide3_description | default: 'Endulza tu día con nuestros productos caseros.' %}
+
+{% assign button_text_final = button_text | default: 'Explorar Productos' %}{% assign button_url_final = button_url | default: '/collections/all' %}
+
+{% comment %} Asignar valores de estilo con fallbacks por defecto {% endcomment %}
+{% assign title_color_final = title_color | default: '#ffffff' %}
+{% assign title_size_final = title_size | default: 24 %}
+{% assign description_color_final = description_color | default: '#ffffff' %}
+{% assign description_size_final = description_size | default: 16 %}
+{% assign button_bg_color_final = button_bg_color | default: '#ff6b9d' %}
+{% assign button_text_color_final = button_text_color | default: '#ffffff' %}
+{% comment %} Process show_description as proper boolean {% endcomment %}
+{% if show_description == false %}
+  {% assign show_description_final = false %}
+{% else %}
+  {% assign show_description_final = true %}
+{% endif %}
+
+{% comment %} Manejo de imágenes con fallbacks {% endcomment %}
+{% if slide1_image != blank %}
+  {% assign slide1_image_url = slide1_image | image_url: width: 1200 %}
+{% else %}
+  {% assign slide1_image_url = '' %}
+{% endif %}
+
+{% if slide2_image != blank %}
+  {% assign slide2_image_url = slide2_image | image_url: width: 1200 %}
+{% else %}
+  {% assign slide2_image_url = '' %}
+{% endif %}
+
+{% if slide3_image != blank %}
+  {% assign slide3_image_url = slide3_image | image_url: width: 1200 %}
+{% else %}
+  {% assign slide3_image_url = '' %}
+{% endif %}
+
+<style>
+  .slider-movil {
+    position: relative;
+    max-width: 100%;
+    width: 100%;
+    height: 550px;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-color: #ff71db;
+    /* Color de fondo por defecto cuando no hay imagen */
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
+    z-index: 0;
+    display: block !important;
+    /* Forzar visualización incluso si parece vacío */
+  }
+
+  .slide.active {
+    opacity: 1;
+    z-index: 0;
+  }
+
+
+  .bottom-gradient {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 500px;
+    background: linear-gradient(to top, rgba(255, 87, 171, 0.9), transparent);
+
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .divider {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 120px;
+    z-index: 2;
+  }
+
+  .divider svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 100px;
+    text-align: center;
+    color: white;
+    pointer-events: none;
+  }
+
+  /* Permitir clicks en elementos específicos del overlay */
+  .overlay .btn,
+  .overlay .dot {
+    pointer-events: auto;
+  }
+
+  .overlay h2 {
+    font-size: {{ title_size_final }}px;
+    margin-bottom: 15px;
+    color: {{ title_color_final }};
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  }
+
+  .overlay p {
+    font-size: {{ description_size_final }}px;
+    color: {{ description_color_final }};
+    margin-bottom: 25px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  }
+
+  .btn {
+    background: {{ button_bg_color_final }};
+    color: {{ button_text_color_final }};
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-bottom: 25px;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    font-size: 16px;
+  }
+
+  .btn:hover {
+    background: color-mix(in srgb, {{ button_bg_color_final }} 80%, #000000);
+    color: {{ button_text_color_final }};
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  .dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    background: #ff80cc;
+    border-radius: 50%;
+    transition: transform 0.3s;
+  }
+
+  .dot.active {
+    background: white;
+    transform: scale(1.3);
+  }
+
+  @media (min-width: 1199px) {
+    .slider-movil {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .slider-movil {
+      height: 580px;
+      /* Altura ajustada para móviles */
+    }
+
+    .overlay h2 {
+      font-size: calc({{ title_size_final }}px * 0.85);
+      /* Reducción proporcional para móviles */
+      padding: 0 5px;
+      margin: 0;
+    }
+
+    .overlay p {
+      font-size: calc({{ description_size_final }}px * 0.85);
+      /* Reducción proporcional para móviles */
+    }
+
+    .btn {
+      padding: 12px 24px;
+      font-size: 14px;
+    }
+  }
+
+  /* Clase para ocultar contenido visualmente pero mantenerlo para lectores de pantalla */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* Forzar visualización para elementos que podrían ser afectados por selectores de elementos vacíos */
+  .slider-movil a:empty,
+  .slider-movil ul:empty,
+  .slider-movil dl:empty,
+  .slider-movil div:empty,
+  .slider-movil section:empty,
+  .slider-movil article:empty,
+  .slider-movil p:empty,
+  .slider-movil h1:empty,
+  .slider-movil h2:empty,
+  .slider-movil h3:empty,
+  .slider-movil h4:empty,
+  .slider-movil h5:empty,
+  .slider-movil h6:empty {
+    display: block !important;
+  }
+
+  /* Ajustes de espacio cuando no hay descripción */
+  .overlay h2 {
+    margin-bottom: {% if show_description_final %}15px{% else %}35px{% endif %};
+}
+
+</style>
+
+
+<section class="slider-movil-section">
+  <div class="slider-movil">
+    <!-- Slides -->
+    <div
+      class="slide active"
+      {% if slide1_image_url != blank %}
+      style="background-image: url('{{ slide1_image_url }}');"
+      {% endif %}>
+      <span class="sr-only">Slide 1</span>
+    </div>
+    <div
+      class="slide"
+      {% if slide2_image_url != blank %}
+      style="background-image: url('{{ slide2_image_url }}');"
+      {% endif %}>
+      <span class="sr-only">Slide 2</span>
+    </div>
+    <div
+      class="slide"
+      {% if slide3_image_url != blank %}
+      style="background-image: url('{{ slide3_image_url }}');"
+      {% endif %}>
+      <span class="sr-only">Slide 3</span>
+    </div>
+
+    <!-- Degradado inferior debajo del contenido -->
+    <div class="bottom-gradient"></div>
+
+    <!-- Divisor inferior con forma de U invertida -->
+    <div class="divider">
+      <svg viewBox="0 0 500 150" preserveAspectRatio="none">
+        <defs>
+          <linearGradient
+            id="gradBottom"
+            x1="0%"
+            y1="0%"
+            x2="0%"
+            y2="100%">
+            <stop offset="0%" stop-color="#ffffff" />
+            <stop offset="100%" stop-color="#ffffff" />
+          </linearGradient>
+        </defs>
+        <path d="M0,0 C150,100 350,100 500,0 L500,150 L0,150 Z" fill="url(#gradBottom)" />
+      </svg>
+    </div>
+
+    <!-- Contenido overlay -->
+    <div class="overlay">
+      <h2 id="title">{{ slide1_title_final }}{% if slide1_title_final == blank %}&nbsp;{% endif %}
+      </h2>
+
+      <!-- Description element: shown only if show_description is true -->
+      <p id="description" style="{% unless show_description_final %}display: none !important; height: 0; margin: 0; padding: 0; visibility: hidden;{% endunless %}">
+        {{ slide1_description_final }}{% if slide1_description_final == blank %}&nbsp;{% endif %}
+      </p>
+
+
+      <a href="{{ button_url_final }}" class="btn">{{ button_text_final }}{% if button_text_final == blank %}&nbsp;{% endif %}
+      </a>
+      <div class="dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+      const slides = document.querySelectorAll(".slider-movil .slide");
+      const dots = document.querySelectorAll(".slider-movil .dot");
+      const titles = [
+        "{{ slide1_title_final | escape }}",
+        "{{ slide2_title_final | escape }}",
+        "{{ slide3_title_final | escape }}",
+      ];
+      const descriptions = [
+        "{{ slide1_description_final | escape }}",
+        "{{ slide2_description_final | escape }}",
+        "{{ slide3_description_final | escape }}",
+      ];
+
+      const titleEl = document.getElementById("title");
+      const descEl = document.getElementById("description");
+
+      let current = 0;
+
+      function showSlide(index) {
+        slides.forEach((s, i) => {
+          s.classList.toggle("active", i === index);
+          dots[i].classList.toggle("active", i === index);
+        });
+        
+        // Update title for all slides
+        titleEl.textContent = titles[index];
+        
+        // Only update description if show_description is enabled
+        {% if show_description_final %}
+        if (descEl) {
+          descEl.textContent = descriptions[index];
+        }
+        {% endif %}
+        
+        current = index;
+      }
+
+      dots.forEach((dot, i) => {
+        dot.addEventListener("click", () => showSlide(i));
+      });
+
+      setInterval(() => {
+        let next = (current + 1) % slides.length;
+        showSlide(next);
+      }, 5000);
+      
+      // Asegurarse de que los slides y overlay sean visibles independientemente de los selectores CSS
+      document.addEventListener('DOMContentLoaded', function() {
+        // Forzar la visibilidad de los slides
+        document.querySelectorAll('.slider-movil .slide').forEach(function(slide) {
+          slide.style.display = 'block';
+        });
+        
+        // Forzar la visibilidad del overlay
+        const overlay = document.querySelector('.slider-movil .overlay');
+        if (overlay) {
+          overlay.style.display = 'flex';
+        }
+      });
+</script>

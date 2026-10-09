@@ -1,0 +1,244 @@
+{% schema %}
+  {
+    "name": "Category Image Slider",
+    "tag": "section",
+    "class": "image-slider-section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Configuración del Slider"
+      }, {
+        "type": "range",
+        "id": "slides_per_page",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Imágenes por página",
+        "default": 4
+      }, {
+        "type": "checkbox",
+        "id": "autoplay",
+        "default": true,
+        "label": "Reproducción automática"
+      }, {
+        "type": "range",
+        "id": "gap_size",
+        "min": 0,
+        "max": 3,
+        "step": 0.5,
+        "unit": "rem",
+        "label": "Espacio entre imágenes",
+        "default": 1
+      }
+    ],
+    "blocks": [
+      {
+        "type": "category_image",
+        "name": "Imagen de Categoría",
+        "settings": [
+          {
+            "type": "text",
+            "id": "category_title",
+            "label": "Título de la categoría",
+            "default": "Categoría destacada"
+          }, {
+            "type": "image_picker",
+            "id": "category_image",
+            "label": "Imagen de la categoría"
+          }, {
+            "type": "collection",
+            "id": "target_collection",
+            "label": "Colección de destino"
+          }, {
+            "type": "text",
+            "id": "image_alt",
+            "label": "Texto alternativo de la imagen",
+            "info": "Describe la imagen para accesibilidad"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Category Image Slider",
+        "category": "Secciones personalizadas",
+        "blocks": [
+          {
+            "type": "category_image"
+          }, {
+            "type": "category_image"
+          }, {
+            "type": "category_image"
+          }, {
+            "type": "category_image"
+          }
+        ]
+      }
+    ]
+  }
+
+{% endschema %}
+
+<section style="padding:50px 0px">
+  <div class="page-width">
+    <div id="image-slider" class="splide">
+      <div class="splide__track">
+        <ul class="splide__list">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'category_image' %}
+                <li class="splide__slide" {{ block.shopify_attributes }}>
+                  {% if block.settings.target_collection != blank %}
+                    <a href="{{ collections[block.settings.target_collection].url }}" class="category-slide__link">
+                  {% endif %}
+
+                  {% if block.settings.category_image != blank %}
+                    <img
+                      src="{{ block.settings.category_image | img_url: '652x' }}"
+                      alt="{{ block.settings.image_alt | default: block.settings.category_title }}"
+                      class="category-slide__image"
+                      loading="lazy">
+                  {% else %}
+                    <div class="category-slide__placeholder">
+                      <span>{{ block.settings.category_title }}</span>
+                    </div>
+                  {% endif %}
+
+                  {% if block.settings.category_title != blank %}
+                    <div class="category-slide__overlay">
+                      <h3 class="category-slide__title">{{ block.settings.category_title }}</h3>
+                    </div>
+                  {% endif %}
+
+                  {% if block.settings.target_collection != blank %}
+                    </a>
+                  {% endif %}
+                </li>
+            {% endcase %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var slider = document.getElementById('image-slider');
+    if (slider) {
+      new Splide('#image-slider', {
+        type   : 'loop',
+        perPage: {{ section.settings.slides_per_page | default: 4 }},
+        gap    : '{{ section.settings.gap_size | default: 1 }}rem',
+        autoplay: {% if section.settings.autoplay %}true{% else %}false{% endif %},
+        breakpoints: {
+          640: {
+            perPage: 1,
+          },
+          768: {
+            perPage: 2,
+          },
+          1024: {
+            perPage: 3,
+          }
+        }
+      }).mount();
+    }
+  });
+</script>
+
+<style>
+  .category-slide__link {
+    display: block;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+  }
+
+  .category-slide__image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+  }
+
+  .category-slide__link:hover .category-slide__image {
+    transform: scale(1.05);
+  }
+
+  .category-slide__placeholder {
+    width: 100%;
+    height: 350px;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 2px dashed #ccc;
+  }
+
+  /* Asegurar que los controles de Splide no se vean afectados por el hover */
+  .splide__arrow {
+    transform: none !important;
+    transition: background-color 0.3s ease
+    , opacity 0.3s ease !important;
+  }
+
+  .splide__arrow:hover {
+    transform: none !important;
+  }
+
+  .splide__pagination {
+    transform: none !important;
+  }
+
+  .splide__pagination__page {
+    transform: none !important;
+    transition: background-color 0.3s ease
+    , opacity 0.3s ease !important;
+  }
+
+  .category-slide__placeholder span {
+    color: #666;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .category-slide__overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    padding: 20px 15px 15px;
+    border-radius: 0 0 8px 8px;
+  }
+
+  .category-slide__title {
+    color: white;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .splide__slide {
+    position: relative;
+  }
+
+  @media (max-width: 768px) {
+    .category-slide__image,
+    .category-slide__placeholder {
+      height: 280px;
+    }
+
+    .category-slide__title {
+      font-size: 14px;
+    }
+  }
+</style>
