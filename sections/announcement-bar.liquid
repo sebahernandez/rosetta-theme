@@ -25,7 +25,7 @@
   /* Special layout when info links are present - three columns for proper spacing */
   .utility-bar__grid:has(.info-links-wrapper) {
     grid-template-columns: 1fr auto 1fr;
-    gap: 1rem;
+    column-gap: 1rem;
   }
   
   /* Keep announcement bar centered */
@@ -68,6 +68,7 @@
   /* Ensure localization wrapper stays in its position when present */
   .localization-wrapper {
     grid-column: 1;
+    grid-row: 1; /* Avoid falling into an implicit second row below 990px */
     justify-self: start;
   }
   
@@ -97,7 +98,7 @@
     
     /* Adjust grid gap for tablets */
     .utility-bar__grid:has(.info-links-wrapper) {
-      gap: 0.5rem;
+      column-gap: 0.5rem;
     }
   }
 </style>
