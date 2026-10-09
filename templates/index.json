@@ -326,6 +326,7 @@
     },
     "featured_blog_cXKLWj": {
       "type": "featured-blog",
+      "disabled": true,
       "settings": {
         "heading": "Recetas",
         "heading_size": "h2",
