@@ -201,7 +201,9 @@
         "category_image_eNKRbE"
       ],
       "settings": {
-        "gap_size": 1
+        "gap_size": 1,
+        "aspect_ratio_desktop": "1/1",
+        "aspect_ratio_mobile": "auto"
       }
     },
     "announcement_month_ypzKCY": {
