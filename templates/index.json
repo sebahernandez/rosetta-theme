@@ -202,7 +202,7 @@
       ],
       "settings": {
         "gap_size": 1,
-        "aspect_ratio_desktop": "1/1",
+        "aspect_ratio_desktop": "auto",
         "aspect_ratio_mobile": "auto"
       }
     },
