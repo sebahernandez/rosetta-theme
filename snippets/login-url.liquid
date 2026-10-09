@@ -1,0 +1,14 @@
+{%- comment -%}
+  Emite la URL del login propio de Rosetta Market (la tienda no usa el login nativo de Shopify).
+  Usa el ajuste del theme `login_url` y, si está vacío, la URL por defecto.
+
+  Usage:
+  {%- capture login_url -%}{%- render 'login-url' -%}{%- endcapture -%}
+{%- endcomment -%}
+{%- liquid
+  assign login_url = settings.login_url | strip
+  if login_url == blank
+    assign login_url = 'https://admin.rosettamarketgroup.com/mi-cuenta/login'
+  endif
+  echo login_url
+-%}

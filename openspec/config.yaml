@@ -1,0 +1,27 @@
+schema: spec-driven
+
+context: |
+  Language: es
+  All artifacts must be written in es.
+  Keep OpenSpec structural headings and SHALL/MUST keywords in English.
+
+  Proyecto: "Rosetta", theme de Shopify (Online Store 2.0) para la tienda Rosetta Market.
+  Base: theme Refresh 15.2.0 de Shopify (arquitectura Dawn) con secciones y snippets propios.
+  Stack: Liquid, JSON templates, CSS y JavaScript vanilla (custom elements); sin build step ni
+  package.json. Librería de sliders: Splide (assets/splide.min.*).
+  Estructura: layout/, templates/, sections/, snippets/, assets/, config/, locales/.
+  Mercado: Venezuela. Precios de tienda en USD con equivalente en bolívares (tasa BCV).
+  Integraciones: Judge.me (reseñas), script de cart-handoff de back.rosettamarketgroup.com.
+  Convenciones: las secciones propias usan nombres e ids de settings en español
+  (p. ej. ofertas-con-timer, categorias-populares); el código heredado de Refresh se mantiene
+  en inglés. Textos de UI heredados vía locales/ (en.default + es); varias secciones propias
+  tienen textos en español escritos directamente en el Liquid.
+  Herramientas: Shopify CLI (`shopify theme dev` / `shopify theme check`).
+
+rules:
+  specs:
+    - Describir comportamiento observable de la tienda, no detalles de implementación
+    - Cada requirement debe tener al menos un escenario WHEN/THEN
+  tasks:
+    - Incluir verificación con `shopify theme check` y prueba manual en el editor de temas
+    - Terminar siempre con una tarea de commit y push a `develop` (ver spec `development-workflow`)

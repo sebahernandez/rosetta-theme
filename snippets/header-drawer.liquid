@@ -136,9 +136,9 @@
             </ul>
           </nav>
           <div class="menu-drawer__utility-links">
-            {%- if shop.customer_accounts_enabled -%}
+            {%- capture login_url -%}{%- render 'login-url' -%}{%- endcapture -%}
               <a
-                href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+                href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ login_url | escape }}{%- endif -%}"
                 class="menu-drawer__account link focus-inset h5 medium-hide large-up-hide"
                 rel="nofollow"
               >
@@ -165,7 +165,6 @@
                   endif
                 -%}
               </a>
-            {%- endif -%}
             {%- if localization.available_countries or localization.available_languages -%}
               <div class="menu-drawer__localization header-localization">
                 {%- if localization.available_countries and localization.available_countries.size > 1 -%}

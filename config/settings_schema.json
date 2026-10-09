@@ -9,6 +9,18 @@
   },
 
   {
+    "name": "Inicio de sesión",
+    "settings": [
+      {
+        "type": "text",
+        "id": "login_url",
+        "label": "URL de inicio de sesión",
+        "default": "https://admin.rosettamarketgroup.com/mi-cuenta/login",
+        "info": "La tienda usa un login propio en lugar del login nativo de Shopify. Todos los accesos a \"Iniciar sesión\" llevan a esta URL."
+      }
+    ]
+  },
+  {
     "name": "Wishlist",
     "settings": [
       {
