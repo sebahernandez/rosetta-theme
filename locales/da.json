@@ -290,6 +290,7 @@
       "note": "Særlige instruktioner til ordre",
       "checkout": "Gå til betaling",
       "empty": "Din indkøbskurv er tom",
+      "empty_hint": "Add products and they will show up here.",
       "cart_error": "Der opstod en fejl under opdatering af din indkøbskurv. Prøv igen.",
       "cart_quantity_error_html": "Du kan kun lægge {{ quantity }} af denne vare i indkøbskurven.",
       "headings": {

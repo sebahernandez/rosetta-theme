@@ -300,6 +300,7 @@
       "note": "Instruções especiais do pedido",
       "checkout": "Finalizar a compra",
       "empty": "O carrinho está vazio",
+      "empty_hint": "Add products and they will show up here.",
       "cart_error": "Ocorreu um erro ao atualizar o carrinho. Tente de novo.",
       "cart_quantity_error_html": "É possível adicionar apenas {{ quantity }} unidade(s) desse item ao carrinho.",
       "headings": {

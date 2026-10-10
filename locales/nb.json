@@ -290,6 +290,7 @@
       "note": "Spesielle instruksjoner for bestillingen",
       "checkout": "Kasse",
       "empty": "Handlekurven din er tom",
+      "empty_hint": "Add products and they will show up here.",
       "cart_error": "Det oppstod en feil under oppdateringen av handlekurven din. Prøv på nytt.",
       "cart_quantity_error_html": "Du kan bare legge {{ quantity }} av denne varen i handlekurven.",
       "headings": {

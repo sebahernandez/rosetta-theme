@@ -290,6 +290,7 @@
       "note": "Ειδικές οδηγίες παραγγελίας",
       "checkout": "Ολοκλήρωση αγοράς",
       "empty": "Το καλάθι σας είναι κενό",
+      "empty_hint": "Add products and they will show up here.",
       "cart_error": "Παρουσιάστηκε σφάλμα κατά την ενημέρωση του καλαθιού. Δοκιμάστε ξανά.",
       "cart_quantity_error_html": "Μπορείτε να προσθέσετε μόνο {{ quantity }} από αυτό το προϊόν στο καλάθι σας.",
       "headings": {

@@ -310,6 +310,7 @@
       "note": "Posebna navodila za naročilo",
       "checkout": "Zaključi nakup",
       "empty": "Vaša košarica je prazna",
+      "empty_hint": "Add products and they will show up here.",
       "cart_error": "Pri posodabljanju vaše košarice je prišlo do napake. Poskusite znova.",
       "cart_quantity_error_html": "V košarico lahko dodate največ toliko tovrstnih izdelkov: {{ quantity }}.",
       "update": "Posodobitev",

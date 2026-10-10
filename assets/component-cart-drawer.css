@@ -64,6 +64,107 @@ cart-drawer:not(.is-empty) .cart-drawer__collection {
   margin-top: 2.5rem;
 }
 
+.cart-drawer__empty-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 30rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cart-drawer__empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8.8rem;
+  height: 8.8rem;
+  border-radius: 50%;
+  background-color: #ffd1f4;
+  color: #ff71db;
+}
+
+.cart-drawer__empty-icon .icon {
+  width: 100%;
+  height: 100%;
+}
+
+.cart-drawer__empty-content .cart__empty-text {
+  margin: 2.4rem 0 0;
+  font-size: 2.2rem;
+  line-height: 1.25;
+}
+
+.cart-drawer__empty-hint {
+  margin: 0.8rem 0 0;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+.cart-drawer__empty-content .cart-drawer__empty-button {
+  display: flex;
+  width: 100%;
+  min-height: 4.8rem;
+  margin-top: 2.8rem;
+  padding: 0 2.4rem;
+  border-radius: 999px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.cart-drawer__empty-content .cart-drawer__empty-button::before,
+.cart-drawer__empty-content .cart-drawer__empty-button::after {
+  border-radius: 999px;
+}
+
+.cart-drawer__empty-content .cart-drawer__empty-button:hover {
+  background-color: #ffd1f4;
+  color: #ff71db;
+}
+
+.cart-drawer__empty-login {
+  width: 100%;
+  margin-top: 3.2rem;
+  padding-top: 2.4rem;
+  border-top: 0.1rem solid rgba(var(--color-foreground), 0.1);
+}
+
+.cart-drawer__empty-login .cart__login-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.cart-drawer__empty-login .cart__login-paragraph {
+  margin: 0.4rem 0 0;
+  font-size: 1.3rem;
+  line-height: 1.5;
+}
+
+.cart-drawer__empty-login a {
+  color: rgb(var(--color-foreground));
+  text-decoration: underline;
+  text-decoration-color: #ff71db;
+  text-decoration-thickness: 0.2rem;
+  text-underline-offset: 0.3rem;
+}
+
+.cart-drawer__empty-login a:hover {
+  color: #ff71db;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cart-drawer__empty-content .cart-drawer__empty-button {
+    transition: none;
+  }
+}
+
 .drawer.active .drawer__inner {
   transform: translateX(0);
 }

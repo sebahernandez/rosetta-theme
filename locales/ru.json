@@ -310,6 +310,7 @@
       "note": "Получить специальные инструкции",
       "checkout": "Оформить заказ",
       "empty": "Корзина пуста.",
+      "empty_hint": "Add products and they will show up here.",
       "cart_error": "Не удалось обновить корзину. Повторите попытку.",
       "cart_quantity_error_html": "Максимально допустимое количество единиц этого товара в корзине: {{ quantity }}.",
       "update": "Обновить",

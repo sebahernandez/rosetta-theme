@@ -289,6 +289,7 @@
       "remove_title": "Премахване на {{ title }}",
       "checkout": "Преминаване към плащане",
       "empty": "Количката ви е празна.",
+      "empty_hint": "Add products and they will show up here.",
       "cart_error": "При актуализирането на количката ви възникна грешка. Опитайте отново.",
       "cart_quantity_error_html": "Можете да добавите само {{ quantity }} броя от този артикул в количката си.",
       "headings": {

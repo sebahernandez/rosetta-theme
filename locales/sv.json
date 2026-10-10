@@ -290,6 +290,7 @@
       "note": "Beställ särskilda instruktioner",
       "checkout": "Gå till kassan",
       "empty": "Din varukorg är tom",
+      "empty_hint": "Add products and they will show up here.",
       "cart_error": "Ett fel uppstod när du uppdaterade din varukorg. Försök igen.",
       "cart_quantity_error_html": "Du kan endast lägga till {{ quantity }} av denna artikel i din varukorg.",
       "headings": {

@@ -300,6 +300,7 @@
       "note": "Instrucțiuni speciale legate de comandă",
       "checkout": "Finalizați comanda",
       "empty": "Coșul dvs. este gol",
+      "empty_hint": "Add products and they will show up here.",
       "cart_error": "A apărut o eroare în timpul actualizării coșului. Încercați din nou.",
       "cart_quantity_error_html": "Cantitatea maximă pe care o poți adăuga în coș din acest articol: {{ quantity }}.",
       "update": "Actualizați",

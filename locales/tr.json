@@ -290,6 +290,7 @@
       "note": "Siparişe özel talimatlar",
       "checkout": "Ödeme",
       "empty": "Sepetiniz boş",
+      "empty_hint": "Add products and they will show up here.",
       "cart_error": "Sepetiniz güncellenirken bir hata oluştu. Lütfen tekrar deneyin.",
       "cart_quantity_error_html": "Sepetinize bu üründen yalnızca {{ quantity }} adet ekleyebilirsiniz.",
       "headings": {

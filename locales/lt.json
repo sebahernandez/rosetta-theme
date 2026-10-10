@@ -310,6 +310,7 @@
       "note": "Specialūs nurodymai dėl užsakymo",
       "checkout": "Atsiskaityti",
       "empty": "Jūsų krepšelis tuščias",
+      "empty_hint": "Add products and they will show up here.",
       "cart_error": "Atnaujinant krepšelį įvyko klaida. Bandykite dar kartą.",
       "cart_quantity_error_html": "Į krepšelį galite įdėti tik {{ quantity }}šios prekės vnt.",
       "update": "Atnaujinti",
