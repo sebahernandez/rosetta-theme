@@ -3701,9 +3701,11 @@ details-disclosure > details {
 .product-form__submit {
   border: 1px solid #ff71db;
   padding: 12px;
+  transition: background-color var(--duration-medium) ease, color var(--duration-medium) ease,
+    box-shadow var(--duration-short) ease;
 }
 .product-form__submit:hover {
-  background-color: #ffd1f4;
+  background-color: #ffd1f457;
   color: #ff71db;
   border: 1px solid #ff71db;
   padding: 12px;
