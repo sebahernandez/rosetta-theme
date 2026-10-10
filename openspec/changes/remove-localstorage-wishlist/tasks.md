@@ -42,8 +42,8 @@
 
 ## 7. Entrega
 
-- [ ] 7.1 Completar en `openspec/specs/wishlist/reimplementacion.md` el campo "Commit que la eliminó" y los dos comandos que lo usan: como el SHA no existe hasta hacer el commit, dejar la instrucción `git log --oneline -1 -- assets/wishlist-refactored.js` como forma de obtenerlo y, tras el commit, reemplazar el marcador por el SHA real en un commit de seguimiento
-- [ ] 7.2 Hacer commit en `develop` con el código del theme, la guía y la carpeta del cambio bajo `openspec/changes/`, y push a `origin/develop`; verificar con `git status` limpio y `git log origin/develop -1` mostrando el commit
+- [x] 7.1 Completar en `openspec/specs/wishlist/reimplementacion.md` el campo "Commit que la eliminó" y los dos comandos que lo usan: como el SHA no existe hasta hacer el commit, dejar la instrucción `git log --oneline -1 -- assets/wishlist-refactored.js` como forma de obtenerlo y, tras el commit, reemplazar el marcador por el SHA real en un commit de seguimiento
+- [x] 7.2 Hacer commit en `develop` con el código del theme, la guía y la carpeta del cambio bajo `openspec/changes/`, y push a `origin/develop`; verificar con `git status` limpio y `git log origin/develop -1` mostrando el commit
 
 ## Workflow follow-up
 

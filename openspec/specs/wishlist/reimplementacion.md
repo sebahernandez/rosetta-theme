@@ -5,7 +5,7 @@
 > **Por qué se retiró**: los favoritos vivían solo en el navegador del visitante, así que la tienda no obtenía ninguna métrica. Si se retoma, conviene leer antes la sección "Debilidades conocidas".
 
 - **Último commit con la funcionalidad completa**: `835f931`
-- **Commit que la eliminó**: se obtiene con `git log --oneline -1 -- assets/wishlist-refactored.js` (en adelante `<commit-que-la-eliminó>`)
+- **Commit que la eliminó**: `0b77303`
 
 ## 1. Qué hacía (comportamiento)
 
@@ -22,7 +22,7 @@ Cualquier visitante, sin iniciar sesión, podía guardar productos en su navegad
 Opción rápida, si el theme no cambió mucho desde entonces:
 
 ```bash
-git revert <commit-que-la-eliminó>
+git revert 0b77303
 ```
 
 Opción selectiva (recupera solo los archivos propios de favoritos; las ediciones en archivos compartidos se rehacen a mano con la sección 4):
@@ -38,7 +38,7 @@ git checkout 835f931 -- \
 Para ver exactamente qué se quitó de cada archivo compartido:
 
 ```bash
-git show <commit-que-la-eliminó> -- layout/theme.liquid snippets/card-product.liquid \
+git show 0b77303 -- layout/theme.liquid snippets/card-product.liquid \
   snippets/offer-product.liquid assets/base.css assets/card-product-flexbox.css \
   config/settings_schema.json
 ```
