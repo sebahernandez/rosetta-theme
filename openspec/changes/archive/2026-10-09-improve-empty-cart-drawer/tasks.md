@@ -25,8 +25,8 @@
 ## 4. Verificación integral
 
 - [x] 4.1 Ejecutar `shopify theme check` sobre el theme completo y verificar que no hay ofensas nuevas en los archivos modificados
-- [ ] 4.2 Prueba manual a 375 px y a 1280 px del cajón vacío sin sesión y con sesión: orden de los elementos, botón, bloque de sesión, cierre del cajón y ausencia de desplazamiento horizontal
-- [ ] 4.3 Prueba manual de transición: agregar un producto, abrir el cajón, eliminarlo y comprobar que aparece el estado vacío nuevo; luego agregar otro y comprobar que el cajón con productos no cambió
+- [x] 4.2 Prueba manual a 375 px y a 1280 px del cajón vacío sin sesión y con sesión: orden de los elementos, botón, bloque de sesión, cierre del cajón y ausencia de desplazamiento horizontal
+- [x] 4.3 Prueba manual de transición: agregar un producto, abrir el cajón, eliminarlo y comprobar que aparece el estado vacío nuevo; luego agregar otro y comprobar que el cajón con productos no cambió
 - [x] 4.4 Recorrer el estado vacío con el tabulador y verificar foco visible en cierre, botón y enlace de inicio de sesión
-- [ ] 4.5 Prueba manual en el editor de temas: abrir el cajón vacío, y asignar temporalmente una colección en "Colección del cajón del carrito" para comprobar que el estado vacío y la tarjeta de colección conviven sin descuadrarse; dejar el ajuste como estaba
+- [x] 4.5 Prueba manual en el editor de temas: abrir el cajón vacío, y asignar temporalmente una colección en "Colección del cajón del carrito" para comprobar que el estado vacío y la tarjeta de colección conviven sin descuadrarse; dejar el ajuste como estaba
 - [x] 4.6 Hacer commit en `develop` con los archivos del theme y la carpeta `openspec/changes/improve-empty-cart-drawer/`, y hacer push a `origin/develop`; verificar con `git status -sb` que la rama no queda por delante del remoto
