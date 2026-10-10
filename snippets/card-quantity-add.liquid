@@ -1,0 +1,73 @@
+{% comment %}
+  Renders the product card "Agregar" button that turns into a quantity stepper
+  writing straight to the cart. Sold out variants get a disabled button instead.
+
+  Accepts:
+  - variant: {Object} Variant object
+  - product_title: {String} Product title, used for accessible labels
+  - control_id: {String} Unique id prefix for the control
+
+  Usage:
+  {% render 'card-quantity-add', variant: variant, product_title: product.title, control_id: product_form_id %}
+{% endcomment %}
+{%- if variant.available == false -%}
+  <button
+    id="{{ control_id }}-submit"
+    type="button"
+    class="quick-add__submit button button--secondary"
+    disabled
+  >
+    <span class="quick-add-text">{{ 'products.product.sold_out' | t }}</span>
+    <i class="fa-solid fa-ban"></i>
+  </button>
+{%- else -%}
+  {%- liquid
+    assign cart_quantity = cart | item_count_for_variant: variant.id
+    assign max_quantity = null
+    if variant.inventory_management == 'shopify' and variant.inventory_policy == 'deny'
+      assign max_quantity = variant.inventory_quantity
+    endif
+  -%}
+  <card-quantity-add
+    class="card-qty"
+    data-variant-id="{{ variant.id }}"
+    data-quantity="{{ cart_quantity }}"
+    data-state="{% if cart_quantity > 0 %}stepper{% else %}add{% endif %}"
+    {% if max_quantity != null %}
+      data-max="{{ max_quantity }}"
+    {% endif %}
+  >
+    <button
+      id="{{ control_id }}-submit"
+      type="button"
+      name="add"
+      class="quick-add__submit button button--secondary card-qty__add"
+      aria-label="Agregar {{ product_title | escape }}"
+    >
+      <span class="quick-add-text">Agregar</span>
+    </button>
+    <div class="card-qty__stepper" role="group" aria-label="Cantidad de {{ product_title | escape }}">
+      <button
+        class="card-qty__button"
+        type="button"
+        name="minus"
+        aria-label="{{ 'products.product.quantity.decrease' | t: product: product_title | escape }}"
+      >
+        <span class="svg-wrapper">{{ 'icon-minus.svg' | inline_asset_content }}</span>
+      </button>
+      <span class="card-qty__value" aria-live="polite" aria-atomic="true">{{ cart_quantity }}</span>
+      <button
+        class="card-qty__button"
+        type="button"
+        name="plus"
+        aria-label="{{ 'products.product.quantity.increase' | t: product: product_title | escape }}"
+        {% if max_quantity != null and cart_quantity >= max_quantity %}
+          disabled
+        {% endif %}
+      >
+        <span class="svg-wrapper">{{ 'icon-plus.svg' | inline_asset_content }}</span>
+      </button>
+    </div>
+    <p class="card-qty__message" role="status" hidden></p>
+  </card-quantity-add>
+{%- endif -%}

@@ -118,6 +118,7 @@
   "products": {
     "product": {
       "add_to_cart": "Dodaj v košarico",
+      "added_to_cart": "Dodano",
       "description": "Opis",
       "on_sale": "Znižanje",
       "product_variants": "Različice izdelka",

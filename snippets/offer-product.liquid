@@ -273,9 +273,6 @@
               aria-disabled="true"
               {% else %}
               aria-disabled="false"
-              {% endif %}
-              {% if settings.cart_type == 'drawer' %}
-              aria-haspopup="dialog"
               {% endif %}>
               <span class="quick-add__label">
                 {%- if featured_product.selected_or_first_available_variant.available -%}

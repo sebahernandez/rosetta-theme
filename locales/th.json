@@ -116,6 +116,7 @@
   "products": {
     "product": {
       "add_to_cart": "เพิ่มลงในตะกร้าสินค้า",
+      "added_to_cart": "เพิ่มแล้ว",
       "description": "คำอธิบาย",
       "on_sale": "ลดราคา",
       "quantity": {

@@ -117,6 +117,7 @@
   "products": {
     "product": {
       "add_to_cart": "Adăugați în coș",
+      "added_to_cart": "Adăugat",
       "description": "Descriere",
       "on_sale": "Vânzare",
       "product_variants": "Variante de produse",

@@ -116,6 +116,7 @@
   "products": {
     "product": {
       "add_to_cart": "Lägg i varukorgen",
+      "added_to_cart": "Tillagd",
       "description": "Beskrivning",
       "on_sale": "Rea",
       "quantity": {

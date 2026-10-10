@@ -116,6 +116,7 @@
   "products": {
     "product": {
       "add_to_cart": "Добавяне към количката",
+      "added_to_cart": "Добавено",
       "description": "Описание",
       "on_sale": "Разпродажба",
       "quantity": {

@@ -83,9 +83,11 @@ class CartDrawer extends HTMLElement {
       sectionElement.innerHTML = this.getSectionInnerHTML(parsedState.sections[section.id], section.selector);
     });
 
+    // cart/add.js responses carry no item_count; they always leave the cart non-empty
+    this.classList.toggle('is-empty', parsedState.item_count === 0);
+
     setTimeout(() => {
       this.querySelector('#CartDrawer-Overlay').addEventListener('click', this.close.bind(this));
-      this.open();
     });
   }
 
