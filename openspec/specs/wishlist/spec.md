@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Define la lista de favoritos de Rosetta: permite a cualquier visitante, sin iniciar sesión, guardar productos en su navegador y consultarlos en una página dedicada.
+Define el estado de los favoritos en Rosetta. La lista de favoritos basada en el navegador del visitante fue retirada porque no entregaba métricas a la tienda; mientras no exista una nueva solución, la tienda no ofrece favoritos. El comportamiento y la implementación de la solución anterior están documentados en `reimplementacion.md`, en esta misma carpeta, por si se retoma.
 
 ## Requirements
 

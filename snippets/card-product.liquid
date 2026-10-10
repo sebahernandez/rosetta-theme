@@ -59,24 +59,6 @@
         class="card__inner {% if settings.card_style == 'standard' %}color-{{ settings.card_color_scheme }} gradient{% endif %}{% if card_product.featured_media or settings.card_style == 'standard' %} ratio{% endif %}"
         style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
       >
-       <!-- Favorito -->
-      <div class="favorito">
-        {% if settings.enable-wishlist %}
-        <button
-          onclick="toggleOfferWishlist('{{ card_product.title | escape }}', '{{ card_product.featured_image | img_url: '' }}', '{{ card_product.price | money | remove_first: '' }}', '{{ card_product.url }}', event); return false;"
-          class="custom-btn-icon wishlist_button"
-          data-product-title="{{ card_product.title | escape }}"
-          data-product-id="{{ card_product.id }}"
-          type="button"
-          aria-label="Agregar a favoritos">
-          <i class="fa-regular fa-heart"></i>
-        </button>
-      {% else %}
-        <button class="custom-btn-icon" aria-label="No disponible">
-          <i class="fa-regular fa-heart" style="color: #ccc;"></i>
-        </button>
-      {% endif %}
-      </div>
 
         {%- if card_product.featured_media -%}
           <div class="card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
@@ -680,14 +662,3 @@
   </div>
 {%- endif -%}
 
-{% if card_product and card_product != empty and settings.enable-wishlist %}
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Usar la función centralizada de theme.liquid
-    if (typeof initProductWishlistState === 'function') {
-      console.log('🔄 Inicializando wishlist para card-product:', '{{ card_product.title | escape }}');
-      initProductWishlistState('{{ card_product.id }}', '{{ card_product.title | escape }}');
-    }
-  });
-</script>
-{% endif %}

@@ -48,11 +48,6 @@
   align-items: flex-end;
 }
 
-/* Leaves room for the wishlist button */
-.product-card-wrapper .card__inner .card__badge.top.right {
-  margin-top: 4.8rem;
-}
-
 .product-card-wrapper .discount-percentage-text {
   display: inline-block;
   padding: 0.5rem 0.8rem;
@@ -63,37 +58,6 @@
   font-weight: 700;
   line-height: 1;
   font-variant-numeric: tabular-nums;
-}
-
-
-/* Wishlist button */
-.product-card-wrapper .card__inner > .favorito {
-  position: absolute;
-  top: 0.8rem;
-  right: 0.8rem;
-  z-index: 2;
-}
-
-.product-card-wrapper .favorito .custom-btn-icon {
-  width: 4rem;
-  height: 4rem;
-  background: #ffffff;
-  border: 1px solid rgba(var(--color-foreground), 0.12);
-  box-shadow: none;
-}
-
-.product-card-wrapper .favorito .custom-btn-icon:hover {
-  border-color: rgba(var(--color-foreground), 0.4);
-  box-shadow: none;
-}
-
-.product-card-wrapper .favorito .custom-btn-icon i {
-  font-size: 1.6rem;
-}
-
-.product-card-wrapper .favorito .custom-btn-icon:focus-visible {
-  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
-  outline-offset: 0.2rem;
 }
 
 /* Shipping label */
@@ -204,22 +168,6 @@
 
   .product-card-wrapper .card-information > .price {
     font-size: 1.6rem;
-  }
-
-  .product-card-wrapper .favorito .custom-btn-icon {
-    width: 3.6rem;
-    height: 3.6rem;
-  }
-
-  .product-card-wrapper .favorito .custom-btn-icon i {
-    font-size: 1.5rem;
-  }
-
-  /* Keeps a 44px touch target around the 36px button */
-  .product-card-wrapper .favorito .custom-btn-icon::after {
-    content: '';
-    position: absolute;
-    inset: -0.4rem;
   }
 
   .product-card-wrapper .quick-add__submit.button.button--secondary {
