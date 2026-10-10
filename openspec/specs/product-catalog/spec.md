@@ -31,7 +31,7 @@ La tienda SHALL ofrecer una página que lista las colecciones disponibles con su
 
 ### Requirement: Tarjeta de producto unificada
 
-Los productos SHALL mostrarse en listados mediante una tarjeta común que incluye imagen, título, precio, equivalente en bolívares, insignias (oferta, agotado) y, según configuración, compra rápida y botón de favoritos.
+Los productos SHALL mostrarse en listados mediante una tarjeta común que incluye imagen, título, precio, equivalente en bolívares, insignias (oferta, agotado) y, según configuración, compra rápida.
 
 #### Scenario: Producto en oferta
 
@@ -185,25 +185,6 @@ Las tarjetas de producto de una misma cuadrícula SHALL mostrar el área de imag
 - **WHEN** un producto de la cuadrícula no tiene imagen
 - **THEN** su tarjeta conserva la misma altura total que las demás tarjetas de la fila
 
-### Requirement: Insignias y favoritos anclados a la imagen
-
-El porcentaje de descuento y la insignia de oferta o agotado SHALL mostrarse agrupados en una esquina de la imagen, y el botón de favoritos SHALL mostrarse en la esquina superior derecha de la imagen, sin superponerse entre sí ni cambiar de posición según el largo del título o del contenido de la tarjeta.
-
-#### Scenario: Producto en oferta con título largo
-
-- **WHEN** un producto en oferta tiene un título de dos líneas
-- **THEN** el porcentaje de descuento aparece sobre la imagen junto a la insignia de oferta, en la misma posición que en una tarjeta con título de una línea
-
-#### Scenario: Descuento mostrado una sola vez
-
-- **WHEN** un producto tiene precio de comparación mayor a su precio
-- **THEN** la tarjeta muestra el porcentaje de descuento una única vez, con el formato `-N%`
-
-#### Scenario: Favoritos e insignias en tarjeta angosta
-
-- **WHEN** la tarjeta se muestra en una cuadrícula de dos columnas en móvil
-- **THEN** el botón de favoritos y las insignias no se solapan
-
 ### Requirement: Jerarquía de la información en la tarjeta
 
 Bajo la imagen, la tarjeta SHALL presentar la información siempre en este orden: etiqueta de envío, título, proveedor (si está habilitado), valoración (si está habilitada), precio, equivalente en bolívares y compra rápida (si está habilitada). El título SHALL ocupar como máximo dos líneas y reservar siempre el alto de dos líneas.
@@ -244,31 +225,45 @@ Cuando la compra rápida está habilitada, su control SHALL ocupar todo el ancho
 
 ### Requirement: Tamaños táctiles y de lectura en la tarjeta
 
-Los controles interactivos de la tarjeta (compra rápida y favoritos) SHALL tener un área táctil de al menos 44 px de alto, y ningún texto de la tarjeta SHALL mostrarse con un tamaño menor a 11 px, en cualquier ancho de pantalla.
+Los controles interactivos de la tarjeta (compra rápida) SHALL tener un área táctil de al menos 44 px de alto, y ningún texto de la tarjeta SHALL mostrarse con un tamaño menor a 11 px, en cualquier ancho de pantalla.
 
 #### Scenario: Tarjeta en móvil a dos columnas
 
 - **WHEN** un visitante ve la colección destacada en un teléfono con dos columnas
-- **THEN** el botón de compra rápida y el botón de favoritos tienen un área táctil de al menos 44 px de alto y las etiquetas de envío y descuento son legibles
+- **THEN** el botón de compra rápida tiene un área táctil de al menos 44 px de alto y las etiquetas de envío y descuento son legibles
 
 #### Scenario: Navegación por teclado
 
 - **WHEN** un visitante recorre la tarjeta con el teclado
-- **THEN** el enlace del producto, el botón de favoritos y el botón de compra rápida reciben el foco con un indicador visible
+- **THEN** el enlace del producto y el botón de compra rápida reciben el foco con un indicador visible
 
-### Requirement: Componentes de la tarjeta preservados
+### Requirement: Insignias ancladas a la imagen
 
-El rediseño de la tarjeta SHALL conservar todos sus componentes y comportamientos: imagen e imagen secundaria al pasar el cursor, favoritos, insignias de oferta y agotado, porcentaje de descuento, etiqueta de envío, título, proveedor, valoración, precio, equivalente en bolívares, nota de precios por volumen y las modalidades de compra rápida.
+El porcentaje de descuento y la insignia de oferta o agotado SHALL mostrarse agrupados en una esquina de la imagen, sin cambiar de posición según el largo del título o del contenido de la tarjeta.
+
+#### Scenario: Producto en oferta con título largo
+
+- **WHEN** un producto en oferta tiene un título de dos líneas
+- **THEN** el porcentaje de descuento aparece sobre la imagen junto a la insignia de oferta, en la misma posición que en una tarjeta con título de una línea
+
+#### Scenario: Descuento mostrado una sola vez
+
+- **WHEN** un producto tiene precio de comparación mayor a su precio
+- **THEN** la tarjeta muestra el porcentaje de descuento una única vez, con el formato `-N%`
+
+#### Scenario: Insignias en la esquina superior derecha
+
+- **WHEN** las insignias están configuradas en la posición superior derecha
+- **THEN** se muestran pegadas a esa esquina de la imagen, sin dejar un hueco reservado encima
+
+### Requirement: Componentes de la tarjeta conservados
+
+El rediseño de la tarjeta SHALL conservar todos sus componentes y comportamientos: imagen e imagen secundaria al pasar el cursor, insignias de oferta y agotado, porcentaje de descuento, etiqueta de envío, título, proveedor, valoración, precio, equivalente en bolívares, nota de precios por volumen y las modalidades de compra rápida.
 
 #### Scenario: Agregar al carrito desde la tarjeta
 
 - **WHEN** un visitante usa la compra rápida en una tarjeta de la colección destacada
 - **THEN** el producto se agrega al carrito, o se abre la selección de variantes si el producto tiene más de una, igual que antes del rediseño
-
-#### Scenario: Marcar como favorito
-
-- **WHEN** la lista de favoritos está activada y el visitante pulsa el corazón de una tarjeta
-- **THEN** el producto se agrega o se quita de favoritos y el ícono refleja el estado, igual que antes del rediseño
 
 #### Scenario: Etiqueta de envío
 

@@ -10,7 +10,7 @@
 - [x] 2.1 En `snippets/card-product.liquid`, eliminar el bloque `<!-- Favorito -->` con su `<div class="favorito">` y el `<script>` final que llama a `initProductWishlistState`; verificar con `grep -nE "favorito|wishlist|Wishlist" snippets/card-product.liquid` sin resultados
 - [x] 2.2 En `snippets/offer-product.liquid`, eliminar el botón de favoritos (ramas `if`/`else` de `settings.enable-wishlist`) dentro de `.custom-buttons` y el `<script>` en línea de inicialización y del evento `storage`, conservando la carga de `product-offer-timer.js` y el botón "Vista rápida"; verificar con `grep -nE "wishlist|Wishlist|fa-heart" snippets/offer-product.liquid` sin resultados
 - [x] 2.3 En `assets/card-product-flexbox.css`, eliminar las reglas `.favorito` (incluidas las del media query móvil y el pseudo-elemento de área táctil) y la regla `.card__badge.top.right` que reserva 4,8 rem para el corazón; verificar con `grep -nE "favorito|wishlist" assets/card-product-flexbox.css` sin resultados
-- [ ] 2.4 Con `shopify theme dev`, revisar en escritorio y móvil una tarjeta de producto (portada y colección) y la tarjeta de oferta: sin corazón, sin hueco donde estaba, insignias pegadas a su esquina y botones "Agregar" y "Vista rápida" de la oferta bien distribuidos; si `.custom-buttons` queda descompensado, ajustar su distribución en `offer-product.liquid`
+- [x] 2.4 Con `shopify theme dev`, revisar en escritorio y móvil una tarjeta de producto (portada y colección) y la tarjeta de oferta: sin corazón, sin hueco donde estaba, insignias pegadas a su esquina y botones "Agregar" y "Vista rápida" de la oferta bien distribuidos; si `.custom-buttons` queda descompensado, ajustar su distribución en `offer-product.liquid`
 
 ## 3. Retirar el botón flotante, la página y el script
 
@@ -35,10 +35,10 @@
 
 - [x] 6.1 Ejecutar `grep -rnE "wishlist|Wishlist|favorito|button-floating|heart-filled" --include='*.liquid' --include='*.js' --include='*.css' --include='*.json' layout sections snippets templates assets config`; el único resultado admitido es la coincidencia ajena `favoritikon` de `locales/` si se incluye esa carpeta
 - [x] 6.2 Ejecutar `shopify theme check` y confirmar que no aparecen errores nuevos respecto de `develop` (en particular, ningún asset, snippet o ajuste faltante)
-- [ ] 6.3 Prueba manual con `shopify theme dev` en portada, una colección, una página de producto, resultados de búsqueda y el carrito: sin corazones, sin botón flotante y sin errores en la consola del navegador (en especial `toggleOfferWishlist is not defined` o `initProductWishlistState is not defined`)
-- [ ] 6.4 Prueba manual de regresión en la tarjeta: agregar al carrito con el control de cantidad, abrir el selector en un producto con variantes, ver un producto agotado y comprobar que el equivalente en bolívares carga
-- [ ] 6.5 Prueba con un navegador que tenga la clave `wishlist` en `localStorage` (crearla a mano si hace falta): la tienda carga con normalidad, sin errores, y la clave sigue ahí
-- [ ] 6.6 Prueba manual en el editor de temas: no existe el grupo de ajustes "Wishlist", y las secciones "Colección destacada" y de ofertas con temporizador se renderizan y se pueden editar sin errores
+- [x] 6.3 Prueba manual con `shopify theme dev` en portada, una colección, una página de producto, resultados de búsqueda y el carrito: sin corazones, sin botón flotante y sin errores en la consola del navegador (en especial `toggleOfferWishlist is not defined` o `initProductWishlistState is not defined`)
+- [x] 6.4 Prueba manual de regresión en la tarjeta: agregar al carrito con el control de cantidad, abrir el selector en un producto con variantes, ver un producto agotado y comprobar que el equivalente en bolívares carga
+- [x] 6.5 Prueba con un navegador que tenga la clave `wishlist` en `localStorage` (crearla a mano si hace falta): la tienda carga con normalidad, sin errores, y la clave sigue ahí
+- [x] 6.6 Prueba manual en el editor de temas: no existe el grupo de ajustes "Wishlist", y las secciones "Colección destacada" y de ofertas con temporizador se renderizan y se pueden editar sin errores
 
 ## 7. Entrega
 
