@@ -2,14 +2,14 @@
   #shopify-section-{{ section.id }} {
     background-color: {{ section.settings.section_bg }};
     margin: {{ section.settings.margin_top }}px {{ section.settings.margin_x }}px {{ section.settings.margin_bottom }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_x }}px {{ section.settings.padding_bottom }}px;
   }
 {%- endstyle -%}
 
 {% stylesheet %}
   .oferta-semanal {
-    --os-padding-top: 40px;
-    --os-padding-bottom: 40px;
-    --os-padding-x: 24px;
+    --os-panel-padding-y: 40px;
+    --os-panel-padding-x: 28px;
     --os-radius: 24px;
     --os-panel-bg: #ffdcf6;
   }
@@ -54,7 +54,7 @@
     align-content: center;
     gap: 12px 24px;
     min-width: 0;
-    padding: var(--os-padding-top) var(--os-padding-x) var(--os-padding-bottom);
+    padding: var(--os-panel-padding-y) var(--os-panel-padding-x);
     background-color: var(--os-panel-bg);
   }
 
@@ -144,7 +144,7 @@
     }
 
     .oferta-semanal__panel {
-      padding-inline: calc(var(--os-padding-x) * 1.5);
+      padding-inline: calc(var(--os-panel-padding-x) * 1.5);
     }
   }
 {% endstylesheet %}
@@ -152,9 +152,6 @@
 <div
   class="oferta-semanal page-width"
   style="
-    --os-padding-top: {{ section.settings.padding_top }}px;
-    --os-padding-bottom: {{ section.settings.padding_bottom }}px;
-    --os-padding-x: {{ section.settings.padding_x }}px;
     --os-radius: {{ section.settings.radius }}px;
     --os-panel-bg: {{ section.settings.panel_bg }};
   ">
@@ -316,7 +313,7 @@
     },
     {
       "type": "header",
-      "content": "Relleno de la tarjeta"
+      "content": "Relleno de la sección"
     },
     {
       "type": "range",
@@ -346,7 +343,7 @@
       "min": 0,
       "max": 120,
       "step": 4,
-      "default": 28
+      "default": 0
     }
   ],
   "blocks": [
