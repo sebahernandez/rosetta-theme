@@ -21,7 +21,9 @@ context: |
   blocks/, templates/*.liquid, config/settings_schema.json y locales/. El contenido del editor
   de temas (imágenes, textos, bloques) vive en templates/*.json, sections/*-group.json y
   config/settings_data.json; lo escribe Shopify y los cambios de código no deben modificarlo
-  (ver spec `theme-content-protection`).
+  (ver spec `theme-content-protection`). Flujo para secciones con multimedia: subir el código,
+  cargar imágenes y textos en el editor y guardar, luego `git pull origin develop` para traer
+  las referencias y `shopify theme dev` para verlas; los archivos de imagen no van al repo.
 
 rules:
   specs:

@@ -56,3 +56,17 @@ Si un cambio de código exige modificar un archivo de contenido, ese cambio SHAL
 
 - **WHEN** el usuario no aprueba la modificación de un archivo de contenido
 - **THEN** el archivo no se modifica y el cambio se entrega sin él
+
+### Requirement: Flujo para secciones con contenido multimedia
+
+El contenido multimedia de una sección SHALL cargarse en el editor de temas y traerse a local mediante `git pull`; el repositorio SHALL guardar solo la referencia a cada archivo, no el archivo.
+
+#### Scenario: Sección nueva con imágenes
+
+- **WHEN** se sube el código de una sección, se cargan sus imágenes en el editor y se guarda
+- **THEN** Shopify registra un commit `Update from Shopify` y un `git pull` trae las referencias a local
+
+#### Scenario: Ver las imágenes en local
+
+- **WHEN** el theme se ejecuta en local con `shopify theme dev` tras el `git pull`
+- **THEN** las imágenes se muestran porque sus referencias apuntan a los archivos de la tienda
