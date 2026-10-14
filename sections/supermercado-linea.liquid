@@ -2,7 +2,14 @@
   assign img = section.settings.image
 -%}
 
-<div class="supermercado-linea page-width">
+<div
+  class="supermercado-linea page-width"
+  style="
+    --sl-margin-top: {{ section.settings.margin_top }}px;
+    --sl-margin-bottom: {{ section.settings.margin_bottom }}px;
+    --sl-padding-top: {{ section.settings.padding_top }}px;
+    --sl-padding-bottom: {{ section.settings.padding_bottom }}px;
+  ">
   <div
     class="supermercado-linea__wrapper"
     style="
@@ -140,7 +147,12 @@
 
 {% stylesheet %}
   .supermercado-linea {
-    margin: 2rem auto;
+    margin-top: var(--sl-margin-top);
+    margin-bottom: var(--sl-margin-bottom);
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: var(--sl-padding-top);
+    padding-bottom: var(--sl-padding-bottom);
   }
 
   .supermercado-linea__wrapper {
@@ -380,6 +392,50 @@
       "type": "image_picker",
       "id": "image",
       "label": "Imagen"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado del contenedor"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margen superior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margen inferior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Relleno superior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Relleno inferior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
     },
     {
       "type": "header",
