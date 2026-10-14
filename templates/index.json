@@ -95,7 +95,7 @@
       "name": "Supermercado en línea",
       "settings": {
         "image": "shopify://shop_images/rosetta-venezuela-panaderia.avif",
-        "margin_top": 44,
+        "margin_top": 120,
         "margin_bottom": 32,
         "padding_top": 32,
         "padding_bottom": 0,

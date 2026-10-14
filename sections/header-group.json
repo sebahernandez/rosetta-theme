@@ -48,10 +48,6 @@
       "settings": {
         "logo_position": "middle-left",
         "menu": "main-menu",
-        "secondary_menu_handle": "",
-        "show_order_tracking": true,
-        "order_tracking_text": "Seguir mi pedido",
-        "order_tracking_link": "shopify://pages/orden-de-seguimiento",
         "menu_type_desktop": "mega",
         "sticky_header_type": "always",
         "show_line_separator": true,
