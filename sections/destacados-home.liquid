@@ -1,0 +1,470 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.section_bg }};
+  }
+{%- endstyle -%}
+
+{% stylesheet %}
+  .destacados-home {
+    --dh-margin-top: 0px;
+    --dh-margin-bottom: 0px;
+    --dh-margin-x: 0px;
+    --dh-padding-top: 40px;
+    --dh-padding-bottom: 40px;
+    --dh-padding-x: 0px;
+    margin: var(--dh-margin-top) var(--dh-margin-x) var(--dh-margin-bottom);
+  }
+
+  .destacados-home__inner {
+    padding: var(--dh-padding-top) var(--dh-padding-x) var(--dh-padding-bottom);
+  }
+
+  .destacados-home__header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .destacados-home__eyebrow,
+  .destacados-home__heading {
+    margin: 0;
+  }
+
+  .destacados-home__eyebrow {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .destacados-home__heading {
+    font-family: var(--font-heading-family);
+    font-size: clamp(2.6rem, 5vw, 4.4rem);
+    font-weight: 400;
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+  }
+
+  .destacados-home__row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .destacados-home__products {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .destacados-home__product {
+    min-width: 0;
+  }
+
+  .destacados-home__promo {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+    padding: 28px 24px;
+    border-radius: 24px;
+  }
+
+  .destacados-home__promo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+
+  .destacados-home__promo-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .destacados-home__promo-title {
+    margin: 0;
+    font-family: var(--font-heading-family);
+    font-size: clamp(2.4rem, 4vw, 3.2rem);
+    font-weight: 400;
+    line-height: 1.1;
+  }
+
+  .destacados-home__promo-text {
+    margin: 0;
+    font-size: 1.4rem;
+    line-height: 1.7;
+    opacity: 0.85;
+  }
+
+  .destacados-home__promo-note {
+    display: block;
+    margin-top: auto;
+    padding: 16px;
+    border: 1px solid currentColor;
+    border-radius: 16px;
+    border-color: color-mix(in srgb, currentColor 25%, transparent);
+    font-size: 1.4rem;
+    line-height: 1.5;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .destacados-home__promo-note strong {
+    font-weight: 700;
+  }
+
+  @media screen and (min-width: 750px) {
+    .destacados-home__products {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .destacados-home__row {
+      grid-template-columns: minmax(0, 1.15fr) repeat(4, minmax(0, 1fr));
+    }
+
+    .destacados-home__row--no-promo {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .destacados-home__products {
+      display: contents;
+    }
+
+    .destacados-home__promo {
+      min-height: 100%;
+    }
+  }
+{% endstylesheet %}
+
+{%- liquid
+  assign has_promo = false
+  for block in section.blocks
+    if block.type == 'promo_card'
+      assign has_promo = true
+    endif
+  endfor
+-%}
+
+<div
+  class="destacados-home page-width"
+  style="
+    --dh-margin-top: {{ section.settings.margin_top }}px;
+    --dh-margin-bottom: {{ section.settings.margin_bottom }}px;
+    --dh-margin-x: {{ section.settings.margin_x }}px;
+    --dh-padding-top: {{ section.settings.padding_top }}px;
+    --dh-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --dh-padding-x: {{ section.settings.padding_x }}px;
+  ">
+  <div class="destacados-home__inner">
+    {%- capture header_html -%}
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'eyebrow' -%}
+            {%- if block.settings.text != blank -%}
+              <p
+                class="destacados-home__eyebrow"
+                style="color: {{ block.settings.color }};"
+                {{ block.shopify_attributes }}>
+                {{ block.settings.text | escape }}
+              </p>
+            {%- endif -%}
+          {%- when 'heading' -%}
+            {%- if block.settings.title != blank -%}
+              <h2
+                class="destacados-home__heading"
+                style="color: {{ block.settings.color }};"
+                {{ block.shopify_attributes }}>
+                {{- block.settings.title | escape | newline_to_br -}}
+              </h2>
+            {%- endif -%}
+        {%- endcase -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+
+    {%- if header_html contains '<' -%}
+      <div class="destacados-home__header">
+        {{ header_html }}
+      </div>
+    {%- endif -%}
+
+    <div class="destacados-home__row{% unless has_promo %} destacados-home__row--no-promo{% endunless %}">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'promo_card' -%}
+          <div
+            class="destacados-home__promo"
+            style="background-color: {{ block.settings.background }}; color: {{ block.settings.color }};"
+            {{ block.shopify_attributes }}>
+            {%- if block.settings.icon != blank -%}
+              <span class="destacados-home__promo-icon" style="background-color: {{ block.settings.icon_bg }};">
+                {{
+                  block.settings.icon
+                  | image_url: width: 96
+                  | image_tag: width: 48, height: 48, loading: 'lazy'
+                }}
+              </span>
+            {%- endif -%}
+            {%- if block.settings.title != blank -%}
+              <h3 class="destacados-home__promo-title">{{ block.settings.title | escape }}</h3>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <p class="destacados-home__promo-text">{{ block.settings.text | escape }}</p>
+            {%- endif -%}
+            {%- if block.settings.note != blank -%}
+              {%- if block.settings.link != blank -%}
+                <a href="{{ block.settings.link }}" class="destacados-home__promo-note">
+                  {{ block.settings.note }}
+                </a>
+              {%- else -%}
+                <div class="destacados-home__promo-note">{{ block.settings.note }}</div>
+              {%- endif -%}
+            {%- endif -%}
+          </div>
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      <ul class="destacados-home__products" role="list">
+        {%- assign skip_card_styles = false -%}
+        {%- for product in section.settings.collection.products limit: 4 -%}
+          <li class="destacados-home__product">
+            {% render 'card-product',
+              card_product: product,
+              media_aspect_ratio: 'square',
+              skip_styles: skip_card_styles,
+              section_id: section.id,
+              quick_add: 'standard',
+              extend_height: true
+            %}
+          </li>
+          {%- assign skip_card_styles = true -%}
+        {%- else -%}
+          {%- for i in (1..4) -%}
+            <li class="destacados-home__product">
+              {% render 'card-product',
+                skip_styles: skip_card_styles,
+                placeholder_image: 'product-apparel-2',
+                extend_height: true
+              %}
+            </li>
+            {%- assign skip_card_styles = true -%}
+          {%- endfor -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Destacados home",
+  "tag": "section",
+  "class": "destacados-home-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Productos"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Colección",
+      "info": "Se muestran los primeros 4 productos."
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Fondo de la sección",
+      "default": "#d9fff2"
+    },
+    {
+      "type": "header",
+      "content": "Margen del contenedor"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margen superior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margen inferior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_x",
+      "label": "Margen lateral",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Relleno del contenedor"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Relleno superior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Relleno inferior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_x",
+      "label": "Relleno lateral",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "eyebrow",
+      "name": "Etiqueta superior",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto",
+          "default": "Ofertas destacadas"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Color",
+          "default": "#8a1f7a"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Título",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Título",
+          "info": "Usa un salto de línea para dividirlo en dos líneas.",
+          "default": "Para llenar la despensa\nsin pensarlo dos veces."
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Color",
+          "default": "#1c1417"
+        }
+      ]
+    },
+    {
+      "type": "promo_card",
+      "name": "Tarjeta promocional",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icono"
+        },
+        {
+          "type": "color",
+          "id": "icon_bg",
+          "label": "Fondo del icono",
+          "default": "#5cf5c9"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Club del Ahorro"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Texto",
+          "default": "Descuentos de hasta el 20% en productos seleccionados."
+        },
+        {
+          "type": "inline_richtext",
+          "id": "note",
+          "label": "Nota",
+          "info": "Se muestra en un recuadro al pie de la tarjeta.",
+          "default": "Activa aquí tus cupones personalizados y ahorra con <strong>Mi Cupón</strong>."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enlace de la nota"
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Color de fondo",
+          "default": "#1f1a1a"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Color del texto",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Destacados home",
+      "blocks": [
+        { "type": "eyebrow" },
+        { "type": "heading" },
+        { "type": "promo_card" }
+      ]
+    }
+  ]
+}
+{% endschema %}
