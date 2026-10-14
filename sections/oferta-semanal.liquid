@@ -1,0 +1,487 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.section_bg }};
+  }
+{%- endstyle -%}
+
+{% stylesheet %}
+  .oferta-semanal {
+    --os-margin-top: 0px;
+    --os-margin-bottom: 0px;
+    --os-margin-x: 0px;
+    --os-padding-top: 40px;
+    --os-padding-bottom: 40px;
+    --os-padding-x: 24px;
+    --os-radius: 24px;
+    --os-panel-bg: #ffdcf6;
+    margin: var(--os-margin-top) var(--os-margin-x) var(--os-margin-bottom);
+  }
+
+  .oferta-semanal__card {
+    display: grid;
+    grid-template-columns: 1fr;
+    overflow: hidden;
+    border-radius: var(--os-radius);
+    background-color: var(--os-panel-bg);
+  }
+
+  .oferta-semanal__media {
+    position: relative;
+    min-height: 220px;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .oferta-semanal__image,
+  .oferta-semanal__placeholder {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .oferta-semanal__placeholder {
+    background-color: rgba(0, 0, 0, 0.06);
+  }
+
+  .oferta-semanal__placeholder svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .oferta-semanal__panel {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    gap: 12px 24px;
+    min-width: 0;
+    padding: var(--os-padding-top) var(--os-padding-x) var(--os-padding-bottom);
+    background-color: var(--os-panel-bg);
+  }
+
+  .oferta-semanal__eyebrow,
+  .oferta-semanal__heading,
+  .oferta-semanal__text {
+    flex: 1 1 100%;
+    margin: 0;
+  }
+
+  .oferta-semanal__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .oferta-semanal__eyebrow::before {
+    content: '';
+    flex: 0 0 32px;
+    height: 2px;
+    background-color: currentColor;
+  }
+
+  .oferta-semanal__heading {
+    font-family: var(--font-heading-family);
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 400;
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+  }
+
+  .oferta-semanal__heading-accent {
+    display: block;
+    font-style: italic;
+  }
+
+  .oferta-semanal__text {
+    max-width: 52rem;
+    font-size: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .oferta-semanal__highlight {
+    margin: 0;
+    font-family: var(--font-heading-family);
+    font-size: clamp(6rem, 14vw, 11rem);
+    font-style: italic;
+    line-height: 1;
+    overflow-wrap: anywhere;
+  }
+
+  .oferta-semanal__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    padding: 14px 26px;
+    border-radius: 999px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .oferta-semanal__button:hover {
+    opacity: 0.85;
+  }
+
+  .oferta-semanal__button::after {
+    content: '→';
+    font-size: 1.2em;
+  }
+
+  @media screen and (min-width: 750px) {
+    .oferta-semanal__card {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .oferta-semanal__media {
+      aspect-ratio: auto;
+      min-height: 360px;
+    }
+
+    .oferta-semanal__panel {
+      padding-inline: calc(var(--os-padding-x) * 1.5);
+    }
+  }
+{% endstylesheet %}
+
+<div
+  class="oferta-semanal page-width"
+  style="
+    --os-margin-top: {{ section.settings.margin_top }}px;
+    --os-margin-bottom: {{ section.settings.margin_bottom }}px;
+    --os-margin-x: {{ section.settings.margin_x }}px;
+    --os-padding-top: {{ section.settings.padding_top }}px;
+    --os-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --os-padding-x: {{ section.settings.padding_x }}px;
+    --os-radius: {{ section.settings.radius }}px;
+    --os-panel-bg: {{ section.settings.panel_bg }};
+  ">
+  <div class="oferta-semanal__card">
+    <div class="oferta-semanal__media">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 1200
+          | image_tag:
+            class: 'oferta-semanal__image',
+            sizes: '(min-width: 990px) 50vw, 100vw',
+            widths: '400, 600, 800, 1200',
+            loading: 'lazy'
+        }}
+      {%- else -%}
+        <div class="oferta-semanal__placeholder">
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="oferta-semanal__panel">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'eyebrow' -%}
+            {%- if block.settings.text != blank -%}
+              <p
+                class="oferta-semanal__eyebrow"
+                style="color: {{ block.settings.color }};"
+                {{ block.shopify_attributes }}>
+                {{ block.settings.text }}
+              </p>
+            {%- endif -%}
+          {%- when 'heading' -%}
+            {%- if block.settings.title != blank or block.settings.accent != blank -%}
+              <h2
+                class="oferta-semanal__heading"
+                style="color: {{ block.settings.color }};"
+                {{ block.shopify_attributes }}>
+                {{- block.settings.title | escape -}}
+                {%- if block.settings.accent != blank -%}
+                  <span
+                    class="oferta-semanal__heading-accent"
+                    style="color: {{ block.settings.accent_color }};">
+                    {{- block.settings.accent | escape -}}
+                  </span>
+                {%- endif -%}
+              </h2>
+            {%- endif -%}
+          {%- when 'text' -%}
+            {%- if block.settings.text != blank -%}
+              <div
+                class="oferta-semanal__text rte"
+                style="color: {{ block.settings.color }};"
+                {{ block.shopify_attributes }}>
+                {{ block.settings.text }}
+              </div>
+            {%- endif -%}
+          {%- when 'highlight' -%}
+            {%- if block.settings.text != blank -%}
+              <p
+                class="oferta-semanal__highlight"
+                style="color: {{ block.settings.color }};"
+                {{ block.shopify_attributes }}>
+                {{ block.settings.text }}
+              </p>
+            {%- endif -%}
+          {%- when 'button' -%}
+            {%- if block.settings.link != blank and block.settings.label != blank -%}
+              <a
+                href="{{ block.settings.link }}"
+                class="oferta-semanal__button"
+                style="background-color: {{ block.settings.background }}; color: {{ block.settings.color }};"
+                {{ block.shopify_attributes }}>
+                {{ block.settings.label }}
+              </a>
+            {%- endif -%}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Oferta semanal",
+  "tag": "section",
+  "class": "oferta-semanal-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Imagen"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen de la oferta"
+    },
+    {
+      "type": "header",
+      "content": "Colores y forma"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Fondo de la sección",
+      "default": "#faf7f2"
+    },
+    {
+      "type": "color",
+      "id": "panel_bg",
+      "label": "Fondo del panel de contenido",
+      "default": "#ffdcf6"
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "Radio de las esquinas",
+      "unit": "px",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Margen de la tarjeta"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margen superior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margen inferior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_x",
+      "label": "Margen lateral",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Relleno de la tarjeta"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Relleno superior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Relleno inferior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_x",
+      "label": "Relleno lateral",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 28
+    }
+  ],
+  "blocks": [
+    {
+      "type": "eyebrow",
+      "name": "Etiqueta superior",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto",
+          "default": "Solo por este fin de semana"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Color",
+          "default": "#0d6b57"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Título",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "El pan de la casa,"
+        },
+        {
+          "type": "text",
+          "id": "accent",
+          "label": "Línea en cursiva",
+          "info": "Se muestra debajo del título, en cursiva y con el color de acento.",
+          "default": "por partida doble."
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Color del título",
+          "default": "#1c1417"
+        },
+        {
+          "type": "color",
+          "id": "accent_color",
+          "label": "Color de la línea en cursiva",
+          "default": "#f04ee0"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Texto",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Texto",
+          "default": "2×1 en todos nuestros productos de panadería. Para el desayuno, la merienda y la mesa del domingo."
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Color",
+          "default": "#3a2a33"
+        }
+      ]
+    },
+    {
+      "type": "highlight",
+      "name": "Cifra destacada",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto",
+          "default": "2×1"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Color",
+          "default": "#f04ee0"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Botón",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texto del botón",
+          "default": "Ir a Panadería"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enlace"
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Color de fondo",
+          "default": "#5cf5c9"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Color del texto",
+          "default": "#1c1417"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Oferta semanal",
+      "blocks": [
+        { "type": "eyebrow" },
+        { "type": "heading" },
+        { "type": "text" },
+        { "type": "highlight" },
+        { "type": "button" }
+      ]
+    }
+  ]
+}
+{% endschema %}
