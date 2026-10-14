@@ -1,24 +1,12 @@
 {%- style -%}
   #shopify-section-{{ section.id }} {
     background-color: {{ section.settings.section_bg }};
+    margin: {{ section.settings.margin_top }}px {{ section.settings.margin_x }}px {{ section.settings.margin_bottom }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_x }}px {{ section.settings.padding_bottom }}px;
   }
 {%- endstyle -%}
 
 {% stylesheet %}
-  .destacados-home {
-    --dh-margin-top: 0px;
-    --dh-margin-bottom: 0px;
-    --dh-margin-x: 0px;
-    --dh-padding-top: 40px;
-    --dh-padding-bottom: 40px;
-    --dh-padding-x: 0px;
-    margin: var(--dh-margin-top) var(--dh-margin-x) var(--dh-margin-bottom);
-  }
-
-  .destacados-home__inner {
-    padding: var(--dh-padding-top) var(--dh-padding-x) var(--dh-padding-bottom);
-  }
-
   .destacados-home__header {
     display: flex;
     flex-direction: column;
@@ -157,16 +145,7 @@
   endfor
 -%}
 
-<div
-  class="destacados-home page-width"
-  style="
-    --dh-margin-top: {{ section.settings.margin_top }}px;
-    --dh-margin-bottom: {{ section.settings.margin_bottom }}px;
-    --dh-margin-x: {{ section.settings.margin_x }}px;
-    --dh-padding-top: {{ section.settings.padding_top }}px;
-    --dh-padding-bottom: {{ section.settings.padding_bottom }}px;
-    --dh-padding-x: {{ section.settings.padding_x }}px;
-  ">
+<div class="destacados-home page-width">
   <div class="destacados-home__inner">
     {%- capture header_html -%}
       {%- for block in section.blocks -%}

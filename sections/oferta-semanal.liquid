@@ -1,20 +1,17 @@
 {%- style -%}
   #shopify-section-{{ section.id }} {
     background-color: {{ section.settings.section_bg }};
+    margin: {{ section.settings.margin_top }}px {{ section.settings.margin_x }}px {{ section.settings.margin_bottom }}px;
   }
 {%- endstyle -%}
 
 {% stylesheet %}
   .oferta-semanal {
-    --os-margin-top: 0px;
-    --os-margin-bottom: 0px;
-    --os-margin-x: 0px;
     --os-padding-top: 40px;
     --os-padding-bottom: 40px;
     --os-padding-x: 24px;
     --os-radius: 24px;
     --os-panel-bg: #ffdcf6;
-    margin: var(--os-margin-top) var(--os-margin-x) var(--os-margin-bottom);
   }
 
   .oferta-semanal__card {
@@ -155,9 +152,6 @@
 <div
   class="oferta-semanal page-width"
   style="
-    --os-margin-top: {{ section.settings.margin_top }}px;
-    --os-margin-bottom: {{ section.settings.margin_bottom }}px;
-    --os-margin-x: {{ section.settings.margin_x }}px;
     --os-padding-top: {{ section.settings.padding_top }}px;
     --os-padding-bottom: {{ section.settings.padding_bottom }}px;
     --os-padding-x: {{ section.settings.padding_x }}px;
