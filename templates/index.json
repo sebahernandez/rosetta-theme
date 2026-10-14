@@ -110,6 +110,7 @@
     },
     "custom_search_k93Y9X": {
       "type": "custom-search",
+      "disabled": true,
       "settings": {
         "show_heading": true,
         "heading": "¿Qué estás buscando?",
@@ -181,6 +182,7 @@
         "feature_HR4JgQ",
         "feature_JLxyEV"
       ],
+      "disabled": true,
       "custom_css": [
         ".icon-features {}"
       ],
