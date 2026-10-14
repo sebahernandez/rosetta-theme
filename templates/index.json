@@ -403,6 +403,53 @@
         "padding_x": 28
       }
     },
+    "destacados_home_jmRzmm": {
+      "type": "destacados-home",
+      "blocks": {
+        "eyebrow_P6EYXd": {
+          "type": "eyebrow",
+          "settings": {
+            "text": "Ofertas destacadas",
+            "color": "#8a1f7a"
+          }
+        },
+        "heading_EwAymJ": {
+          "type": "heading",
+          "settings": {
+            "title": "Para llenar la despensa\nsin pensarlo dos veces.",
+            "color": "#1c1417"
+          }
+        },
+        "promo_card_RFjqBT": {
+          "type": "promo_card",
+          "settings": {
+            "icon_bg": "#5cf5c9",
+            "title": "Club del Ahorro",
+            "text": "Descuentos de hasta el 20% en productos seleccionados.",
+            "note": "Activa aquí tus cupones personalizados y ahorra con <strong>Mi Cupón</strong>.",
+            "link": "",
+            "background": "#1f1a1a",
+            "color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "eyebrow_P6EYXd",
+        "heading_EwAymJ",
+        "promo_card_RFjqBT"
+      ],
+      "name": "Destacados home",
+      "settings": {
+        "collection": "",
+        "section_bg": "#d9fff2",
+        "margin_top": 52,
+        "margin_bottom": 0,
+        "margin_x": 0,
+        "padding_top": 56,
+        "padding_bottom": 60,
+        "padding_x": 0
+      }
+    },
     "testimonials_NMFPMa": {
       "type": "testimonials",
       "blocks": {
@@ -570,6 +617,7 @@
     "featured_collection_4eGYqL",
     "featured_blog_cXKLWj",
     "oferta_semanal_kxJ4AJ",
+    "destacados_home_jmRzmm",
     "testimonials_NMFPMa",
     "marcas_logo_bar_X3dNXm",
     "newsletter_WGhgqi"
