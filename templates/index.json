@@ -339,6 +339,70 @@
         "padding_bottom": 36
       }
     },
+    "oferta_semanal_kxJ4AJ": {
+      "type": "oferta-semanal",
+      "blocks": {
+        "eyebrow_9HrWB6": {
+          "type": "eyebrow",
+          "settings": {
+            "text": "Solo por este fin de semana",
+            "color": "#0d6b57"
+          }
+        },
+        "heading_6w4jFA": {
+          "type": "heading",
+          "settings": {
+            "title": "El pan de la casa,",
+            "accent": "por partida doble.",
+            "color": "#1c1417",
+            "accent_color": "#f04ee0"
+          }
+        },
+        "text_rqFn4c": {
+          "type": "text",
+          "settings": {
+            "text": "2×1 en todos nuestros productos de panadería. Para el desayuno, la merienda y la mesa del domingo.",
+            "color": "#3a2a33"
+          }
+        },
+        "highlight_THFHUL": {
+          "type": "highlight",
+          "settings": {
+            "text": "2×1",
+            "color": "#f04ee0"
+          }
+        },
+        "button_aqARA7": {
+          "type": "button",
+          "settings": {
+            "label": "Ir a Panadería",
+            "link": "",
+            "background": "#5cf5c9",
+            "color": "#1c1417"
+          }
+        }
+      },
+      "block_order": [
+        "eyebrow_9HrWB6",
+        "heading_6w4jFA",
+        "text_rqFn4c",
+        "highlight_THFHUL",
+        "button_aqARA7"
+      ],
+      "name": "Oferta semanal",
+      "settings": {
+        "image": "shopify://shop_images/pan-rosetta.avif",
+        "section_bg": "#faf7f2",
+        "panel_bg": "#ffdcf6",
+        "radius": 24,
+        "margin_top": 40,
+        "margin_bottom": 40,
+        "margin_x": 0,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_x": 28
+      }
+    },
     "testimonials_NMFPMa": {
       "type": "testimonials",
       "blocks": {
@@ -505,6 +569,7 @@
     "announcement_month_ypzKCY",
     "featured_collection_4eGYqL",
     "featured_blog_cXKLWj",
+    "oferta_semanal_kxJ4AJ",
     "testimonials_NMFPMa",
     "marcas_logo_bar_X3dNXm",
     "newsletter_WGhgqi"
