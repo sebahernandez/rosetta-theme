@@ -376,7 +376,7 @@
           "type": "button",
           "settings": {
             "label": "Ir a Panadería",
-            "link": "",
+            "link": "#",
             "background": "#5cf5c9",
             "color": "#1c1417"
           }
