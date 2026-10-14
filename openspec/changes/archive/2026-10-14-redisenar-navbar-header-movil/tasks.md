@@ -16,6 +16,6 @@
 
 ## 4. Verificación y entrega
 
-- [ ] 4.1 Probar el cajón de menú, el modal de búsqueda y el sticky header en móvil; comprobar que el cajón se abre desde la hamburguesa y que el icono de búsqueda responde (objetivos táctiles ≥ 44px); revisar 768px y 989px.
-- [ ] 4.2 Ejecutar `shopify theme check` sin errores nuevos y comparar contra el diseño en 390px.
-- [ ] 4.3 Hacer commit con mensaje convencional y push a `develop`.
+- [x] 4.1 Probar el cajón de menú, el modal de búsqueda y el sticky header en móvil; comprobar que el cajón se abre desde la hamburguesa y que el icono de búsqueda responde (objetivos táctiles ≥ 44px); revisar 768px y 989px.
+- [x] 4.2 Ejecutar `shopify theme check` sin errores nuevos y comparar contra el diseño en 390px.
+- [x] 4.3 Hacer commit con mensaje convencional y push a `develop`.
