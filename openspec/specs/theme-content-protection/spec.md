@@ -56,12 +56,3 @@ Si un cambio de código exige modificar un archivo de contenido, ese cambio SHAL
 
 - **WHEN** el usuario no aprueba la modificación de un archivo de contenido
 - **THEN** el archivo no se modifica y el cambio se entrega sin él
-
-### Requirement: Subida con CLI sin sobrescribir contenido
-
-El proyecto SHALL excluir los archivos de contenido de las operaciones `shopify theme push`, de modo que subir código no reemplace el contenido publicado.
-
-#### Scenario: Push del theme
-
-- **WHEN** se ejecuta `shopify theme push` para subir código
-- **THEN** los archivos de contenido del tema remoto no se sobrescriben

@@ -1,5 +1,0 @@
-# Contenido del editor de temas: no se sube con `shopify theme push` para no
-# sobrescribir imágenes, textos ni bloques editados por el comerciante.
-templates/*.json
-sections/*-group.json
-config/settings_data.json
