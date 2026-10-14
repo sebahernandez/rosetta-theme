@@ -188,6 +188,94 @@
       ],
       "settings": {}
     },
+    "supermercado_explora_aAKDcp": {
+      "type": "supermercado-explora",
+      "blocks": {
+        "item_4kKBFw": {
+          "type": "item",
+          "settings": {
+            "number": "",
+            "title": "Panadería",
+            "description": "Panes, bollería y horneados",
+            "link": "",
+            "overlay": 55
+          }
+        },
+        "item_NqWkLQ": {
+          "type": "item",
+          "settings": {
+            "number": "",
+            "title": "Carne y Pescado",
+            "description": "Cortes y productos del mar",
+            "link": "",
+            "overlay": 55
+          }
+        },
+        "item_JixNkN": {
+          "type": "item",
+          "settings": {
+            "number": "",
+            "title": "Bebidas",
+            "description": "Jugos, refrescos e hidratantes",
+            "link": "",
+            "overlay": 55
+          }
+        },
+        "item_MfdEDt": {
+          "type": "item",
+          "settings": {
+            "number": "",
+            "title": "Aceite y Despensa",
+            "description": "Arroz, azúcar, aceite y más",
+            "link": "",
+            "overlay": 55
+          }
+        },
+        "item_T9PEgW": {
+          "type": "item",
+          "settings": {
+            "number": "",
+            "title": "Snacks",
+            "description": "Galletas, barras y antojos",
+            "link": "",
+            "overlay": 55
+          }
+        },
+        "item_bN8UDt": {
+          "type": "item",
+          "settings": {
+            "number": "",
+            "title": "Belleza y Salud",
+            "description": "Cuidado personal y farmacia",
+            "link": "",
+            "overlay": 55
+          }
+        }
+      },
+      "block_order": [
+        "item_4kKBFw",
+        "item_NqWkLQ",
+        "item_JixNkN",
+        "item_MfdEDt",
+        "item_T9PEgW",
+        "item_bN8UDt"
+      ],
+      "name": "Supermercado explora",
+      "settings": {
+        "eyebrow": "Explora",
+        "heading": "Todo el supermercado,\nordenado a tu manera.",
+        "subheading": "Desde el pan de la mañana hasta lo esencial de la despensa.",
+        "section_bg": "#faf7f2",
+        "text_color": "#1f1a1d",
+        "eyebrow_color": "#9b1b86",
+        "radius": 24,
+        "gap": 12,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
     "featured_collection_9qmYdC": {
       "type": "featured-collection",
       "settings": {
@@ -563,6 +651,7 @@
     "supermercado_linea_wHCGCb",
     "custom_search_k93Y9X",
     "icon_features_xBBGBz",
+    "supermercado_explora_aAKDcp",
     "featured_collection_9qmYdC",
     "category_slide_cQbWcm",
     "announcement_month_ypzKCY",
