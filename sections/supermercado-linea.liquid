@@ -2,14 +2,16 @@
   assign img = section.settings.image
 -%}
 
-<div
-  class="supermercado-linea page-width"
-  style="
-    --sl-margin-top: {{ section.settings.margin_top }}px;
-    --sl-margin-bottom: {{ section.settings.margin_bottom }}px;
-    --sl-padding-top: {{ section.settings.padding_top }}px;
-    --sl-padding-bottom: {{ section.settings.padding_bottom }}px;
-  ">
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{%- endstyle -%}
+
+<div class="supermercado-linea page-width">
   <div
     class="supermercado-linea__wrapper"
     style="
@@ -147,12 +149,8 @@
 
 {% stylesheet %}
   .supermercado-linea {
-    margin-top: var(--sl-margin-top);
-    margin-bottom: var(--sl-margin-bottom);
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: var(--sl-padding-top);
-    padding-bottom: var(--sl-padding-bottom);
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
   .supermercado-linea__wrapper {
