@@ -9,45 +9,6 @@
  */
 {
   "sections": {
-    "home_slider_NY4Wzk": {
-      "type": "home-slider",
-      "blocks": {
-        "imagen_slide_UyD9Y6": {
-          "type": "imagen_slide",
-          "settings": {
-            "imagen": "shopify://shop_images/BannerPrincipal_4.webp",
-            "imagen_mobile": "shopify://shop_images/Club_del_Ahorro__20descuento.avif",
-            "imagen_tablet": "shopify://shop_images/BannerPrincipal_4.webp",
-            "imagen_desktop": "shopify://shop_images/BannerPrincipal_4.webp",
-            "imagen_wide": "shopify://shop_images/BannerPrincipal_4.webp",
-            "custom_fit": "",
-            "custom_position_x": "",
-            "custom_position_y": ""
-          }
-        }
-      },
-      "block_order": [
-        "imagen_slide_UyD9Y6"
-      ],
-      "settings": {
-        "top_margin": 60,
-        "autoplay": true,
-        "interval": 5000,
-        "arrows": false,
-        "pagination": false,
-        "slider_height": "460",
-        "slider_height_tablet": "350",
-        "slider_height_mobile": "140",
-        "border_radius": 16,
-        "image_fit": "fill",
-        "image_position_x": "center",
-        "image_position_y": "center",
-        "contain_background": "#f5f5f5",
-        "enable_custom_positioning": false,
-        "custom_position_x_percent": 50,
-        "custom_position_y_percent": 50
-      }
-    },
     "custom_search_k93Y9X": {
       "type": "custom-search",
       "settings": {
@@ -495,10 +456,104 @@
         "padding_top": 40,
         "padding_bottom": 52
       }
+    },
+    "supermercado_linea_wHCGCb": {
+      "type": "supermercado-linea",
+      "blocks": {
+        "badge_69pmed": {
+          "type": "badge",
+          "settings": {
+            "text": "Supermercado en línea · Venezuela"
+          }
+        },
+        "heading_zjw6YH": {
+          "type": "heading",
+          "settings": {
+            "title": "Lo de todos los días,",
+            "accent": "mejor elegido."
+          }
+        },
+        "description_YXUUgt": {
+          "type": "description",
+          "settings": {
+            "text": "<p>Panadería, carnes, despensa, bebidas y cuidado personal en un solo carrito. Precios claros en dólares y bolívares.</p>"
+          }
+        },
+        "button_3HnRY3": {
+          "type": "button",
+          "settings": {
+            "label": "Empezar a comprar",
+            "link": "",
+            "style": "primary",
+            "show_arrow": true
+          }
+        },
+        "button_hpXfQ9": {
+          "type": "button",
+          "settings": {
+            "label": "Ver ofertas",
+            "link": "",
+            "style": "secondary",
+            "show_arrow": false
+          }
+        },
+        "feature_YWkfJE": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck",
+            "text": "Envío gratuito"
+          }
+        },
+        "feature_KBeGRz": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "text": "Pago seguro"
+          }
+        },
+        "feature_VEg6fy": {
+          "type": "feature",
+          "settings": {
+            "icon": "clock",
+            "text": "Atención 24/7"
+          }
+        },
+        "promo_eb8Knw": {
+          "type": "promo",
+          "settings": {
+            "label": "Club del ahorro",
+            "prefix": "Hasta",
+            "highlight": "20%",
+            "suffix": "menos",
+            "caption": "En productos seleccionados"
+          }
+        }
+      },
+      "block_order": [
+        "badge_69pmed",
+        "heading_zjw6YH",
+        "description_YXUUgt",
+        "button_3HnRY3",
+        "button_hpXfQ9",
+        "feature_YWkfJE",
+        "feature_KBeGRz",
+        "feature_VEg6fy",
+        "promo_eb8Knw"
+      ],
+      "name": "Supermercado en línea",
+      "settings": {
+        "panel_bg": "#ffd9f6",
+        "text_color": "#1f1a1d",
+        "accent_color": "#9b1b86",
+        "button_bg": "#ff6fd8",
+        "button_text": "#ffffff",
+        "highlight_bg": "#7dffd0",
+        "radius": 28
+      }
     }
   },
   "order": [
-    "home_slider_NY4Wzk",
+    "supermercado_linea_wHCGCb",
     "custom_search_k93Y9X",
     "icon_features_xBBGBz",
     "featured_collection_9qmYdC",
