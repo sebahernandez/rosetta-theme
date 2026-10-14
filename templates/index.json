@@ -396,7 +396,7 @@
         "panel_bg": "#ffdcf6",
         "radius": 24,
         "margin_top": 20,
-        "margin_bottom": 20,
+        "margin_bottom": 0,
         "margin_x": 0,
         "padding_top": 80,
         "padding_bottom": 80,
@@ -442,7 +442,7 @@
       "settings": {
         "collection": "",
         "section_bg": "#d9fff2",
-        "margin_top": 52,
+        "margin_top": 0,
         "margin_bottom": 0,
         "margin_x": 0,
         "padding_top": 56,
