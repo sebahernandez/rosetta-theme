@@ -13,5 +13,5 @@
 
 - [x] 3.1 Ejecutar `openspec validate proteger-contenido-editor-temas --strict` y verificar que pasa
 - [x] 3.2 Ejecutar `shopify theme check` y verificar que no hay errores nuevos
-- [ ] 3.3 Prueba manual: cargar una imagen en el editor de temas, hacer un cambio de código de prueba y confirmar que la imagen persiste y que el commit no incluye archivos de contenido
+- [x] 3.3 Prueba manual: cargar una imagen en el editor de temas, hacer un cambio de código de prueba y confirmar que la imagen persiste y que el commit no incluye archivos de contenido
 - [x] 3.4 Commit y push a `develop` incluyendo la carpeta del cambio (ver spec `development-workflow`)
