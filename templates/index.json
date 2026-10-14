@@ -194,6 +194,7 @@
         "item_4kKBFw": {
           "type": "item",
           "settings": {
+            "image": "shopify://shop_images/panaderia.avif",
             "number": "",
             "title": "Panadería",
             "description": "Panes, bollería y horneados",
@@ -204,6 +205,7 @@
         "item_NqWkLQ": {
           "type": "item",
           "settings": {
+            "image": "shopify://shop_images/carne_y_pescado.avif",
             "number": "",
             "title": "Carne y Pescado",
             "description": "Cortes y productos del mar",
@@ -214,6 +216,7 @@
         "item_JixNkN": {
           "type": "item",
           "settings": {
+            "image": "shopify://shop_images/bebidas.avif",
             "number": "",
             "title": "Bebidas",
             "description": "Jugos, refrescos e hidratantes",
@@ -224,6 +227,7 @@
         "item_MfdEDt": {
           "type": "item",
           "settings": {
+            "image": "shopify://shop_images/aceite_y_despensa.avif",
             "number": "",
             "title": "Aceite y Despensa",
             "description": "Arroz, azúcar, aceite y más",
@@ -234,6 +238,7 @@
         "item_T9PEgW": {
           "type": "item",
           "settings": {
+            "image": "shopify://shop_images/snacks.avif",
             "number": "",
             "title": "Snacks",
             "description": "Galletas, barras y antojos",
@@ -244,6 +249,7 @@
         "item_bN8UDt": {
           "type": "item",
           "settings": {
+            "image": "shopify://shop_images/belleza_y_salud.avif",
             "number": "",
             "title": "Belleza y Salud",
             "description": "Cuidado personal y farmacia",
