@@ -1,0 +1,32 @@
+{% comment %}
+  Renders the secondary menu group (divider + top-level links) inside the header menu list.
+  Reads the menu handle from the 'secondary_menu_handle' section setting.
+
+  Usage:
+  {% render 'header-secondary-menu' %}
+{% endcomment %}
+
+{%- assign secondary_menu = linklists[section.settings.secondary_menu_handle] -%}
+{%- if section.settings.secondary_menu_handle != blank and secondary_menu.links.size > 0 -%}
+  <li class="header__menu-divider" role="separator" aria-orientation="vertical"></li>
+  {%- for link in secondary_menu.links -%}
+    <li class="header__menu-secondary">
+      <a
+        id="HeaderMenu-Secondary-{{ link.handle }}"
+        href="{{ link.url }}"
+        class="header__menu-item list-menu__item link link--text focus-inset"
+        {%- if link.current %}
+          aria-current="page"
+        {%- endif %}
+      >
+        <span
+          {%- if link.current %}
+            class="header__active-menu-item"
+          {%- endif %}
+        >
+          {{- link.title | escape -}}
+        </span>
+      </a>
+    </li>
+  {%- endfor -%}
+{%- endif -%}

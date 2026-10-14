@@ -1,0 +1,197 @@
+.header__search-inline,
+.header__order-tracking,
+.header__nav-row {
+  display: none;
+}
+
+.header__menu-divider {
+  display: none;
+}
+
+.cart-count-bubble--empty {
+  display: none;
+}
+
+@media screen and (min-width: 990px) {
+  .header--redesign {
+    grid-template-areas: "heading search icons";
+    grid-template-columns: auto minmax(20rem, 1fr) auto;
+    column-gap: 3.2rem;
+    align-items: center;
+  }
+
+  .header--redesign .header__search {
+    display: none;
+  }
+
+  .header--redesign .header__search-inline {
+    display: block;
+    grid-area: search;
+    width: 100%;
+    max-width: 64rem;
+    justify-self: center;
+  }
+
+  .header--redesign .header__search-inline .search-modal__form {
+    width: 100%;
+  }
+
+  .header--redesign .header__search-inline .field {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 4.8rem;
+    padding: 0 0.5rem 0 1.8rem;
+    border-radius: 999px;
+    background-color: var(--header-search-bg, #ffffff);
+    border: 0.1rem solid var(--header-search-border, rgba(0, 0, 0, 0.12));
+  }
+
+  .header--redesign .header__search-inline .field::before,
+  .header--redesign .header__search-inline .field::after {
+    display: none;
+  }
+
+  .header--redesign .header__search-inline-icon {
+    flex: none;
+    width: 2rem;
+    height: 2rem;
+    margin-right: 1rem;
+    color: var(--header-muted-text, #6b6b6b);
+  }
+
+  .header--redesign .header__search-inline .search__input {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .header--redesign .header__search-inline .field__label {
+    display: none;
+  }
+
+  .header--redesign .header__search-inline .reset__button {
+    position: static;
+    flex: none;
+    width: 3.6rem;
+    height: 3.6rem;
+  }
+
+  .header--redesign .header__search-inline-button {
+    flex: none;
+    height: 3.8rem;
+    padding: 0 2.4rem;
+    border: 0;
+    border-radius: 999px;
+    background-color: var(--header-search-button-bg, #ff71db);
+    color: var(--header-search-button-text, #000000);
+    font-family: inherit;
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .header--redesign .header__search-inline-button:hover {
+    filter: brightness(0.95);
+  }
+
+  .header--redesign .header__search-inline-button:focus-visible {
+    outline: 0.2rem solid rgb(var(--color-foreground));
+    outline-offset: 0.2rem;
+  }
+
+  .header--redesign .header__icons {
+    align-items: center;
+    gap: 1.2rem;
+    padding-right: 0;
+  }
+
+  .header--redesign .header__order-tracking {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-right: 0.8rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  .header--redesign .header__order-tracking .svg-wrapper {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  .header--redesign .header__icon--cart {
+    width: auto;
+    height: 4.2rem;
+    padding: 0 1.8rem;
+    gap: 0.8rem;
+    border-radius: 999px;
+    background-color: var(--header-cart-bg, #7dffd0);
+    color: var(--header-cart-text, #000000);
+  }
+
+  .header--redesign .header__icon--cart:hover {
+    filter: brightness(0.96);
+  }
+
+  .header--redesign .header__icon--cart .cart-count-bubble {
+    position: static;
+    display: flex;
+    width: auto;
+    height: auto;
+    min-width: 1.6rem;
+    background-color: transparent;
+    color: inherit;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .header__nav-row {
+    display: block;
+    background-color: var(--header-nav-bg, #f2ecdf);
+    color: rgb(var(--color-foreground));
+  }
+
+  .header__nav-row-inner {
+    display: flex;
+    align-items: center;
+  }
+
+  .header__nav-row .header__inline-menu {
+    display: block;
+    margin-left: -1.2rem;
+  }
+
+  .header__nav-row .list-menu--inline {
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .header__nav-row .header__menu-item {
+    padding: 1.2rem 1.4rem;
+    font-weight: 500;
+  }
+
+  .header__nav-row .header__menu-divider {
+    display: block;
+    align-self: center;
+    width: 0.1rem;
+    height: 2rem;
+    margin: 0 1rem;
+    background-color: var(--header-divider, rgba(0, 0, 0, 0.2));
+  }
+
+  .header__nav-row .header__menu-secondary .header__menu-item {
+    color: var(--header-muted-text, #6b6b6b);
+    font-weight: 400;
+  }
+
+  .header__nav-row .header__menu-secondary .header__menu-item:hover {
+    color: rgb(var(--color-foreground));
+  }
+}
