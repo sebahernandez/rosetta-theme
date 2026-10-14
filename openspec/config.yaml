@@ -17,6 +17,11 @@ context: |
   en inglés. Textos de UI heredados vía locales/ (en.default + es); varias secciones propias
   tienen textos en español escritos directamente en el Liquid.
   Herramientas: Shopify CLI (`shopify theme dev` / `shopify theme check`).
+  Código vs. contenido: el código del theme es layout/, sections/*.liquid, snippets/, assets/,
+  blocks/, templates/*.liquid, config/settings_schema.json y locales/. El contenido del editor
+  de temas (imágenes, textos, bloques) vive en templates/*.json, sections/*-group.json y
+  config/settings_data.json; lo escribe Shopify y los cambios de código no deben modificarlo
+  (ver spec `theme-content-protection`).
 
 rules:
   specs:
@@ -24,4 +29,5 @@ rules:
     - Cada requirement debe tener al menos un escenario WHEN/THEN
   tasks:
     - Incluir verificación con `shopify theme check` y prueba manual en el editor de temas
+    - Empezar con `git pull` de `origin/develop` y, antes de commitear, verificar con `git diff --name-only` que no hay archivos de contenido (templates/*.json, sections/*-group.json, config/settings_data.json); si hace falta tocarlos, pedir aprobación y commitear aparte
     - Terminar siempre con una tarea de commit y push a `develop` (ver spec `development-workflow`)
