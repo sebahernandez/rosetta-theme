@@ -1,0 +1,516 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.section_bg }};
+  }
+{%- endstyle -%}
+
+<div
+  class="supermercado-explora page-width"
+  style="
+    --se-text: {{ section.settings.text_color }};
+    --se-eyebrow: {{ section.settings.eyebrow_color }};
+    --se-radius: {{ section.settings.radius }}px;
+    --se-gap: {{ section.settings.gap }}px;
+  ">
+  <header class="supermercado-explora__header">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="supermercado-explora__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h2 class="supermercado-explora__heading">{{ section.settings.heading | newline_to_br }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subheading != blank -%}
+      <p class="supermercado-explora__subheading">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+  </header>
+
+  {%- if section.blocks.size > 0 -%}
+    <ul class="supermercado-explora__grid" role="list">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign img = block.settings.image
+          assign link = block.settings.link
+          if block.settings.number != blank
+            assign number = block.settings.number
+          elsif forloop.index < 10
+            assign number = forloop.index | prepend: '0'
+          else
+            assign number = forloop.index
+          endif
+          if link != blank
+            assign tag = 'a'
+          else
+            assign tag = 'div'
+          endif
+          if forloop.index <= 2
+            assign size = 'large'
+          else
+            assign size = 'small'
+          endif
+        -%}
+        <li class="supermercado-explora__item supermercado-explora__item--{{ size }}" {{ block.shopify_attributes }}>
+          <{{ tag }}
+            class="supermercado-explora__card"
+            {% if link != blank %}
+              href="{{ link }}"
+            {% endif %}
+            style="--se-overlay: {{ block.settings.overlay }}%;">
+            <div class="supermercado-explora__media">
+              {%- if img != blank -%}
+                {{
+                  img
+                  | image_url: width: 1200
+                  | image_tag:
+                    class: 'supermercado-explora__image',
+                    sizes: '(min-width: 990px) 50vw, 100vw',
+                    widths: '400, 600, 800, 1200',
+                    loading: 'lazy'
+                }}
+              {%- else -%}
+                <div class="supermercado-explora__placeholder">
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+              {%- endif -%}
+            </div>
+
+            <div class="supermercado-explora__content">
+              <span class="supermercado-explora__number">{{ number }}</span>
+              {%- if block.settings.title != blank -%}
+                <h3 class="supermercado-explora__title">{{ block.settings.title }}</h3>
+              {%- endif -%}
+              {%- if block.settings.description != blank -%}
+                <p class="supermercado-explora__description">{{ block.settings.description }}</p>
+              {%- endif -%}
+            </div>
+
+            <span class="supermercado-explora__arrow" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+            </span>
+          </{{ tag }}>
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .supermercado-explora {
+    color: var(--se-text);
+  }
+
+  .supermercado-explora__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+    margin-bottom: 4rem;
+  }
+
+  .supermercado-explora__eyebrow {
+    margin: 0;
+    color: var(--se-eyebrow);
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .supermercado-explora__heading {
+    margin: 0;
+    font-size: clamp(3.2rem, 4.4vw, 5rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--se-text);
+  }
+
+  .supermercado-explora__subheading {
+    margin: 0;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    opacity: 0.7;
+  }
+
+  .supermercado-explora__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--se-gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .supermercado-explora__item {
+    min-width: 0;
+  }
+
+  .supermercado-explora__item--large {
+    grid-column: span 2;
+  }
+
+  .supermercado-explora__item--small {
+    grid-column: span 1;
+  }
+
+  .supermercado-explora__card {
+    position: relative;
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    border-radius: var(--se-radius);
+    background: rgba(0, 0, 0, 0.06);
+    color: #fff;
+    text-decoration: none;
+    isolation: isolate;
+  }
+
+  .supermercado-explora__item--large .supermercado-explora__card {
+    aspect-ratio: 8 / 5;
+  }
+
+  .supermercado-explora__item--small .supermercado-explora__card {
+    aspect-ratio: 1 / 1;
+  }
+
+  .supermercado-explora__media {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+  }
+
+  .supermercado-explora__image,
+  .supermercado-explora__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .supermercado-explora__placeholder svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  a.supermercado-explora__card:hover .supermercado-explora__image,
+  a.supermercado-explora__card:hover .supermercado-explora__placeholder {
+    transform: scale(1.04);
+  }
+
+  .supermercado-explora__card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, calc(var(--se-overlay) / 100)) 0%,
+      rgba(0, 0, 0, 0) 55%
+    );
+  }
+
+  .supermercado-explora__content {
+    position: absolute;
+    left: 2rem;
+    right: 7rem;
+    bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .supermercado-explora__number {
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+  }
+
+  .supermercado-explora__title {
+    margin: 0;
+    font-size: 3rem;
+    font-weight: 400;
+    line-height: 1.1;
+    color: inherit;
+  }
+
+  .supermercado-explora__item--small .supermercado-explora__title {
+    font-size: 2.2rem;
+  }
+
+  .supermercado-explora__description {
+    margin: 0;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    opacity: 0.85;
+  }
+
+  .supermercado-explora__arrow {
+    position: absolute;
+    right: 1.8rem;
+    bottom: 1.8rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 50%;
+    background: #fff;
+    color: #1a1a1a;
+    transition: transform 0.2s ease;
+  }
+
+  a.supermercado-explora__card:hover .supermercado-explora__arrow {
+    transform: translate(2px, -2px);
+  }
+
+  a.supermercado-explora__card:focus-visible {
+    outline: 0.3rem solid var(--se-eyebrow);
+    outline-offset: 0.2rem;
+  }
+
+  @media screen and (max-width: 989px) {
+    .supermercado-explora__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .supermercado-explora__item--large {
+      grid-column: span 2;
+    }
+
+    .supermercado-explora__item--large .supermercado-explora__card {
+      aspect-ratio: 29 / 20;
+    }
+
+    .supermercado-explora__item--small .supermercado-explora__card {
+      aspect-ratio: 14 / 15;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .supermercado-explora__header {
+      margin-bottom: 2.4rem;
+    }
+
+    .supermercado-explora__content {
+      left: 1.4rem;
+      right: 5.4rem;
+      bottom: 1.4rem;
+    }
+
+    .supermercado-explora__title,
+    .supermercado-explora__item--small .supermercado-explora__title {
+      font-size: 2rem;
+    }
+
+    .supermercado-explora__item--small .supermercado-explora__description {
+      display: none;
+    }
+
+    .supermercado-explora__arrow {
+      right: 1.2rem;
+      bottom: 1.2rem;
+      width: 3.2rem;
+      height: 3.2rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Supermercado explora",
+  "tag": "section",
+  "class": "section-supermercado-explora",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Encabezado"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Etiqueta superior",
+      "default": "Explora"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Título",
+      "default": "Todo el supermercado,\nordenado a tu manera."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subtítulo",
+      "default": "Desde el pan de la mañana hasta lo esencial de la despensa."
+    },
+    {
+      "type": "header",
+      "content": "Colores y forma"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Fondo de la sección",
+      "default": "#faf7f2"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Color del texto",
+      "default": "#1f1a1d"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Color de la etiqueta",
+      "default": "#9b1b86"
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "Radio de las esquinas",
+      "unit": "px",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Separación entre tarjetas",
+      "unit": "px",
+      "min": 4,
+      "max": 40,
+      "step": 2,
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Espaciado del contenedor"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margen superior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margen inferior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Relleno superior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Relleno inferior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Categoría",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen"
+        },
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Número",
+          "info": "Déjalo vacío para numerar automáticamente."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Categoría"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Descripción",
+          "default": "Descripción breve"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enlace"
+        },
+        {
+          "type": "range",
+          "id": "overlay",
+          "label": "Intensidad del degradado",
+          "unit": "%",
+          "min": 0,
+          "max": 90,
+          "step": 5,
+          "default": 55
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Supermercado explora",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": { "title": "Panadería", "description": "Panes, bollería y horneados" }
+        },
+        {
+          "type": "item",
+          "settings": { "title": "Carne y Pescado", "description": "Cortes y productos del mar" }
+        },
+        {
+          "type": "item",
+          "settings": { "title": "Bebidas", "description": "Jugos, refrescos e hidratantes" }
+        },
+        {
+          "type": "item",
+          "settings": { "title": "Aceite y Despensa", "description": "Arroz, azúcar, aceite y más" }
+        },
+        {
+          "type": "item",
+          "settings": { "title": "Snacks", "description": "Galletas, barras y antojos" }
+        },
+        {
+          "type": "item",
+          "settings": { "title": "Belleza y Salud", "description": "Cuidado personal y farmacia" }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
