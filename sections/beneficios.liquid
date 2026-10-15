@@ -22,7 +22,7 @@
   .beneficios__item {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 16px;
     min-width: 0;
     padding: 24px 20px;
@@ -67,6 +67,7 @@
   .beneficios__text {
     min-width: 0;
     overflow-wrap: anywhere;
+    text-align: left;
   }
 
   .beneficios__title,
@@ -95,8 +96,13 @@
     }
 
     .beneficios__item {
+      justify-content: center;
       border-top: 0;
       border-left: 1px solid transparent;
+    }
+
+    .beneficios__text {
+      text-align: inherit;
     }
 
     .beneficios--dividers .beneficios__item {
