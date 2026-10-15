@@ -271,7 +271,7 @@
         "eyebrow": "Explora",
         "heading": "Todo el supermercado,\nordenado a tu manera.",
         "subheading": "Desde el pan de la mañana hasta lo esencial de la despensa.",
-        "section_bg": "#F7F7F7",
+        "section_bg": "#f7f7f7",
         "text_color": "#1f1a1d",
         "eyebrow_color": "#9b1b86",
         "radius": 24,
@@ -643,6 +643,77 @@
         "padding_x": 0
       }
     },
+    "beneficios_cdGR6y": {
+      "type": "beneficios",
+      "blocks": {
+        "beneficio_wfRk4f": {
+          "type": "beneficio",
+          "settings": {
+            "icon": "truck",
+            "title": "Envío gratuito",
+            "text": "Sin costo en tus pedidos.",
+            "icon_color": "#a3138f",
+            "circle_color": "#fde7f8",
+            "title_color": "#1a1a1a",
+            "text_color": "#6b6b6b"
+          }
+        },
+        "beneficio_r9dAdw": {
+          "type": "beneficio",
+          "settings": {
+            "icon": "shield",
+            "title": "Pago seguro",
+            "text": "Transacciones protegidas.",
+            "icon_color": "#a3138f",
+            "circle_color": "#fde7f8",
+            "title_color": "#1a1a1a",
+            "text_color": "#6b6b6b"
+          }
+        },
+        "beneficio_zYH3Pe": {
+          "type": "beneficio",
+          "settings": {
+            "icon": "headset",
+            "title": "Atención 24/7",
+            "text": "Soporte todo el día.",
+            "icon_color": "#a3138f",
+            "circle_color": "#fde7f8",
+            "title_color": "#1a1a1a",
+            "text_color": "#6b6b6b"
+          }
+        },
+        "beneficio_gyPwRq": {
+          "type": "beneficio",
+          "settings": {
+            "icon": "refresh",
+            "title": "Devolución garantizada",
+            "text": "Hasta 30 días para volver.",
+            "icon_color": "#a3138f",
+            "circle_color": "#fde7f8",
+            "title_color": "#1a1a1a",
+            "text_color": "#6b6b6b"
+          }
+        }
+      },
+      "block_order": [
+        "beneficio_wfRk4f",
+        "beneficio_r9dAdw",
+        "beneficio_zYH3Pe",
+        "beneficio_gyPwRq"
+      ],
+      "name": "Beneficios",
+      "settings": {
+        "section_bg": "#ffffff",
+        "show_dividers": true,
+        "divider_color": "#ece7e1",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_x": 0,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_x": 0
+      }
+    },
     "testimonials_NMFPMa": {
       "type": "testimonials",
       "blocks": {
@@ -778,6 +849,7 @@
     "oferta_semanal_kxJ4AJ",
     "destacados_home_jmRzmm",
     "seleccionado_xyDjMJ",
+    "beneficios_cdGR6y",
     "testimonials_NMFPMa",
     "marcas_logo_bar_X3dNXm"
   ]
