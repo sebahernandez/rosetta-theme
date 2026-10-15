@@ -1,6 +1,5 @@
 {%- style -%}
   #shopify-section-{{ section.id }} {
-    background-color: {{ section.settings.section_bg }};
     margin: {{ section.settings.margin_top }}px {{ section.settings.margin_x }}px {{ section.settings.margin_bottom }}px;
     padding: {{ section.settings.padding_top }}px {{ section.settings.padding_x }}px {{ section.settings.padding_bottom }}px;
     --productos-populares-active-bg: {{ section.settings.active_bg }};
@@ -154,7 +153,8 @@
   assign products_limit = section.settings.products_limit
 -%}
 
-<div class="productos-populares page-width" data-productos-populares>
+<div class="productos-populares color-{{ section.settings.color_scheme }} gradient" data-productos-populares>
+  <div class="page-width">
   <div class="productos-populares__inner">
     {%- capture header_html -%}
       {%- for block in section.blocks -%}
@@ -239,6 +239,7 @@
 
     <p class="productos-populares__empty" data-empty hidden>{{ section.settings.empty_text | escape }}</p>
   </div>
+  </div>
 </div>
 
 {% schema %}
@@ -277,10 +278,10 @@
       "content": "Colores"
     },
     {
-      "type": "color",
-      "id": "section_bg",
-      "label": "Fondo de la sección",
-      "default": "#ffffff"
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Esquema de color",
+      "default": "scheme-1"
     },
     {
       "type": "color",
