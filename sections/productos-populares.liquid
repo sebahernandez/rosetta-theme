@@ -1,7 +1,12 @@
 {%- style -%}
   #shopify-section-{{ section.id }} {
     margin: {{ section.settings.margin_top }}px {{ section.settings.margin_x }}px {{ section.settings.margin_bottom }}px;
-    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_x }}px {{ section.settings.padding_bottom }}px;
+    --pp-pad-top: {{ section.settings.padding_top_mobile }}px;
+    --pp-pad-bottom: {{ section.settings.padding_bottom_mobile }}px;
+    --pp-pad-x: {{ section.settings.padding_x_mobile }}px;
+    --pp-pad-top-lg: {{ section.settings.padding_top }}px;
+    --pp-pad-bottom-lg: {{ section.settings.padding_bottom }}px;
+    --pp-pad-x-lg: {{ section.settings.padding_x }}px;
     --productos-populares-active-bg: {{ section.settings.active_bg }};
     --productos-populares-active-color: {{ section.settings.active_color }};
     --productos-populares-pill-bg: {{ section.settings.pill_bg }};
@@ -11,6 +16,10 @@
 {%- endstyle -%}
 
 {% stylesheet %}
+  .productos-populares {
+    padding: var(--pp-pad-top) var(--pp-pad-x) var(--pp-pad-bottom);
+  }
+
   .productos-populares__header {
     display: flex;
     flex-direction: column;
@@ -97,6 +106,10 @@
   }
 
   @media screen and (min-width: 750px) {
+    .productos-populares {
+      padding: var(--pp-pad-top-lg) var(--pp-pad-x-lg) var(--pp-pad-bottom-lg);
+    }
+
     .productos-populares__products {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
@@ -349,7 +362,41 @@
     },
     {
       "type": "header",
-      "content": "Relleno del contenedor"
+      "content": "Relleno interno (móvil)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Relleno superior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Relleno inferior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_x_mobile",
+      "label": "Relleno lateral",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Relleno interno (escritorio)"
     },
     {
       "type": "range",
