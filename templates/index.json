@@ -762,43 +762,8 @@
         "marca_6FcA6w",
         "marca_agDfwz"
       ],
+      "disabled": true,
       "settings": {}
-    },
-    "newsletter_WGhgqi": {
-      "type": "newsletter",
-      "blocks": {
-        "heading_kBPd3H": {
-          "type": "heading",
-          "settings": {
-            "heading": "Suscríbete a nuestras ofertas",
-            "heading_size": "h2"
-          }
-        },
-        "paragraph_bHUMqk": {
-          "type": "paragraph",
-          "settings": {
-            "text": "<p>Recibe recetas, promociones y novedades fresquitas directo en tu bandeja de entrada. ¡Conéctate con el sabor local</p>"
-          }
-        },
-        "email_form_QxLVAL": {
-          "type": "email_form",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "heading_kBPd3H",
-        "paragraph_bHUMqk",
-        "email_form_QxLVAL"
-      ],
-      "settings": {
-        "color_scheme": "scheme-76159230-694a-42ae-993a-c7adf2564efc",
-        "full_width": true,
-        "show_social": true,
-        "background_image": "shopify://shop_images/Patron.svg",
-        "background_size": "cover",
-        "padding_top": 40,
-        "padding_bottom": 52
-      }
     }
   },
   "order": [
@@ -814,7 +779,6 @@
     "destacados_home_jmRzmm",
     "seleccionado_xyDjMJ",
     "testimonials_NMFPMa",
-    "marcas_logo_bar_X3dNXm",
-    "newsletter_WGhgqi"
+    "marcas_logo_bar_X3dNXm"
   ]
 }
