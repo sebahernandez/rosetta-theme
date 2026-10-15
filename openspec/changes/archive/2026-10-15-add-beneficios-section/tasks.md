@@ -13,6 +13,6 @@
 
 ## 3. Verificación y entrega
 
-- [ ] 3.1 Ejecutar `shopify theme check` y probar manualmente en el editor de temas: cambiar colores por bloque, ocultar separadores, subir márgenes y rellenos, texto largo
+- [x] 3.1 Ejecutar `shopify theme check` y probar manualmente en el editor de temas: cambiar colores por bloque, ocultar separadores, subir márgenes y rellenos, texto largo
 - [x] 3.2 Verificar con `git diff --name-only` que no hay archivos de contenido (`templates/*.json`, `sections/*-group.json`, `config/settings_data.json`); si hace falta tocarlos, pedir aprobación y commitear aparte
-- [ ] 3.3 Commit (conventional commits) y push a `develop`; verificar con `git status` que no queda nada pendiente
+- [x] 3.3 Commit (conventional commits) y push a `develop`; verificar con `git status` que no queda nada pendiente
