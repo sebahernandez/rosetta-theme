@@ -1,0 +1,470 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.section_bg }};
+    margin: {{ section.settings.margin_top }}px {{ section.settings.margin_x }}px {{ section.settings.margin_bottom }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_x }}px {{ section.settings.padding_bottom }}px;
+    --productos-populares-active-bg: {{ section.settings.active_bg }};
+    --productos-populares-active-color: {{ section.settings.active_color }};
+    --productos-populares-pill-bg: {{ section.settings.pill_bg }};
+    --productos-populares-pill-color: {{ section.settings.pill_color }};
+    --productos-populares-pill-border: {{ section.settings.pill_border }};
+  }
+{%- endstyle -%}
+
+{% stylesheet %}
+  .productos-populares__header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .productos-populares__eyebrow,
+  .productos-populares__heading {
+    margin: 0;
+  }
+
+  .productos-populares__eyebrow {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .productos-populares__heading {
+    font-family: var(--font-heading-family);
+    font-size: clamp(2.6rem, 5vw, 4.4rem);
+    font-weight: 400;
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+  }
+
+  .productos-populares__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 28px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .productos-populares__filter {
+    padding: 8px 16px;
+    border: 1px solid var(--productos-populares-pill-border);
+    border-radius: 999px;
+    background-color: var(--productos-populares-pill-bg);
+    color: var(--productos-populares-pill-color);
+    font: inherit;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .productos-populares__filter[aria-pressed='true'] {
+    border-color: var(--productos-populares-active-bg);
+    background-color: var(--productos-populares-active-bg);
+    color: var(--productos-populares-active-color);
+  }
+
+  .productos-populares__filter:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  .productos-populares__products {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .productos-populares__product {
+    min-width: 0;
+  }
+
+  .productos-populares__product[hidden],
+  .productos-populares__empty[hidden] {
+    display: none;
+  }
+
+  .productos-populares__empty {
+    margin: 0;
+    padding: 24px 0;
+    text-align: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .productos-populares__products {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  (() => {
+    const init = (root) => {
+      if (root.dataset.ready) return;
+      root.dataset.ready = 'true';
+
+      const buttons = root.querySelectorAll('[data-filter-tag]');
+      const items = root.querySelectorAll('[data-product-tags]');
+      const empty = root.querySelector('[data-empty]');
+
+      const apply = (tag) => {
+        let visible = 0;
+        items.forEach((item) => {
+          const tags = item.dataset.productTags.split('|');
+          const match = tag === '' || tags.includes(tag);
+          item.hidden = !match;
+          if (match) visible += 1;
+        });
+        buttons.forEach((button) => {
+          button.setAttribute('aria-pressed', String(button.dataset.filterTag === tag));
+        });
+        if (empty) empty.hidden = visible > 0;
+      };
+
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => apply(button.dataset.filterTag));
+      });
+    };
+
+    const initAll = () => document.querySelectorAll('[data-productos-populares]').forEach(init);
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAll);
+    } else {
+      initAll();
+    }
+    document.addEventListener('shopify:section:load', initAll);
+  })();
+{% endjavascript %}
+
+{%- liquid
+  assign filter_count = 0
+  for block in section.blocks
+    if block.type == 'filter'
+      assign filter_count = filter_count | plus: 1
+    endif
+  endfor
+  assign products_limit = section.settings.products_limit
+-%}
+
+<div class="productos-populares page-width" data-productos-populares>
+  <div class="productos-populares__inner">
+    {%- capture header_html -%}
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'eyebrow' -%}
+            {%- if block.settings.text != blank -%}
+              <p
+                class="productos-populares__eyebrow"
+                style="color: {{ block.settings.color }};"
+                {{ block.shopify_attributes }}>
+                {{ block.settings.text | escape }}
+              </p>
+            {%- endif -%}
+          {%- when 'heading' -%}
+            {%- if block.settings.title != blank -%}
+              <h2
+                class="productos-populares__heading"
+                style="color: {{ block.settings.color }};"
+                {{ block.shopify_attributes }}>
+                {{- block.settings.title | escape | newline_to_br -}}
+              </h2>
+            {%- endif -%}
+        {%- endcase -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+
+    {%- if header_html contains '<' -%}
+      <div class="productos-populares__header">
+        {{ header_html }}
+      </div>
+    {%- endif -%}
+
+    {%- if filter_count > 0 -%}
+      <ul class="productos-populares__filters" role="list">
+        {%- assign first_filter = true -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'filter' -%}
+            {%- assign filter_tag = block.settings.tag | strip | downcase -%}
+            <li {{ block.shopify_attributes }}>
+              <button
+                type="button"
+                class="productos-populares__filter"
+                data-filter-tag="{{ filter_tag | escape }}"
+                aria-pressed="{% if first_filter %}true{% else %}false{% endif %}">
+                {{- block.settings.label | escape -}}
+              </button>
+            </li>
+            {%- assign first_filter = false -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    <ul class="productos-populares__products" role="list">
+      {%- assign skip_card_styles = false -%}
+      {%- for product in section.settings.collection.products limit: products_limit -%}
+        {%- assign product_tags = product.tags | join: '|' | downcase -%}
+        <li class="productos-populares__product" data-product-tags="{{ product_tags | escape }}">
+          {% render 'card-product',
+            card_product: product,
+            media_aspect_ratio: 'square',
+            skip_styles: skip_card_styles,
+            section_id: section.id,
+            quick_add: 'standard',
+            extend_height: true
+          %}
+        </li>
+        {%- assign skip_card_styles = true -%}
+      {%- else -%}
+        {%- for i in (1..4) -%}
+          <li class="productos-populares__product" data-product-tags="">
+            {% render 'card-product',
+              skip_styles: skip_card_styles,
+              placeholder_image: 'product-apparel-2',
+              extend_height: true
+            %}
+          </li>
+          {%- assign skip_card_styles = true -%}
+        {%- endfor -%}
+      {%- endfor -%}
+    </ul>
+
+    <p class="productos-populares__empty" data-empty hidden>{{ section.settings.empty_text | escape }}</p>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Productos populares",
+  "tag": "section",
+  "class": "productos-populares-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Productos"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Colección"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Cantidad de productos",
+      "info": "Los filtros actúan sobre estos productos, por sus etiquetas (tags).",
+      "min": 4,
+      "max": 48,
+      "step": 4,
+      "default": 12
+    },
+    {
+      "type": "text",
+      "id": "empty_text",
+      "label": "Texto sin resultados",
+      "default": "No hay productos para este filtro."
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Fondo de la sección",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "active_bg",
+      "label": "Fondo del filtro activo",
+      "default": "#f857d6"
+    },
+    {
+      "type": "color",
+      "id": "active_color",
+      "label": "Texto del filtro activo",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "pill_bg",
+      "label": "Fondo del filtro",
+      "default": "#faf6f0"
+    },
+    {
+      "type": "color",
+      "id": "pill_color",
+      "label": "Texto del filtro",
+      "default": "#1c1417"
+    },
+    {
+      "type": "color",
+      "id": "pill_border",
+      "label": "Borde del filtro",
+      "default": "#e8e0d4"
+    },
+    {
+      "type": "header",
+      "content": "Margen del contenedor"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margen superior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margen inferior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_x",
+      "label": "Margen lateral",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Relleno del contenedor"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Relleno superior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Relleno inferior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_x",
+      "label": "Relleno lateral",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "eyebrow",
+      "name": "Etiqueta superior",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto",
+          "default": "Productos populares"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Color",
+          "default": "#8a1f7a"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Título",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Título",
+          "info": "Usa un salto de línea para dividirlo en dos líneas.",
+          "default": "Lo que más se llevan esta semana."
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Color",
+          "default": "#1c1417"
+        }
+      ]
+    },
+    {
+      "type": "filter",
+      "name": "Filtro",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texto del botón",
+          "default": "Todos"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Etiqueta (tag) del producto",
+          "info": "Déjalo vacío para mostrar todos los productos. El primer filtro queda activo al cargar."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Productos populares",
+      "blocks": [
+        { "type": "eyebrow" },
+        { "type": "heading" },
+        { "type": "filter" },
+        {
+          "type": "filter",
+          "settings": { "label": "Carne y Pescado", "tag": "carne-y-pescado" }
+        },
+        {
+          "type": "filter",
+          "settings": { "label": "Aceite y Despensa", "tag": "aceite-y-despensa" }
+        },
+        {
+          "type": "filter",
+          "settings": { "label": "Snacks", "tag": "snacks" }
+        },
+        {
+          "type": "filter",
+          "settings": { "label": "Belleza y Salud", "tag": "belleza-y-salud" }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
