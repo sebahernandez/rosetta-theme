@@ -1,0 +1,450 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.section_bg }};
+    margin: {{ section.settings.margin_top }}px {{ section.settings.margin_x }}px {{ section.settings.margin_bottom }}px;
+  }
+{%- endstyle -%}
+
+{% stylesheet %}
+  .suscribete {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    padding: var(--sus-pad-y) var(--sus-pad-x);
+    border-radius: var(--sus-radius);
+    background-color: var(--sus-card-bg);
+  }
+
+  .suscribete__eyebrow,
+  .suscribete__title,
+  .suscribete__desc {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .suscribete__eyebrow {
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sus-eyebrow);
+  }
+
+  .suscribete__title {
+    font-size: 3rem;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--sus-title);
+  }
+
+  .suscribete__desc {
+    max-width: 38ch;
+    margin-top: 16px;
+    font-size: 1.4rem;
+    line-height: 1.5;
+    color: var(--sus-text);
+  }
+
+  .suscribete__form-wrap {
+    min-width: 0;
+  }
+
+  .suscribete__row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .suscribete__input,
+  .suscribete__button {
+    box-sizing: border-box;
+    min-height: 48px;
+    border: 0;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 1.4rem;
+  }
+
+  .suscribete__input {
+    width: 100%;
+    min-width: 0;
+    padding: 0 22px;
+    background-color: var(--sus-input-bg);
+    color: var(--sus-input-text);
+  }
+
+  .suscribete__input::placeholder {
+    color: var(--sus-input-text);
+    opacity: 0.55;
+  }
+
+  .suscribete__button {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 28px;
+    background-color: var(--sus-btn-bg);
+    color: var(--sus-btn-text);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .suscribete__button:hover {
+    background-color: var(--sus-btn-hover);
+  }
+
+  .suscribete__button svg {
+    display: block;
+    flex: none;
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .suscribete__input:focus-visible,
+  .suscribete__button:focus-visible {
+    outline: 2px solid var(--sus-title);
+    outline-offset: 2px;
+  }
+
+  .suscribete__message {
+    margin: 12px 0 0;
+    padding: 0 8px;
+    font-size: 1.3rem;
+    line-height: 1.4;
+    color: var(--sus-title);
+    overflow-wrap: anywhere;
+  }
+
+  @media screen and (min-width: 750px) {
+    .suscribete {
+      padding: var(--sus-pad-y-lg) var(--sus-pad-x-lg);
+    }
+
+    .suscribete__title {
+      font-size: 4rem;
+    }
+
+    .suscribete__row {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .suscribete__input {
+      flex: 1;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .suscribete {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 40px;
+    }
+
+    .suscribete__title {
+      font-size: 4.6rem;
+    }
+
+    .suscribete__form-wrap {
+      align-self: end;
+    }
+  }
+{% endstylesheet %}
+
+{%- liquid
+  assign pad_y_mobile = section.settings.padding_y | times: 0.6 | round: 0
+  assign pad_x_mobile = section.settings.padding_x | times: 0.5 | round: 0
+-%}
+
+<div
+  class="suscribete"
+  style="
+    --sus-card-bg: {{ section.settings.card_bg }};
+    --sus-radius: {{ section.settings.radius }}px;
+    --sus-pad-y: {{ pad_y_mobile }}px;
+    --sus-pad-x: {{ pad_x_mobile }}px;
+    --sus-pad-y-lg: {{ section.settings.padding_y }}px;
+    --sus-pad-x-lg: {{ section.settings.padding_x }}px;
+    --sus-eyebrow: {{ section.settings.eyebrow_color }};
+    --sus-title: {{ section.settings.title_color }};
+    --sus-text: {{ section.settings.text_color }};
+    --sus-input-bg: {{ section.settings.input_bg }};
+    --sus-input-text: {{ section.settings.input_text }};
+    --sus-btn-bg: {{ section.settings.button_bg }};
+    --sus-btn-text: {{ section.settings.button_text_color }};
+    --sus-btn-hover: {{ section.settings.button_hover_bg }};
+  "
+>
+  <div class="suscribete__content">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="suscribete__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+    {%- if section.settings.title != blank -%}
+      <h2 class="suscribete__title">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.description != blank -%}
+      <p class="suscribete__desc">{{ section.settings.description | escape }}</p>
+    {%- endif -%}
+  </div>
+
+  <div class="suscribete__form-wrap">
+    {%- form 'customer', id: 'SuscribeteForm', class: 'suscribete__form' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <div class="suscribete__row">
+        <label class="visually-hidden" for="SuscribeteEmail-{{ section.id }}">
+          {{ section.settings.placeholder | default: 'Correo electrónico' | escape }}
+        </label>
+        <input
+          id="SuscribeteEmail-{{ section.id }}"
+          class="suscribete__input"
+          type="email"
+          name="contact[email]"
+          value="{{ form.email }}"
+          placeholder="{{ section.settings.placeholder | escape }}"
+          autocomplete="email"
+          autocorrect="off"
+          autocapitalize="off"
+          required
+          {% if form.errors %}
+            aria-invalid="true"
+            aria-describedby="SuscribeteError-{{ section.id }}"
+          {% elsif form.posted_successfully? %}
+            aria-describedby="SuscribeteSuccess-{{ section.id }}"
+          {% endif %}
+        >
+        <button type="submit" class="suscribete__button" name="commit">
+          <span>{{ section.settings.button_label | default: 'Suscribirme' | escape }}</span>
+          {%- if section.settings.show_arrow -%}
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path d="M2 8h12M9 3l5 5-5 5"></path>
+            </svg>
+          {%- endif -%}
+        </button>
+      </div>
+
+      {%- if form.errors -%}
+        <p class="suscribete__message" id="SuscribeteError-{{ section.id }}" role="alert">
+          {{- form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email -}}
+        </p>
+      {%- elsif form.posted_successfully? -%}
+        <p class="suscribete__message" id="SuscribeteSuccess-{{ section.id }}" role="status">
+          {{- section.settings.success_text | escape -}}
+        </p>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Suscríbete Rosetta",
+  "tag": "section",
+  "class": "suscribete-section",
+  "disabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Textos"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Texto superior",
+      "default": "Suscríbete a nuestras ofertas"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Recetas, promociones y novedades fresquitas."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descripción",
+      "default": "Directo en tu bandeja de entrada. Conéctate con el sabor local."
+    },
+    {
+      "type": "header",
+      "content": "Formulario"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Texto del campo de correo",
+      "default": "tu@correo.com"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto del botón",
+      "default": "Suscribirme"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrow",
+      "label": "Mostrar flecha en el botón",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "success_text",
+      "label": "Mensaje de éxito",
+      "default": "¡Gracias por suscribirte!"
+    },
+    {
+      "type": "header",
+      "content": "Colores de la tarjeta"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Fondo de la sección",
+      "default": "#faf6f0"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Fondo de la tarjeta",
+      "default": "#ff74d9"
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "Radio de las esquinas",
+      "unit": "px",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Color del texto superior",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Color del título",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Color de la descripción",
+      "default": "#3a1a33"
+    },
+    {
+      "type": "header",
+      "content": "Colores del campo y el botón"
+    },
+    {
+      "type": "color",
+      "id": "input_bg",
+      "label": "Fondo del campo de correo",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "input_text",
+      "label": "Texto del campo de correo",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Fondo del botón",
+      "default": "#6bf78f"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Texto del botón",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg",
+      "label": "Fondo del botón al pasar el cursor",
+      "default": "#4fe075"
+    },
+    {
+      "type": "header",
+      "content": "Margen de la sección"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margen superior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margen inferior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "margin_x",
+      "label": "Margen lateral",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Relleno de la tarjeta"
+    },
+    {
+      "type": "range",
+      "id": "padding_y",
+      "label": "Relleno vertical",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_x",
+      "label": "Relleno lateral",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 44
+    }
+  ],
+  "presets": [
+    {
+      "name": "Suscríbete Rosetta"
+    }
+  ]
+}
+{% endschema %}
