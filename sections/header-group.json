@@ -36,7 +36,7 @@
         "enable_language_selector": false,
         "show_info_links": true,
         "info_link_1": "shopify://pages/orden-de-seguimiento",
-        "info_link_1_text": "Seguír mi pedido",
+        "info_link_1_text": "",
         "info_link_2": "shopify://pages/faqs",
         "info_link_2_text": "Ayuda",
         "info_link_3": "",
