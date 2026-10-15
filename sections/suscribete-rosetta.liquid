@@ -11,6 +11,9 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 24px;
+    width: 100%;
+    max-width: var(--sus-max-width);
+    margin-inline: auto;
     padding: var(--sus-pad-y) var(--sus-pad-x);
     border-radius: var(--sus-radius);
     background-color: var(--sus-card-bg);
@@ -170,6 +173,7 @@
   class="suscribete"
   style="
     --sus-card-bg: {{ section.settings.card_bg }};
+    --sus-max-width: {{ section.settings.max_width }}px;
     --sus-radius: {{ section.settings.radius }}px;
     --sus-pad-y: {{ pad_y_mobile }}px;
     --sus-pad-x: {{ pad_x_mobile }}px;
@@ -319,6 +323,16 @@
       "id": "card_bg",
       "label": "Fondo de la tarjeta",
       "default": "#ff74d9"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Ancho máximo de la tarjeta",
+      "unit": "px",
+      "min": 600,
+      "max": 1600,
+      "step": 20,
+      "default": 1200
     },
     {
       "type": "range",
