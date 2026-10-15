@@ -643,6 +643,35 @@
         "padding_x": 0
       }
     },
+    "suscribete_rosetta_mNL3cd": {
+      "type": "suscribete-rosetta",
+      "name": "Suscríbete Rosetta",
+      "settings": {
+        "eyebrow": "Suscríbete a nuestras ofertas",
+        "title": "Recetas, promociones y novedades fresquitas.",
+        "description": "Directo en tu bandeja de entrada. Conéctate con el sabor local.",
+        "placeholder": "tu@correo.com",
+        "button_label": "Suscribirme",
+        "show_arrow": true,
+        "success_text": "¡Gracias por suscribirte!",
+        "section_bg": "#faf6f0",
+        "card_bg": "#ff74d9",
+        "radius": 24,
+        "eyebrow_color": "#1a1a1a",
+        "title_color": "#1a1a1a",
+        "text_color": "#3a1a33",
+        "input_bg": "#ffffff",
+        "input_text": "#1a1a1a",
+        "button_bg": "#6bf78f",
+        "button_text_color": "#1a1a1a",
+        "button_hover_bg": "#4fe075",
+        "margin_top": 24,
+        "margin_bottom": 24,
+        "margin_x": 16,
+        "padding_y": 44,
+        "padding_x": 44
+      }
+    },
     "beneficios_cdGR6y": {
       "type": "beneficios",
       "blocks": {
@@ -850,6 +879,7 @@
     "oferta_semanal_kxJ4AJ",
     "destacados_home_jmRzmm",
     "seleccionado_xyDjMJ",
+    "suscribete_rosetta_mNL3cd",
     "beneficios_cdGR6y",
     "testimonials_NMFPMa",
     "marcas_logo_bar_X3dNXm"
