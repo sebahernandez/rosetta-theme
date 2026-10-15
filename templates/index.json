@@ -404,7 +404,7 @@
       ],
       "name": "Productos populares",
       "settings": {
-        "collection": "aceite",
+        "collection": "aguas-y-jugos",
         "products_limit": 12,
         "empty_text": "No hay productos para este filtro.",
         "color_scheme": "",
