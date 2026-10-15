@@ -291,6 +291,7 @@
     },
     "featured_collection_4eGYqL": {
       "type": "featured-collection",
+      "disabled": true,
       "name": "t:sections.featured-collection.presets.name",
       "settings": {
         "title": "Ofertas Destacadas",
@@ -337,6 +338,87 @@
         "read_more_color": "#ff71db",
         "padding_top": 36,
         "padding_bottom": 36
+      }
+    },
+    "productos_populares_BUW9Jp": {
+      "type": "productos-populares",
+      "blocks": {
+        "eyebrow_rG3tKj": {
+          "type": "eyebrow",
+          "settings": {
+            "text": "Productos populares",
+            "color": "#8a1f7a"
+          }
+        },
+        "heading_qpV4wc": {
+          "type": "heading",
+          "settings": {
+            "title": "Lo que más se llevan esta semana.",
+            "color": "#1c1417"
+          }
+        },
+        "filter_7b7Wjq": {
+          "type": "filter",
+          "settings": {
+            "label": "Todos",
+            "tag": ""
+          }
+        },
+        "filter_djdaW4": {
+          "type": "filter",
+          "settings": {
+            "label": "Carne y Pescado",
+            "tag": "carne-y-pescado"
+          }
+        },
+        "filter_x7iT3r": {
+          "type": "filter",
+          "settings": {
+            "label": "Aceite y Despensa",
+            "tag": "aceite-y-despensa"
+          }
+        },
+        "filter_gcpR6K": {
+          "type": "filter",
+          "settings": {
+            "label": "Snacks",
+            "tag": "snacks"
+          }
+        },
+        "filter_hfxm6b": {
+          "type": "filter",
+          "settings": {
+            "label": "Belleza y Salud",
+            "tag": "belleza-y-salud"
+          }
+        }
+      },
+      "block_order": [
+        "eyebrow_rG3tKj",
+        "heading_qpV4wc",
+        "filter_7b7Wjq",
+        "filter_djdaW4",
+        "filter_x7iT3r",
+        "filter_gcpR6K",
+        "filter_hfxm6b"
+      ],
+      "name": "Productos populares",
+      "settings": {
+        "collection": "",
+        "products_limit": 12,
+        "empty_text": "No hay productos para este filtro.",
+        "section_bg": "#ffffff",
+        "active_bg": "#f857d6",
+        "active_color": "#ffffff",
+        "pill_bg": "#faf6f0",
+        "pill_color": "#1c1417",
+        "pill_border": "#e8e0d4",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_x": 0,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_x": 0
       }
     },
     "oferta_semanal_kxJ4AJ": {
@@ -616,6 +698,7 @@
     "announcement_month_ypzKCY",
     "featured_collection_4eGYqL",
     "featured_blog_cXKLWj",
+    "productos_populares_BUW9Jp",
     "oferta_semanal_kxJ4AJ",
     "destacados_home_jmRzmm",
     "testimonials_NMFPMa",
