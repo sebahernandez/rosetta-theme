@@ -524,7 +524,7 @@
       ],
       "name": "Destacados home",
       "settings": {
-        "collection": "",
+        "collection": "{{ metaobjects.ofertas_destacadas.destacados.destacados.value }}",
         "section_bg": "#d9fff2",
         "margin_top": 0,
         "margin_bottom": 0,
