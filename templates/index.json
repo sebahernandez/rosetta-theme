@@ -404,7 +404,7 @@
       ],
       "name": "Productos populares",
       "settings": {
-        "collection": "aguas-y-jugos",
+        "collection": "{{ metaobjects.productos_populares.populares.coleccion.value }}",
         "products_limit": 12,
         "empty_text": "No hay productos para este filtro.",
         "color_scheme": "",
