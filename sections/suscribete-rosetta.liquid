@@ -1,7 +1,7 @@
 {%- style -%}
   #shopify-section-{{ section.id }} {
     background-color: {{ section.settings.section_bg }};
-    margin: {{ section.settings.margin_top }}px {{ section.settings.margin_x }}px {{ section.settings.margin_bottom }}px;
+    padding: {{ section.settings.outer_padding_top }}px {{ section.settings.outer_padding_x }}px {{ section.settings.outer_padding_bottom }}px;
   }
 {%- endstyle -%}
 
@@ -398,12 +398,12 @@
     },
     {
       "type": "header",
-      "content": "Margen de la sección"
+      "content": "Separación del contenedor (relleno de la sección)"
     },
     {
       "type": "range",
-      "id": "margin_top",
-      "label": "Margen superior",
+      "id": "outer_padding_top",
+      "label": "Separación superior",
       "unit": "px",
       "min": 0,
       "max": 120,
@@ -412,8 +412,8 @@
     },
     {
       "type": "range",
-      "id": "margin_bottom",
-      "label": "Margen inferior",
+      "id": "outer_padding_bottom",
+      "label": "Separación inferior",
       "unit": "px",
       "min": 0,
       "max": 120,
@@ -422,8 +422,8 @@
     },
     {
       "type": "range",
-      "id": "margin_x",
-      "label": "Margen lateral",
+      "id": "outer_padding_x",
+      "label": "Separación lateral",
       "unit": "px",
       "min": 0,
       "max": 120,

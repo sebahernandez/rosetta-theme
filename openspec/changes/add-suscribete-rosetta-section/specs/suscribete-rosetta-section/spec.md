@@ -53,9 +53,9 @@ La sección SHALL permitir configurar el texto, el color de fondo, el color del 
 - **WHEN** el visitante pasa el cursor sobre el botón
 - **THEN** el botón cambia al color de hover configurado
 
-### Requirement: Márgenes y rellenos configurables
+### Requirement: Separación y rellenos configurables
 
-La sección SHALL permitir configurar el margen superior, inferior y lateral de la franja y el relleno interior superior, inferior y lateral de la tarjeta.
+La sección SHALL permitir configurar la separación superior, inferior y lateral entre la tarjeta y el borde de la sección (relleno de la sección, sobre el fondo de la franja) y el relleno interior superior, inferior y lateral de la tarjeta.
 
 #### Scenario: Relleno de la tarjeta aumentado
 
