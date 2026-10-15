@@ -505,9 +505,11 @@
         "promo_card_RFjqBT": {
           "type": "promo_card",
           "settings": {
+            "icon": "shopify://shop_images/icon-porcentaje.svg",
             "icon_bg": "#5cf5c9",
             "title": "Club del Ahorro",
             "text": "Descuentos de hasta el 20% en productos seleccionados.",
+            "note_icon": "shopify://shop_images/cupon.svg",
             "note": "Activa aquí tus cupones personalizados y ahorra con <strong>Mi Cupón</strong>.",
             "link": "",
             "background": "#1f1a1a",
