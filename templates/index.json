@@ -96,7 +96,7 @@
       "settings": {
         "image": "shopify://shop_images/rosetta-venezuela-panaderia.avif",
         "margin_top": 80,
-        "margin_bottom": 100,
+        "margin_bottom": 80,
         "padding_top": 32,
         "padding_bottom": 0,
         "panel_bg": "#ffd9f6",
