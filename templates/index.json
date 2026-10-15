@@ -404,10 +404,10 @@
       ],
       "name": "Productos populares",
       "settings": {
-        "collection": "",
+        "collection": "aceite",
         "products_limit": 12,
         "empty_text": "No hay productos para este filtro.",
-        "section_bg": "#ffffff",
+        "color_scheme": "",
         "active_bg": "#f857d6",
         "active_color": "#ffffff",
         "pill_bg": "#faf6f0",
