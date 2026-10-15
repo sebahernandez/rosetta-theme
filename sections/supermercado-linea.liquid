@@ -4,10 +4,29 @@
 
 {%- style -%}
   #shopify-section-{{ section.id }} {
-    margin-top: {{ section.settings.margin_top }}px;
-    margin-bottom: {{ section.settings.margin_bottom }}px;
-    padding-top: {{ section.settings.padding_top }}px;
-    padding-bottom: {{ section.settings.padding_bottom }}px;
+    margin: {{ section.settings.margin_top_mobile }}px {{ section.settings.margin_x_mobile }}px {{ section.settings.margin_bottom_mobile }}px;
+    padding: {{ section.settings.padding_top_mobile }}px {{ section.settings.padding_x_mobile }}px {{ section.settings.padding_bottom_mobile }}px;
+    --sl-pad-t: {{ section.settings.panel_padding_top_mobile }}px;
+    --sl-pad-b: {{ section.settings.panel_padding_bottom_mobile }}px;
+    --sl-pad-x: {{ section.settings.panel_padding_x_mobile }}px;
+    --sl-gap: {{ section.settings.panel_gap_mobile }}px;
+    --sl-promo-offset: {{ section.settings.promo_offset_mobile }}px;
+    --sl-promo-pad-y: {{ section.settings.promo_padding_y_mobile }}px;
+    --sl-promo-pad-x: {{ section.settings.promo_padding_x_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} {
+      margin: {{ section.settings.margin_top }}px {{ section.settings.margin_x }}px {{ section.settings.margin_bottom }}px;
+      padding: {{ section.settings.padding_top }}px {{ section.settings.padding_x }}px {{ section.settings.padding_bottom }}px;
+      --sl-pad-t: {{ section.settings.panel_padding_top }}px;
+      --sl-pad-b: {{ section.settings.panel_padding_bottom }}px;
+      --sl-pad-x: {{ section.settings.panel_padding_x }}px;
+      --sl-gap: {{ section.settings.panel_gap }}px;
+      --sl-promo-offset: {{ section.settings.promo_offset }}px;
+      --sl-promo-pad-y: {{ section.settings.promo_padding_y }}px;
+      --sl-promo-pad-x: {{ section.settings.promo_padding_x }}px;
+    }
   }
 {%- endstyle -%}
 
@@ -167,8 +186,8 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    gap: 2.4rem;
-    padding: 5rem 4rem;
+    gap: var(--sl-gap);
+    padding: var(--sl-pad-t) var(--sl-pad-x) var(--sl-pad-b);
     min-width: 0;
   }
 
@@ -300,13 +319,13 @@
 
   .supermercado-linea__promo {
     position: absolute;
-    left: 3.2rem;
-    bottom: 3.2rem;
+    left: var(--sl-promo-offset);
+    bottom: var(--sl-promo-offset);
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
-    max-width: calc(100% - 6.4rem);
-    padding: 1.6rem 2rem;
+    max-width: calc(100% - 2 * var(--sl-promo-offset));
+    padding: var(--sl-promo-pad-y) var(--sl-promo-pad-x);
     border-radius: 1.6rem;
     background: rgba(255, 255, 255, 0.95);
     color: #1a1a1a;
@@ -343,21 +362,9 @@
       grid-template-columns: 1fr;
     }
 
-    .supermercado-linea__panel {
-      gap: 2rem;
-      padding: 3.2rem 2rem;
-    }
-
     .supermercado-linea__media {
       min-height: 0;
       aspect-ratio: 4 / 3;
-    }
-
-    .supermercado-linea__promo {
-      left: 1.6rem;
-      bottom: 1.6rem;
-      max-width: calc(100% - 3.2rem);
-      padding: 1.2rem 1.6rem;
     }
 
     .supermercado-linea__promo-title {
@@ -393,7 +400,71 @@
     },
     {
       "type": "header",
-      "content": "Espaciado del contenedor"
+      "content": "Margen y relleno externo (móvil)"
+    },
+    {
+      "type": "range",
+      "id": "margin_top_mobile",
+      "label": "Margen superior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_mobile",
+      "label": "Margen inferior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "margin_x_mobile",
+      "label": "Margen lateral",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Relleno superior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Relleno inferior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_x_mobile",
+      "label": "Relleno lateral",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Margen y relleno externo (escritorio)"
     },
     {
       "type": "range",
@@ -417,6 +488,16 @@
     },
     {
       "type": "range",
+      "id": "margin_x",
+      "label": "Margen lateral",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
       "id": "padding_top",
       "label": "Relleno superior",
       "unit": "px",
@@ -434,6 +515,172 @@
       "max": 120,
       "step": 4,
       "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_x",
+      "label": "Relleno lateral",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Panel de contenido (móvil)"
+    },
+    {
+      "type": "range",
+      "id": "panel_padding_top_mobile",
+      "label": "Relleno superior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "panel_padding_bottom_mobile",
+      "label": "Relleno inferior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "panel_padding_x_mobile",
+      "label": "Relleno lateral",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "panel_gap_mobile",
+      "label": "Separación entre elementos",
+      "unit": "px",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Panel de contenido (escritorio)"
+    },
+    {
+      "type": "range",
+      "id": "panel_padding_top",
+      "label": "Relleno superior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "panel_padding_bottom",
+      "label": "Relleno inferior",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "panel_padding_x",
+      "label": "Relleno lateral",
+      "unit": "px",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "panel_gap",
+      "label": "Separación entre elementos",
+      "unit": "px",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Tarjeta promocional (móvil)"
+    },
+    {
+      "type": "range",
+      "id": "promo_padding_y_mobile",
+      "label": "Relleno vertical",
+      "unit": "px",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "promo_padding_x_mobile",
+      "label": "Relleno horizontal",
+      "unit": "px",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "promo_offset_mobile",
+      "label": "Distancia a los bordes de la imagen",
+      "unit": "px",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Tarjeta promocional (escritorio)"
+    },
+    {
+      "type": "range",
+      "id": "promo_padding_y",
+      "label": "Relleno vertical",
+      "unit": "px",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "promo_padding_x",
+      "label": "Relleno horizontal",
+      "unit": "px",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "promo_offset",
+      "label": "Distancia a los bordes de la imagen",
+      "unit": "px",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "default": 32
     },
     {
       "type": "header",
