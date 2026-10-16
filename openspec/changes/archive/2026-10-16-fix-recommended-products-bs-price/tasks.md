@@ -14,8 +14,8 @@
 ## 3. Verificación
 
 - [x] 3.1 Ejecutar `shopify theme check` y confirmar que no hay ofensas nuevas en los archivos tocados
-- [ ] 3.2 Probar en una página de producto que "También te puede gustar" muestra `≈ Bs <monto>` (producto con recomendaciones disponibles)
-- [ ] 3.3 Probar en una colección que, al filtrar u ordenar, las tarjetas nuevas muestran `≈ Bs <monto>`
+- [x] 3.2 Probar en una página de producto que "También te puede gustar" muestra `≈ Bs <monto>` (producto con recomendaciones disponibles)
+- [x] 3.3 Probar en una colección que, al filtrar u ordenar, las tarjetas nuevas muestran `≈ Bs <monto>`
 - [x] 3.4 Verificar que PDP, tarjetas de colección y ofertas siguen mostrando la conversión y que la tasa se consulta una sola vez
 - [x] 3.5 Verificar con `git diff --name-only` que no hay archivos de contenido del editor (`templates/*.json`, `sections/*-group.json`, `config/settings_data.json`)
 
