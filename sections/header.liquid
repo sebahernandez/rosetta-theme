@@ -112,6 +112,12 @@
     }
   }
 
+  {%- if template.name == 'product' -%}
+    .section-header {
+      margin-bottom: 0;
+    }
+  {%- endif -%}
+
   @media screen and (min-width: 990px) {
     .header {
       padding-top: {{ section.settings.padding_top }}px;
