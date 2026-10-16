@@ -220,7 +220,7 @@
             "number": "",
             "title": "Panadería",
             "description": "Panes, bollería y horneados",
-            "link": "",
+            "link": "shopify://collections/panaderia",
             "overlay": 55
           }
         },
@@ -242,7 +242,7 @@
             "number": "",
             "title": "Bebidas",
             "description": "Jugos, refrescos e hidratantes",
-            "link": "",
+            "link": "shopify://collections/bebidas",
             "overlay": 55
           }
         },
@@ -253,7 +253,7 @@
             "number": "",
             "title": "Aceite y Despensa",
             "description": "Arroz, azúcar, aceite y más",
-            "link": "",
+            "link": "shopify://collections/cocinar",
             "overlay": 55
           }
         },
@@ -264,7 +264,7 @@
             "number": "",
             "title": "Snacks",
             "description": "Galletas, barras y antojos",
-            "link": "",
+            "link": "shopify://collections/snacks",
             "overlay": 55
           }
         },
@@ -275,7 +275,7 @@
             "number": "",
             "title": "Belleza y Salud",
             "description": "Cuidado personal y farmacia",
-            "link": "",
+            "link": "shopify://collections/belleza-y-salud",
             "overlay": 55
           }
         }
