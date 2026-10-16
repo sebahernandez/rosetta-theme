@@ -95,10 +95,32 @@
       "name": "Supermercado en línea",
       "settings": {
         "image": "shopify://shop_images/rosetta-venezuela-panaderia.avif",
+        "margin_top_mobile": 32,
+        "margin_bottom_mobile": 32,
+        "margin_x_mobile": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0,
+        "padding_x_mobile": 0,
         "margin_top": 80,
         "margin_bottom": 80,
+        "margin_x": 0,
         "padding_top": 32,
         "padding_bottom": 0,
+        "padding_x": 0,
+        "panel_padding_top_mobile": 32,
+        "panel_padding_bottom_mobile": 32,
+        "panel_padding_x_mobile": 20,
+        "panel_gap_mobile": 20,
+        "panel_padding_top": 50,
+        "panel_padding_bottom": 50,
+        "panel_padding_x": 40,
+        "panel_gap": 24,
+        "promo_padding_y_mobile": 12,
+        "promo_padding_x_mobile": 16,
+        "promo_offset_mobile": 16,
+        "promo_padding_y": 16,
+        "promo_padding_x": 20,
+        "promo_offset": 32,
         "panel_bg": "#ffd9f6",
         "text_color": "#1f1a1d",
         "accent_color": "#9b1b86",
@@ -194,7 +216,7 @@
         "item_4kKBFw": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/panaderia.avif",
+            "image": "shopify://shop_images/cat-panaderia.avif",
             "number": "",
             "title": "Panadería",
             "description": "Panes, bollería y horneados",
@@ -205,9 +227,9 @@
         "item_NqWkLQ": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/carne_y_pescado.avif",
+            "image": "shopify://shop_images/cat-embutidos.avif",
             "number": "",
-            "title": "Carne y Pescado",
+            "title": "Charcuteria y Embutidos",
             "description": "Cortes y productos del mar",
             "link": "",
             "overlay": 55
@@ -216,7 +238,7 @@
         "item_JixNkN": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/bebidas.avif",
+            "image": "shopify://shop_images/cat-bebidas.avif",
             "number": "",
             "title": "Bebidas",
             "description": "Jugos, refrescos e hidratantes",
@@ -227,7 +249,7 @@
         "item_MfdEDt": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/aceite_y_despensa.avif",
+            "image": "shopify://shop_images/cat-despensa.avif",
             "number": "",
             "title": "Aceite y Despensa",
             "description": "Arroz, azúcar, aceite y más",
@@ -238,7 +260,7 @@
         "item_T9PEgW": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/snacks.avif",
+            "image": "shopify://shop_images/cat-snacks.avif",
             "number": "",
             "title": "Snacks",
             "description": "Galletas, barras y antojos",
@@ -249,7 +271,7 @@
         "item_bN8UDt": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/belleza_y_salud.avif",
+            "image": "shopify://shop_images/cat-belleza.avif",
             "number": "",
             "title": "Belleza y Salud",
             "description": "Cuidado personal y farmacia",
@@ -271,7 +293,7 @@
         "eyebrow": "Explora",
         "heading": "Todo el supermercado,\nordenado a tu manera.",
         "subheading": "Desde el pan de la mañana hasta lo esencial de la despensa.",
-        "section_bg": "#FAF7F2",
+        "section_bg": "#faf7f2",
         "text_color": "#1f1a1d",
         "eyebrow_color": "#9b1b86",
         "radius": 24,
@@ -416,6 +438,9 @@
         "margin_top": 0,
         "margin_bottom": 0,
         "margin_x": 0,
+        "padding_top_mobile": 24,
+        "padding_bottom_mobile": 24,
+        "padding_x_mobile": 0,
         "padding_top": 40,
         "padding_bottom": 40,
         "padding_x": 0
