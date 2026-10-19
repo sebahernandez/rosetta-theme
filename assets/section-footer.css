@@ -412,6 +412,14 @@
   max-width: 100%;
 }
 
+.footer-block-image .footer-block__image-wrapper {
+  width: 100%;
+}
+
+.footer-block-image .footer-block__image-wrapper img {
+  width: 100%;
+}
+
 .footer-payment-methods {
   display: flex;
   flex-wrap: wrap;
