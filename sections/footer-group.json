@@ -17,8 +17,8 @@
         "image_AaNg6M": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/logo-rosetta-white.webp",
-            "image_width": 260,
+            "image": "shopify://shop_images/logo-rosetta.avif",
+            "image_width": 210,
             "alignment": ""
           }
         },
