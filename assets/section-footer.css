@@ -412,6 +412,45 @@
   max-width: 100%;
 }
 
+.footer-payment-methods {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--medios-pago-gap, 12px);
+  max-width: 100%;
+  margin-top: -1rem;
+  margin-bottom: 2rem;
+}
+
+.footer-payment-methods.left {
+  justify-content: flex-start;
+}
+
+.footer-payment-methods.center {
+  justify-content: center;
+}
+
+.footer-payment-methods.right {
+  justify-content: flex-end;
+}
+
+.footer-payment-methods img {
+  display: block;
+  height: var(--medios-pago-alto, 40px);
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+@media screen and (max-width: 749px) {
+  .footer-payment-methods,
+  .footer-payment-methods.left,
+  .footer-payment-methods.center,
+  .footer-payment-methods.right {
+    justify-content: center;
+  }
+}
+
 .footer-block__brand-info {
   text-align: left;
 }

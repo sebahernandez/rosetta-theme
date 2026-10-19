@@ -29,6 +29,10 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+  .footer-payment-methods {
+    --medios-pago-alto: {{ section.settings.medios_pago_tamano }}px;
+    --medios-pago-gap: {{ section.settings.medios_pago_separacion }}px;
+  }
 {%- endstyle -%}
 
 <footer class="footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
@@ -250,6 +254,50 @@
                         {{ 'image' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
                       {%- endif -%}
                     </div>
+                    {%- if section.settings.medios_pago_mostrar and medios_pago_renderizados != true -%}
+                      {%- assign medios_pago_renderizados = true -%}
+                      {%- liquid
+                        assign medios_pago_fallback_pago_movil = 'https://cdn.shopify.com/s/files/1/0741/1728/4063/files/pago-movil.avif?v=1792439585'
+                        assign medios_pago_fallback_zelle = 'https://cdn.shopify.com/s/files/1/0741/1728/4063/files/zelle.avif?v=1792439585'
+                        assign medios_pago_fallback_stripe = 'https://cdn.shopify.com/s/files/1/0741/1728/4063/files/stripe.avif?v=1792439585'
+                        assign medios_pago_nombres = 'Pago Móvil,Zelle,Stripe' | split: ','
+                      -%}
+                      <div class="footer-payment-methods {{ block.settings.alignment }}">
+                        {%- for medio in medios_pago_nombres -%}
+                          {%- liquid
+                            case forloop.index
+                              when 1
+                                assign medio_imagen = section.settings.medios_pago_pago_movil
+                                assign medio_fallback = medios_pago_fallback_pago_movil
+                              when 2
+                                assign medio_imagen = section.settings.medios_pago_zelle
+                                assign medio_fallback = medios_pago_fallback_zelle
+                              when 3
+                                assign medio_imagen = section.settings.medios_pago_stripe
+                                assign medio_fallback = medios_pago_fallback_stripe
+                            endcase
+                          -%}
+                          {%- if medio_imagen != blank -%}
+                            {%- assign medio_alto_2x = section.settings.medios_pago_tamano | times: 2 -%}
+                            <img
+                              src="{{ medio_imagen | image_url: height: medio_alto_2x }}"
+                              alt="{{ medio | escape }}"
+                              loading="lazy"
+                              width="{{ medio_imagen.width }}"
+                              height="{{ medio_imagen.height }}"
+                            >
+                          {%- else -%}
+                            <img
+                              src="{{ medio_fallback }}"
+                              alt="{{ medio | escape }}"
+                              loading="lazy"
+                              width="120"
+                              height="80"
+                            >
+                          {%- endif -%}
+                        {%- endfor -%}
+                      </div>
+                    {%- endif -%}
                 {%- endcase -%}
               </div>
             {%- endfor -%}
@@ -527,6 +575,55 @@
       "id": "show_policy",
       "default": true,
       "label": "t:sections.footer.settings.show_policy.label"
+    },
+    {
+      "type": "header",
+      "content": "Medios de pago bajo el logo",
+      "info": "Se muestran bajo el primer bloque de imagen (logo) del pie de página."
+    },
+    {
+      "type": "checkbox",
+      "id": "medios_pago_mostrar",
+      "default": true,
+      "label": "Mostrar medios de pago"
+    },
+    {
+      "type": "image_picker",
+      "id": "medios_pago_pago_movil",
+      "label": "Pago Móvil",
+      "info": "Si se deja vacío se usa la imagen predeterminada."
+    },
+    {
+      "type": "image_picker",
+      "id": "medios_pago_zelle",
+      "label": "Zelle",
+      "info": "Si se deja vacío se usa la imagen predeterminada."
+    },
+    {
+      "type": "image_picker",
+      "id": "medios_pago_stripe",
+      "label": "Stripe",
+      "info": "Si se deja vacío se usa la imagen predeterminada."
+    },
+    {
+      "type": "range",
+      "id": "medios_pago_tamano",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Alto de las imágenes",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "medios_pago_separacion",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Separación horizontal",
+      "default": 12
     },
     {
       "type": "header",
