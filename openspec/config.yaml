@@ -21,15 +21,27 @@ context: |
   blocks/, templates/*.liquid, config/settings_schema.json y locales/. El contenido del editor
   de temas (imágenes, textos, bloques) vive en templates/*.json, sections/*-group.json y
   config/settings_data.json; lo escribe Shopify y los cambios de código no deben modificarlo
-  (ver spec `theme-content-protection`). Flujo para secciones con multimedia: subir el código,
+  (ver spec `theme-content-protection`). Regla de push: solo código, nunca contenido del editor (ver el mismo spec). Flujo para secciones con multimedia: subir el código,
   cargar imágenes y textos en el editor y guardar, luego `git pull origin develop` para traer
   las referencias y `shopify theme dev` para verlas; los archivos de imagen no van al repo.
+  Norma de secciones: toda sección nueva se diseña como contenedor de bloques configurables.
+  Cada elemento visible de contenido (título, texto, imagen, botón, tarjeta, ícono, etc.) vive
+  en su propio bloque (`blocks` en `{% schema %}` o theme block en blocks/), con sus propios
+  settings (contenido, colores, tipografía, espaciado, alineación), reordenable y responsive.
+  Los settings a nivel de sección se limitan al layout y espaciado del contenedor. Quedan
+  fuera de la norma los elementos puramente estructurales o decorativos (divisores, fondos).
 
 rules:
+  proposal:
+    - Toda sección nueva debe plantearse con sus elementos como bloques configurables (ver "Norma de secciones" en context)
+  design:
+    - Definir la lista de tipos de bloque, sus settings, límites (`max_blocks`) y comportamiento responsive; no hardcodear contenido en el Liquid
   specs:
     - Describir comportamiento observable de la tienda, no detalles de implementación
     - Cada requirement debe tener al menos un escenario WHEN/THEN
+    - Cada elemento de contenido de una sección nueva debe ser un bloque editable desde el editor de temas, con escenarios WHEN/THEN de añadir, reordenar, eliminar y configurar bloques
   tasks:
+    - Incluir verificación en el editor de temas de que cada bloque se puede añadir, reordenar, eliminar y configurar
     - Incluir verificación con `shopify theme check` y prueba manual en el editor de temas
     - Empezar con `git pull` de `origin/develop` y, antes de commitear, verificar con `git diff --name-only` que no hay archivos de contenido (templates/*.json, sections/*-group.json, config/settings_data.json); si hace falta tocarlos, pedir aprobación y commitear aparte
     - Terminar siempre con una tarea de commit y push a `develop` (ver spec `development-workflow`)
