@@ -585,12 +585,173 @@
         "padding_bottom_mobile": 24,
         "padding_x_mobile": 16
       }
+    },
+    "como_pagar_WM64py": {
+      "type": "como-pagar",
+      "blocks": {
+        "etiqueta_a4DUTD": {
+          "type": "etiqueta",
+          "settings": {
+            "text": "¿Cómo pagar en Rosetta?",
+            "font": "poppins_n4",
+            "size_mobile": 11,
+            "size_desktop": 12,
+            "letter_spacing": 12,
+            "color": "#a3157c",
+            "margin_bottom": 8
+          }
+        },
+        "titulo_9Aytt9": {
+          "type": "titulo",
+          "settings": {
+            "text": "Paga como te quede mejor.",
+            "accent": "",
+            "heading_level": "h2",
+            "font": "poppins_n4",
+            "size_mobile": 30,
+            "size_desktop": 40,
+            "color": "#1a1a1a",
+            "accent_color": "#a3157c",
+            "margin_bottom": 8
+          }
+        },
+        "subtitulo_BajEVq": {
+          "type": "subtitulo",
+          "settings": {
+            "text": "En bolívares, con tarjeta internacional o en divisas. Siempre con un proceso ágil y seguro.",
+            "font": "poppins_n4",
+            "size_mobile": 14,
+            "size_desktop": 15,
+            "color": "#5c5550",
+            "max_width": 70,
+            "margin_bottom": 28
+          }
+        },
+        "metodo_6kFpDa": {
+          "type": "metodo",
+          "settings": {
+            "title": "Pago Móvil y transferencias",
+            "text": "Pago Móvil interbancario o transferencia desde cualquier banco en Venezuela. Rápido y sin complicaciones.",
+            "badge": "Bolívares",
+            "chips": "Pago Móvil, Transferencia",
+            "font": "poppins_n4",
+            "icon": "transfer",
+            "icon_size": 48,
+            "icon_bg_color": "#ffd9f5",
+            "icon_color": "#a3157c",
+            "card_bg_color": "#ffffff",
+            "card_border_color": "#ece4dc",
+            "radius": 24,
+            "padding_y": 28,
+            "padding_x": 28,
+            "head_gap": 32,
+            "title_size_mobile": 20,
+            "title_size_desktop": 22,
+            "text_size_mobile": 13,
+            "text_size_desktop": 14,
+            "title_color": "#1a1a1a",
+            "text_color": "#5c5550",
+            "badge_bg_color": "#efe7dc",
+            "badge_color": "#5c5550",
+            "divider_color": "#ece4dc",
+            "chip_bg_color": "#ffffff",
+            "chip_border_color": "#e0d6cb",
+            "chip_color": "#1a1a1a"
+          }
+        },
+        "metodo_WJBDfP": {
+          "type": "metodo",
+          "settings": {
+            "title": "Tarjeta de crédito internacional",
+            "text": "Visa y Mastercard a través de nuestra plataforma de pago. Compra segura desde Venezuela o el extranjero.",
+            "badge": "En línea",
+            "chips": "Visa, Mastercard, Stripe",
+            "font": "poppins_n4",
+            "icon": "card",
+            "icon_size": 48,
+            "icon_bg_color": "#ffd9f5",
+            "icon_color": "#a3157c",
+            "card_bg_color": "#ffffff",
+            "card_border_color": "#ece4dc",
+            "radius": 24,
+            "padding_y": 28,
+            "padding_x": 28,
+            "head_gap": 32,
+            "title_size_mobile": 20,
+            "title_size_desktop": 22,
+            "text_size_mobile": 13,
+            "text_size_desktop": 14,
+            "title_color": "#1a1a1a",
+            "text_color": "#5c5550",
+            "badge_bg_color": "#efe7dc",
+            "badge_color": "#5c5550",
+            "divider_color": "#ece4dc",
+            "chip_bg_color": "#ffffff",
+            "chip_border_color": "#e0d6cb",
+            "chip_color": "#1a1a1a"
+          }
+        },
+        "metodo_4Ux6Je": {
+          "type": "metodo",
+          "settings": {
+            "title": "Dólares y euros",
+            "text": "También aceptamos divisas en efectivo o Zelle. Consulta en caja la tasa de cambio del día.",
+            "badge": "Divisas",
+            "chips": "Efectivo, Zelle",
+            "font": "poppins_n4",
+            "icon": "cash",
+            "icon_size": 48,
+            "icon_bg_color": "#ffd9f5",
+            "icon_color": "#a3157c",
+            "card_bg_color": "#ffffff",
+            "card_border_color": "#ece4dc",
+            "radius": 24,
+            "padding_y": 28,
+            "padding_x": 28,
+            "head_gap": 32,
+            "title_size_mobile": 20,
+            "title_size_desktop": 22,
+            "text_size_mobile": 13,
+            "text_size_desktop": 14,
+            "title_color": "#1a1a1a",
+            "text_color": "#5c5550",
+            "badge_bg_color": "#efe7dc",
+            "badge_color": "#5c5550",
+            "divider_color": "#ece4dc",
+            "chip_bg_color": "#ffffff",
+            "chip_border_color": "#e0d6cb",
+            "chip_color": "#1a1a1a"
+          }
+        }
+      },
+      "block_order": [
+        "etiqueta_a4DUTD",
+        "titulo_9Aytt9",
+        "subtitulo_BajEVq",
+        "metodo_6kFpDa",
+        "metodo_WJBDfP",
+        "metodo_4Ux6Je"
+      ],
+      "name": "Cómo Pagar",
+      "settings": {
+        "section_bg": "",
+        "max_width": 1360,
+        "columns": "3",
+        "gap": 16,
+        "padding_top_desktop": 32,
+        "padding_bottom_desktop": 32,
+        "padding_x_desktop": 24,
+        "padding_top_mobile": 16,
+        "padding_bottom_mobile": 24,
+        "padding_x_mobile": 16
+      }
     }
   },
   "order": [
     "main",
     "nosotros_home_bFYika",
     "pasos_nosotros_9ADCjC",
-    "nuestro_compromiso_GRc86Y"
+    "nuestro_compromiso_GRc86Y",
+    "como_pagar_WM64py"
   ]
 }
