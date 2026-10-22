@@ -1,0 +1,871 @@
+{%- liquid
+  assign has_image = false
+  assign has_cards = false
+  for block in section.blocks
+    if block.type == 'imagen'
+      assign has_image = true
+    endif
+    if block.type == 'tarjeta' and block.settings.title != blank
+      assign has_cards = true
+    endif
+  endfor
+
+  assign ratio = section.settings.panel_ratio
+  case ratio
+    when '50-50'
+      assign grid_cols = '1fr 1fr'
+    when '55-45'
+      assign grid_cols = '55fr 45fr'
+    else
+      assign grid_cols = '60fr 40fr'
+  endcase
+-%}
+
+{%- if section.settings.section_bg != blank -%}
+  {%- style -%}
+    #shopify-section-{{ section.id }} {
+      background-color: {{ section.settings.section_bg }};
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
+{% stylesheet %}
+  .nc {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--nc-max-width);
+    margin-inline: auto;
+    padding: var(--nc-pt-m) var(--nc-px-m) var(--nc-pb-m);
+  }
+
+  .nc *,
+  .nc *::before,
+  .nc *::after {
+    box-sizing: border-box;
+  }
+
+  .nc__panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    overflow: hidden;
+    border-radius: var(--nc-panel-radius);
+    background-color: var(--nc-panel-bg);
+  }
+
+  .nc__content {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    column-gap: 12px;
+    min-width: 0;
+    padding: var(--nc-panel-py-m) var(--nc-panel-px-m);
+  }
+
+  .nc__item {
+    flex: 0 0 100%;
+    min-width: 0;
+    margin-bottom: var(--nc-mb, 0px);
+  }
+
+  .nc__item--boton {
+    flex: 1 1 100%;
+  }
+
+  .nc__label {
+    margin: 0;
+    font-family: var(--nc-font);
+    font-weight: var(--nc-weight);
+    font-size: var(--nc-size-m);
+    line-height: 1.4;
+    letter-spacing: var(--nc-tracking);
+    text-transform: uppercase;
+    color: var(--nc-color);
+    overflow-wrap: anywhere;
+  }
+
+  .nc__title {
+    margin: 0;
+    font-family: var(--nc-font);
+    font-weight: var(--nc-weight);
+    font-size: var(--nc-size-m);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--nc-color);
+    overflow-wrap: anywhere;
+  }
+
+  .nc__title-accent {
+    font-style: italic;
+    color: var(--nc-accent);
+  }
+
+  .nc__text {
+    max-width: var(--nc-measure);
+    margin: 0;
+    font-family: var(--nc-font);
+    font-weight: var(--nc-weight);
+    font-size: var(--nc-size-m);
+    line-height: 1.55;
+    color: var(--nc-color);
+    overflow-wrap: anywhere;
+  }
+
+  .nc__check {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    font-family: var(--nc-font);
+    font-weight: var(--nc-weight);
+    font-size: var(--nc-size-m);
+    line-height: 1.4;
+    color: var(--nc-color);
+  }
+
+  .nc__check-icon {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: var(--nc-check-size);
+    height: var(--nc-check-size);
+    border-radius: 50%;
+    background-color: var(--nc-check-bg);
+    color: var(--nc-check-color);
+  }
+
+  .nc__check-icon svg {
+    display: block;
+    width: 60%;
+    height: 60%;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .nc__check-text {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .nc__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 48px;
+    padding: 0 28px;
+    border: 1px solid var(--nc-btn-border);
+    border-radius: 999px;
+    background-color: var(--nc-btn-bg);
+    color: var(--nc-btn-text);
+    font-family: var(--nc-font);
+    font-weight: var(--nc-weight);
+    font-size: 1.4rem;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+
+  .nc__button:hover {
+    background-color: var(--nc-btn-hover);
+  }
+
+  .nc__button:focus-visible {
+    outline: 2px solid var(--nc-btn-text);
+    outline-offset: 2px;
+  }
+
+  .nc__button svg {
+    display: block;
+    flex: none;
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .nc__media {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: var(--nc-ratio);
+    background-color: rgba(0, 0, 0, 0.06);
+  }
+
+  .nc__media img,
+  .nc__media svg {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--nc-focal, 50% 50%);
+  }
+
+  .nc__cards {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--nc-cards-gap);
+    margin-top: var(--nc-cards-mt-m);
+  }
+
+  .nc__card {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    min-width: 0;
+    overflow: hidden;
+    aspect-ratio: var(--nc-card-ratio);
+    border-radius: var(--nc-card-radius);
+    background-color: rgba(0, 0, 0, 0.12);
+    color: var(--nc-card-title);
+    text-decoration: none;
+  }
+
+  .nc__card-media,
+  .nc__card-media img,
+  .nc__card-media svg {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--nc-focal, 50% 50%);
+  }
+
+  .nc__card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, var(--nc-overlay)) 0%, rgba(0, 0, 0, 0) 60%);
+    pointer-events: none;
+  }
+
+  .nc__card-body {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    padding: 0 0 18px 18px;
+    font-family: var(--nc-font);
+    font-weight: var(--nc-weight);
+  }
+
+  .nc__card-label,
+  .nc__card-title {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .nc__card-label {
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: var(--nc-card-label);
+  }
+
+  .nc__card-title {
+    font-size: var(--nc-card-size-m);
+    line-height: 1.15;
+    color: var(--nc-card-title);
+  }
+
+  .nc__card-arrow {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin: 0 18px 18px 0;
+    border-radius: 50%;
+    background-color: var(--nc-arrow-bg);
+    color: var(--nc-arrow-color);
+    transition: transform 0.2s ease;
+  }
+
+  .nc__card-arrow svg {
+    display: block;
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  a.nc__card:hover .nc__card-arrow {
+    transform: translate(2px, -2px);
+  }
+
+  a.nc__card:focus-visible {
+    outline: 2px solid var(--nc-card-title);
+    outline-offset: 2px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .nc {
+      padding: var(--nc-pt-d) var(--nc-px-d) var(--nc-pb-d);
+    }
+
+    .nc__content {
+      padding: var(--nc-panel-py-d) var(--nc-panel-px-d);
+    }
+
+    .nc__label,
+    .nc__text,
+    .nc__title,
+    .nc__check {
+      font-size: var(--nc-size-d);
+    }
+
+    .nc__item--boton {
+      flex: 0 0 auto;
+    }
+
+    .nc__button {
+      width: auto;
+    }
+
+    .nc__cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: var(--nc-cards-mt-d);
+    }
+
+    .nc__card-title {
+      font-size: var(--nc-card-size-d);
+    }
+
+    .nc__card-body {
+      padding: 0 0 22px 22px;
+    }
+
+    .nc__card-arrow {
+      margin: 0 22px 22px 0;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .nc__panel:not(.nc__panel--single) {
+      grid-template-columns: var(--nc-grid-cols);
+    }
+
+    .nc__media {
+      aspect-ratio: auto;
+      min-height: 320px;
+    }
+
+    .nc__cards {
+      grid-template-columns: repeat(var(--nc-cards-cols), minmax(0, 1fr));
+    }
+  }
+{% endstylesheet %}
+
+<div
+  class="nc"
+  style="
+    --nc-max-width: {{ section.settings.max_width }}px;
+    --nc-grid-cols: {{ grid_cols }};
+    --nc-panel-bg: {{ section.settings.panel_bg }};
+    --nc-panel-radius: {{ section.settings.panel_radius }}px;
+    --nc-panel-py-m: {{ section.settings.panel_padding_y_mobile }}px;
+    --nc-panel-px-m: {{ section.settings.panel_padding_x_mobile }}px;
+    --nc-panel-py-d: {{ section.settings.panel_padding_y_desktop }}px;
+    --nc-panel-px-d: {{ section.settings.panel_padding_x_desktop }}px;
+    --nc-cards-cols: {{ section.settings.cards_columns }};
+    --nc-cards-gap: {{ section.settings.cards_gap }}px;
+    --nc-cards-mt-m: {{ section.settings.cards_margin_top_mobile }}px;
+    --nc-cards-mt-d: {{ section.settings.cards_margin_top_desktop }}px;
+    --nc-pt-m: {{ section.settings.padding_top_mobile }}px;
+    --nc-pb-m: {{ section.settings.padding_bottom_mobile }}px;
+    --nc-px-m: {{ section.settings.padding_x_mobile }}px;
+    --nc-pt-d: {{ section.settings.padding_top_desktop }}px;
+    --nc-pb-d: {{ section.settings.padding_bottom_desktop }}px;
+    --nc-px-d: {{ section.settings.padding_x_desktop }}px;
+  "
+>
+  <div class="nc__panel{% unless has_image %} nc__panel--single{% endunless %}">
+    <div class="nc__content">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'etiqueta' -%}
+            {%- if block.settings.text != blank -%}
+              {%- assign e_font = block.settings.font -%}
+              {%- style -%}
+                {{ e_font | font_face: font_display: 'swap' }}
+              {%- endstyle -%}
+              <div
+                class="nc__item nc__item--etiqueta"
+                style="
+                  --nc-mb: {{ block.settings.margin_bottom }}px;
+                  --nc-font: {{ e_font.family }}, {{ e_font.fallback_families }};
+                  --nc-weight: {{ e_font.weight }};
+                  --nc-size-m: {{ block.settings.size_mobile | divided_by: 10.0 }}rem;
+                  --nc-size-d: {{ block.settings.size_desktop | divided_by: 10.0 }}rem;
+                  --nc-tracking: {{ block.settings.letter_spacing | divided_by: 100.0 }}em;
+                  --nc-color: {{ block.settings.color }};
+                "
+                {{ block.shopify_attributes }}
+              >
+                <p class="nc__label">{{ block.settings.text | escape }}</p>
+              </div>
+            {%- endif -%}
+
+          {%- when 'titulo' -%}
+            {%- if block.settings.text != blank or block.settings.accent != blank -%}
+              {%- assign t_font = block.settings.font -%}
+              {%- assign t_font_italic = t_font | font_modify: 'style', 'italic' -%}
+              {%- style -%}
+                {{ t_font | font_face: font_display: 'swap' }}
+                {{ t_font_italic | font_face: font_display: 'swap' }}
+              {%- endstyle -%}
+              <div
+                class="nc__item nc__item--titulo"
+                style="
+                  --nc-mb: {{ block.settings.margin_bottom }}px;
+                  --nc-font: {{ t_font.family }}, {{ t_font.fallback_families }};
+                  --nc-weight: {{ t_font.weight }};
+                  --nc-size-m: {{ block.settings.size_mobile | divided_by: 10.0 }}rem;
+                  --nc-size-d: {{ block.settings.size_desktop | divided_by: 10.0 }}rem;
+                  --nc-color: {{ block.settings.color }};
+                  --nc-accent: {{ block.settings.accent_color }};
+                "
+                {{ block.shopify_attributes }}
+              >
+                <{{ block.settings.heading_level }} class="nc__title">
+                  {{- block.settings.text | escape -}}
+                  {%- if block.settings.accent != blank %} <span class="nc__title-accent">{{ block.settings.accent | escape }}</span>{% endif -%}
+                </{{ block.settings.heading_level }}>
+              </div>
+            {%- endif -%}
+
+          {%- when 'texto' -%}
+            {%- if block.settings.text != blank -%}
+              {%- assign x_font = block.settings.font -%}
+              {%- style -%}
+                {{ x_font | font_face: font_display: 'swap' }}
+              {%- endstyle -%}
+              <div
+                class="nc__item nc__item--texto"
+                style="
+                  --nc-mb: {{ block.settings.margin_bottom }}px;
+                  --nc-font: {{ x_font.family }}, {{ x_font.fallback_families }};
+                  --nc-weight: {{ x_font.weight }};
+                  --nc-size-m: {{ block.settings.size_mobile | divided_by: 10.0 }}rem;
+                  --nc-size-d: {{ block.settings.size_desktop | divided_by: 10.0 }}rem;
+                  --nc-color: {{ block.settings.color }};
+                  --nc-measure: {{ block.settings.max_width }}ch;
+                "
+                {{ block.shopify_attributes }}
+              >
+                <p class="nc__text">{{ block.settings.text | escape }}</p>
+              </div>
+            {%- endif -%}
+
+          {%- when 'item' -%}
+            {%- if block.settings.text != blank -%}
+              {%- assign i_font = block.settings.font -%}
+              {%- style -%}
+                {{ i_font | font_face: font_display: 'swap' }}
+              {%- endstyle -%}
+              <div
+                class="nc__item nc__item--item"
+                style="
+                  --nc-mb: {{ block.settings.margin_bottom }}px;
+                  --nc-font: {{ i_font.family }}, {{ i_font.fallback_families }};
+                  --nc-weight: {{ i_font.weight }};
+                  --nc-size-m: {{ block.settings.size_mobile | divided_by: 10.0 }}rem;
+                  --nc-size-d: {{ block.settings.size_desktop | divided_by: 10.0 }}rem;
+                  --nc-color: {{ block.settings.color }};
+                  --nc-check-size: {{ block.settings.check_size }}px;
+                  --nc-check-bg: {{ block.settings.check_bg_color }};
+                  --nc-check-color: {{ block.settings.check_color }};
+                "
+                {{ block.shopify_attributes }}
+              >
+                <p class="nc__check">
+                  <span class="nc__check-icon" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" focusable="false">
+                      <path d="M3.5 8.5l3 3 6-7"></path>
+                    </svg>
+                  </span>
+                  <span class="nc__check-text">{{ block.settings.text | escape }}</span>
+                </p>
+              </div>
+            {%- endif -%}
+
+          {%- when 'boton' -%}
+            {%- if block.settings.label != blank and block.settings.link != blank -%}
+              {%- assign b_font = block.settings.font -%}
+              {%- style -%}
+                {{ b_font | font_face: font_display: 'swap' }}
+              {%- endstyle -%}
+              <div
+                class="nc__item nc__item--boton"
+                style="
+                  --nc-mb: {{ block.settings.margin_bottom }}px;
+                  --nc-font: {{ b_font.family }}, {{ b_font.fallback_families }};
+                  --nc-weight: {{ b_font.weight }};
+                  --nc-btn-bg: {{ block.settings.bg_color }};
+                  --nc-btn-text: {{ block.settings.text_color }};
+                  --nc-btn-border: {{ block.settings.border_color }};
+                  --nc-btn-hover: {{ block.settings.hover_bg_color }};
+                "
+                {{ block.shopify_attributes }}
+              >
+                <a href="{{ block.settings.link }}" class="nc__button">
+                  <span>{{ block.settings.label | escape }}</span>
+                  {%- if block.settings.show_arrow -%}
+                    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                      <path d="M2 8h12M9 3l5 5-5 5"></path>
+                    </svg>
+                  {%- endif -%}
+                </a>
+              </div>
+            {%- endif -%}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'imagen' -%}
+        <div
+          class="nc__media"
+          style="
+            --nc-ratio: {{ block.settings.ratio }};
+            {%- if block.settings.image.presentation.focal_point != blank %}
+              --nc-focal: {{ block.settings.image.presentation.focal_point }};
+            {%- endif %}
+          "
+          {{ block.shopify_attributes }}
+        >
+          {%- if block.settings.image != blank -%}
+            {{
+              block.settings.image
+              | image_url: width: 1400
+              | image_tag:
+                loading: 'lazy',
+                widths: '400, 600, 800, 1000, 1400',
+                sizes: '(min-width: 990px) 40vw, 100vw',
+                alt: block.settings.image_alt
+            }}
+          {%- else -%}
+            {{ 'image' | placeholder_svg_tag }}
+          {%- endif -%}
+        </div>
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  {%- if has_cards -%}
+    <div class="nc__cards">
+      {%- for block in section.blocks -%}
+        {%- if block.type != 'tarjeta' or block.settings.title == blank -%}
+          {%- continue -%}
+        {%- endif -%}
+        {%- assign c_font = block.settings.font -%}
+        {%- style -%}
+          {{ c_font | font_face: font_display: 'swap' }}
+        {%- endstyle -%}
+        {%- assign card_tag = 'div' -%}
+        {%- if block.settings.link != blank -%}
+          {%- assign card_tag = 'a' -%}
+        {%- endif -%}
+        <{{ card_tag }}
+          class="nc__card"
+          {% if card_tag == 'a' %}href="{{ block.settings.link }}"{% endif %}
+          style="
+            --nc-font: {{ c_font.family }}, {{ c_font.fallback_families }};
+            --nc-weight: {{ c_font.weight }};
+            --nc-card-ratio: {{ block.settings.ratio }};
+            --nc-card-radius: {{ block.settings.radius }}px;
+            --nc-card-size-m: {{ block.settings.title_size_mobile | divided_by: 10.0 }}rem;
+            --nc-card-size-d: {{ block.settings.title_size_desktop | divided_by: 10.0 }}rem;
+            --nc-card-title: {{ block.settings.title_color }};
+            --nc-card-label: {{ block.settings.label_color }};
+            --nc-overlay: {{ block.settings.overlay | divided_by: 100.0 }};
+            --nc-arrow-bg: {{ block.settings.arrow_bg_color }};
+            --nc-arrow-color: {{ block.settings.arrow_color }};
+            {%- if block.settings.image.presentation.focal_point != blank %}
+              --nc-focal: {{ block.settings.image.presentation.focal_point }};
+            {%- endif %}
+          "
+          {{ block.shopify_attributes }}
+        >
+          <span class="nc__card-media">
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 1000
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '400, 600, 800, 1000',
+                  sizes: '(min-width: 990px) 33vw, (min-width: 750px) 50vw, 100vw',
+                  alt: block.settings.image_alt
+              }}
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag }}
+            {%- endif -%}
+          </span>
+          <span class="nc__card-body">
+            {%- if block.settings.label != blank -%}
+              <p class="nc__card-label">{{ block.settings.label | escape }}</p>
+            {%- endif -%}
+            <p class="nc__card-title">{{ block.settings.title | escape }}</p>
+          </span>
+          {%- if block.settings.show_arrow -%}
+            <span class="nc__card-arrow" aria-hidden="true">
+              <svg viewBox="0 0 16 16" focusable="false">
+                <path d="M4 12L12 4M5.5 4H12v6.5"></path>
+              </svg>
+            </span>
+          {%- endif -%}
+        </{{ card_tag }}>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Nuestro Compromiso",
+  "tag": "section",
+  "class": "nuestro-compromiso-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    { "type": "header", "content": "Fondo y contenedor" },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Fondo de la sección",
+      "info": "Sin color, el fondo es transparente."
+    },
+    { "type": "range", "id": "max_width", "label": "Ancho máximo del contenido", "unit": "px", "min": 800, "max": 1800, "step": 20, "default": 1280 },
+
+    { "type": "header", "content": "Panel principal" },
+    { "type": "color", "id": "panel_bg", "label": "Fondo del panel", "default": "#ffd9f5" },
+    { "type": "range", "id": "panel_radius", "label": "Radio de las esquinas", "unit": "px", "min": 0, "max": 60, "step": 2, "default": 28 },
+    {
+      "type": "select",
+      "id": "panel_ratio",
+      "label": "Proporción texto / imagen (escritorio)",
+      "options": [
+        { "value": "50-50", "label": "50 / 50" },
+        { "value": "55-45", "label": "55 / 45" },
+        { "value": "60-40", "label": "60 / 40" }
+      ],
+      "default": "60-40"
+    },
+    { "type": "range", "id": "panel_padding_y_desktop", "label": "Relleno vertical en escritorio", "unit": "px", "min": 0, "max": 160, "step": 4, "default": 56 },
+    { "type": "range", "id": "panel_padding_x_desktop", "label": "Relleno lateral en escritorio", "unit": "px", "min": 0, "max": 160, "step": 4, "default": 56 },
+    { "type": "range", "id": "panel_padding_y_mobile", "label": "Relleno vertical en móvil", "unit": "px", "min": 0, "max": 100, "step": 4, "default": 32 },
+    { "type": "range", "id": "panel_padding_x_mobile", "label": "Relleno lateral en móvil", "unit": "px", "min": 0, "max": 80, "step": 2, "default": 20 },
+
+    { "type": "header", "content": "Tarjetas de categorías" },
+    {
+      "type": "select",
+      "id": "cards_columns",
+      "label": "Columnas en escritorio",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ],
+      "default": "3"
+    },
+    { "type": "range", "id": "cards_gap", "label": "Espacio entre tarjetas", "unit": "px", "min": 0, "max": 48, "step": 2, "default": 14 },
+    { "type": "range", "id": "cards_margin_top_desktop", "label": "Espacio sobre las tarjetas en escritorio", "unit": "px", "min": 0, "max": 80, "step": 2, "default": 14 },
+    { "type": "range", "id": "cards_margin_top_mobile", "label": "Espacio sobre las tarjetas en móvil", "unit": "px", "min": 0, "max": 60, "step": 2, "default": 14 },
+
+    { "type": "header", "content": "Espaciados: escritorio" },
+    { "type": "range", "id": "padding_top_desktop", "label": "Relleno superior", "unit": "px", "min": 0, "max": 160, "step": 4, "default": 16 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "Relleno inferior", "unit": "px", "min": 0, "max": 160, "step": 4, "default": 32 },
+    { "type": "range", "id": "padding_x_desktop", "label": "Relleno lateral", "unit": "px", "min": 0, "max": 120, "step": 4, "default": 24 },
+
+    { "type": "header", "content": "Espaciados: móvil" },
+    { "type": "range", "id": "padding_top_mobile", "label": "Relleno superior", "unit": "px", "min": 0, "max": 120, "step": 4, "default": 12 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "Relleno inferior", "unit": "px", "min": 0, "max": 120, "step": 4, "default": 24 },
+    { "type": "range", "id": "padding_x_mobile", "label": "Relleno lateral", "unit": "px", "min": 0, "max": 60, "step": 2, "default": 16 }
+  ],
+  "blocks": [
+    {
+      "type": "etiqueta",
+      "name": "Etiqueta",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "text", "label": "Texto", "default": "Nuestro compromiso" },
+        { "type": "font_picker", "id": "font", "label": "Fuente", "default": "poppins_n4" },
+        { "type": "range", "id": "size_mobile", "label": "Tamaño en móvil", "unit": "px", "min": 9, "max": 18, "step": 1, "default": 11 },
+        { "type": "range", "id": "size_desktop", "label": "Tamaño en escritorio", "unit": "px", "min": 9, "max": 20, "step": 1, "default": 12 },
+        { "type": "range", "id": "letter_spacing", "label": "Espaciado entre letras", "unit": "%", "min": 0, "max": 30, "step": 2, "default": 12 },
+        { "type": "color", "id": "color", "label": "Color del texto", "default": "#f451d6" },
+        { "type": "range", "id": "margin_bottom", "label": "Espacio inferior", "unit": "px", "min": 0, "max": 80, "step": 4, "default": 8 }
+      ]
+    },
+    {
+      "type": "titulo",
+      "name": "Título",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Título", "default": "Cada pedido lleva algo de" },
+        { "type": "text", "id": "accent", "label": "Texto de acento (cursiva)", "default": "nuestra casa." },
+        {
+          "type": "select",
+          "id": "heading_level",
+          "label": "Nivel del encabezado",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" }
+          ],
+          "default": "h2"
+        },
+        { "type": "font_picker", "id": "font", "label": "Fuente", "default": "poppins_n4" },
+        { "type": "range", "id": "size_mobile", "label": "Tamaño en móvil", "unit": "px", "min": 24, "max": 64, "step": 2, "default": 32 },
+        { "type": "range", "id": "size_desktop", "label": "Tamaño en escritorio", "unit": "px", "min": 28, "max": 96, "step": 2, "default": 44 },
+        { "type": "color", "id": "color", "label": "Color del título", "default": "#1a1a1a" },
+        { "type": "color", "id": "accent_color", "label": "Color del acento", "default": "#f451d6" },
+        { "type": "range", "id": "margin_bottom", "label": "Espacio inferior", "unit": "px", "min": 0, "max": 80, "step": 4, "default": 16 }
+      ]
+    },
+    {
+      "type": "texto",
+      "name": "Texto",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Texto",
+          "default": "Lo que entregamos refleja nuestro compromiso con la calidad, el trabajo local y una relación cercana con cada cliente."
+        },
+        { "type": "font_picker", "id": "font", "label": "Fuente", "default": "poppins_n4" },
+        { "type": "range", "id": "size_mobile", "label": "Tamaño en móvil", "unit": "px", "min": 12, "max": 24, "step": 1, "default": 14 },
+        { "type": "range", "id": "size_desktop", "label": "Tamaño en escritorio", "unit": "px", "min": 12, "max": 28, "step": 1, "default": 15 },
+        { "type": "color", "id": "color", "label": "Color del texto", "default": "#5c5550" },
+        { "type": "range", "id": "max_width", "label": "Ancho máximo del texto", "unit": "ch", "min": 30, "max": 90, "step": 2, "default": 50 },
+        { "type": "range", "id": "margin_bottom", "label": "Espacio inferior", "unit": "px", "min": 0, "max": 80, "step": 4, "default": 24 }
+      ]
+    },
+    {
+      "type": "item",
+      "name": "Ítem de lista",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Texto", "default": "Productos seleccionados con la mejor calidad" },
+        { "type": "font_picker", "id": "font", "label": "Fuente", "default": "poppins_n4" },
+        { "type": "range", "id": "size_mobile", "label": "Tamaño en móvil", "unit": "px", "min": 12, "max": 24, "step": 1, "default": 13 },
+        { "type": "range", "id": "size_desktop", "label": "Tamaño en escritorio", "unit": "px", "min": 12, "max": 24, "step": 1, "default": 14 },
+        { "type": "color", "id": "color", "label": "Color del texto", "default": "#1a1a1a" },
+        { "type": "range", "id": "check_size", "label": "Tamaño del check", "unit": "px", "min": 14, "max": 36, "step": 2, "default": 20 },
+        { "type": "color", "id": "check_bg_color", "label": "Fondo del check", "default": "#7df5c8" },
+        { "type": "color", "id": "check_color", "label": "Color de la marca", "default": "#0b3d2e" },
+        { "type": "range", "id": "margin_bottom", "label": "Espacio inferior", "unit": "px", "min": 0, "max": 40, "step": 2, "default": 12 }
+      ]
+    },
+    {
+      "type": "boton",
+      "name": "Botón",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Texto del botón", "default": "Comprar ahora" },
+        { "type": "url", "id": "link", "label": "Enlace" },
+        { "type": "checkbox", "id": "show_arrow", "label": "Mostrar flecha", "default": true },
+        { "type": "font_picker", "id": "font", "label": "Fuente", "default": "poppins_n4" },
+        { "type": "color", "id": "bg_color", "label": "Fondo", "default": "#f451d6" },
+        { "type": "color", "id": "text_color", "label": "Color del texto", "default": "#1a1a1a" },
+        { "type": "color", "id": "border_color", "label": "Color del borde", "default": "#f451d6" },
+        { "type": "color", "id": "hover_bg_color", "label": "Fondo al pasar el cursor", "default": "#e03bc0" },
+        { "type": "range", "id": "margin_bottom", "label": "Espacio inferior", "unit": "px", "min": 0, "max": 60, "step": 4, "default": 0 }
+      ]
+    },
+    {
+      "type": "imagen",
+      "name": "Imagen del panel",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Imagen" },
+        { "type": "text", "id": "image_alt", "label": "Texto alternativo" },
+        {
+          "type": "select",
+          "id": "ratio",
+          "label": "Proporción en móvil",
+          "options": [
+            { "value": "4 / 3", "label": "4:3" },
+            { "value": "1 / 1", "label": "1:1" },
+            { "value": "4 / 5", "label": "4:5" },
+            { "value": "16 / 9", "label": "16:9" }
+          ],
+          "default": "4 / 3"
+        }
+      ]
+    },
+    {
+      "type": "tarjeta",
+      "name": "Tarjeta de categoría",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Imagen de fondo" },
+        { "type": "text", "id": "image_alt", "label": "Texto alternativo" },
+        { "type": "text", "id": "label", "label": "Etiqueta", "default": "Horneado cada día" },
+        { "type": "text", "id": "title", "label": "Título", "default": "Panadería" },
+        { "type": "url", "id": "link", "label": "Enlace" },
+        { "type": "checkbox", "id": "show_arrow", "label": "Mostrar botón con flecha", "default": true },
+        { "type": "font_picker", "id": "font", "label": "Fuente", "default": "poppins_n4" },
+        { "type": "range", "id": "title_size_mobile", "label": "Título en móvil", "unit": "px", "min": 16, "max": 40, "step": 1, "default": 24 },
+        { "type": "range", "id": "title_size_desktop", "label": "Título en escritorio", "unit": "px", "min": 16, "max": 48, "step": 1, "default": 28 },
+        {
+          "type": "select",
+          "id": "ratio",
+          "label": "Proporción",
+          "options": [
+            { "value": "4 / 3", "label": "4:3" },
+            { "value": "1 / 1", "label": "1:1" },
+            { "value": "5 / 4", "label": "5:4" },
+            { "value": "16 / 9", "label": "16:9" }
+          ],
+          "default": "4 / 3"
+        },
+        { "type": "range", "id": "radius", "label": "Radio de las esquinas", "unit": "px", "min": 0, "max": 60, "step": 2, "default": 24 },
+        { "type": "range", "id": "overlay", "label": "Intensidad del degradado oscuro", "unit": "%", "min": 0, "max": 80, "step": 5, "default": 45 },
+        { "type": "color", "id": "title_color", "label": "Color del título", "default": "#ffffff" },
+        { "type": "color", "id": "label_color", "label": "Color de la etiqueta", "default": "#ffffff" },
+        { "type": "color", "id": "arrow_bg_color", "label": "Fondo del botón", "default": "#ffffff" },
+        { "type": "color", "id": "arrow_color", "label": "Color de la flecha", "default": "#1a1a1a" }
+      ]
+    }
+  ],
+  "max_blocks": 24,
+  "presets": [
+    {
+      "name": "Nuestro Compromiso",
+      "blocks": [
+        { "type": "etiqueta" },
+        { "type": "titulo" },
+        { "type": "texto" },
+        { "type": "item" },
+        { "type": "item", "settings": { "text": "Apoyo a productores locales y pequeños emprendedores" } },
+        { "type": "item", "settings": { "text": "Una experiencia de compra cálida y personalizada", "margin_bottom": 24 } },
+        { "type": "boton" },
+        { "type": "imagen" },
+        { "type": "tarjeta" },
+        { "type": "tarjeta", "settings": { "label": "Bien frías", "title": "Agua y refrescos" } },
+        { "type": "tarjeta", "settings": { "label": "Para empezar el día", "title": "Desayuno rápido" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
