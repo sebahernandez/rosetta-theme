@@ -16,10 +16,10 @@
 ## 3. Verificación
 
 - [x] 3.1 Ejecutar `shopify theme check` y corregir errores del archivo nuevo
-- [ ] 3.2 Prueba manual en el editor de temas: añadir la sección, añadir/reordenar/eliminar métodos, fondo transparente por defecto y con color, Poppins por defecto
-- [ ] 3.3 Probar responsive a 320, 375, 768, 990 y 1440px: sin scroll horizontal
+- [x] 3.2 Prueba manual en el editor de temas: añadir la sección, añadir/reordenar/eliminar métodos, fondo transparente por defecto y con color, Poppins por defecto
+- [x] 3.3 Probar responsive a 320, 375, 768, 990 y 1440px: sin scroll horizontal
 
 ## 4. Cierre
 
 - [x] 4.1 Verificar con `git diff --name-only` que no hay archivos de contenido y que solo cambia `sections/como-pagar.liquid`
-- [ ] 4.2 Commit con conventional commits y push a `develop`; subir el archivo con `shopify theme push --only` si el tema no sincroniza, previa confirmación
+- [x] 4.2 Commit con conventional commits y push a `develop`; subir el archivo con `shopify theme push --only` si el tema no sincroniza, previa confirmación
