@@ -16,11 +16,11 @@
 ## 3. Verificación
 
 - [x] 3.1 Ejecutar `shopify theme check` y corregir errores de la nueva sección
-- [ ] 3.2 Prueba manual con `shopify theme dev` en la página de contacto: añadir la sección en el editor, cambiar textos, imagen, colores, fuentes y espaciados y comprobar que cada setting se refleja
-- [ ] 3.3 Probar envío exitoso (llega el correo con Nombre, correo, teléfono, motivo y mensaje), envío con correo inválido (error nativo) y teléfono vacío
-- [ ] 3.4 Probar responsive a 320, 375, 768, 990 y 1440px: sin scroll horizontal, pastillas sin cortes y teclado sobre el selector
+- [x] 3.2 Prueba manual con `shopify theme dev` en la página de contacto: añadir la sección en el editor, cambiar textos, imagen, colores, fuentes y espaciados y comprobar que cada setting se refleja
+- [x] 3.3 Probar envío exitoso (llega el correo con Nombre, correo, teléfono, motivo y mensaje), envío con correo inválido (error nativo) y teléfono vacío
+- [x] 3.4 Probar responsive a 320, 375, 768, 990 y 1440px: sin scroll horizontal, pastillas sin cortes y teclado sobre el selector
 
 ## 4. Cierre
 
 - [x] 4.1 Verificar con `git diff --name-only` que no hay archivos de contenido (`templates/*.json`, `sections/*-group.json`, `config/settings_data.json`) y que solo cambia `sections/contact-rosetta.liquid`
-- [ ] 4.2 Commit con conventional commits y push a `develop`
+- [x] 4.2 Commit con conventional commits y push a `develop`
