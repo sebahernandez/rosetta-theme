@@ -129,7 +129,7 @@
         "input_size": 16,
         "card_radius": 40,
         "input_radius": 28,
-        "max_width": 1280,
+        "max_width": 1400,
         "padding_top_desktop": 40,
         "padding_bottom_desktop": 40,
         "padding_x_desktop": 48,
