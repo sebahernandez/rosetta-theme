@@ -20,11 +20,11 @@
 ## 4. Verificación
 
 - [x] 4.1 Ejecutar `shopify theme check` y corregir errores de los archivos nuevos
-- [ ] 4.2 Prueba manual con `shopify theme dev`: añadir la sección en la página de contacto, añadir/reordenar/eliminar tarjetas y comprobar que cada elemento y color se edita solo en su tarjeta
-- [ ] 4.3 Verificar que el selector de enlace acepta `https://wa.me/...`, `mailto:` y `tel:`; si no, cambiarlo a un setting de texto
-- [ ] 4.4 Probar responsive a 320, 375, 768, 990 y 1440px: sin scroll horizontal, igual altura por fila y correo largo sin desbordar
+- [x] 4.2 Prueba manual con `shopify theme dev`: añadir la sección en la página de contacto, añadir/reordenar/eliminar tarjetas y comprobar que cada elemento y color se edita solo en su tarjeta
+- [x] 4.3 Verificar que el selector de enlace acepta `https://wa.me/...`, `mailto:` y `tel:`; si no, cambiarlo a un setting de texto
+- [x] 4.4 Probar responsive a 320, 375, 768, 990 y 1440px: sin scroll horizontal, igual altura por fila y correo largo sin desbordar
 
 ## 5. Cierre
 
 - [x] 5.1 Verificar con `git diff --name-only` que no hay archivos de contenido (`templates/*.json`, `sections/*-group.json`, `config/settings_data.json`) y que solo cambian `sections/contact-cards.liquid` y `blocks/contact-card.liquid`
-- [ ] 5.2 Commit con conventional commits y push a `develop`
+- [x] 5.2 Commit con conventional commits y push a `develop`
