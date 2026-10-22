@@ -237,12 +237,84 @@
         "padding_bottom_mobile": 24,
         "padding_x_mobile": 16
       }
+    },
+    "beneficios_zikxwt": {
+      "type": "beneficios",
+      "blocks": {
+        "beneficio_fyW6rP": {
+          "type": "beneficio",
+          "settings": {
+            "icon": "truck",
+            "title": "Envío gratuito",
+            "text": "Sin costo en tus pedidos.",
+            "icon_color": "#a3138f",
+            "circle_color": "#fde7f8",
+            "title_color": "#1a1a1a",
+            "text_color": "#6b6b6b"
+          }
+        },
+        "beneficio_pRJNTx": {
+          "type": "beneficio",
+          "settings": {
+            "icon": "shield",
+            "title": "Pago seguro",
+            "text": "Transacciones protegidas.",
+            "icon_color": "#a3138f",
+            "circle_color": "#fde7f8",
+            "title_color": "#1a1a1a",
+            "text_color": "#6b6b6b"
+          }
+        },
+        "beneficio_7YLwQy": {
+          "type": "beneficio",
+          "settings": {
+            "icon": "headset",
+            "title": "Atención 24/7",
+            "text": "Soporte todo el día.",
+            "icon_color": "#a3138f",
+            "circle_color": "#fde7f8",
+            "title_color": "#1a1a1a",
+            "text_color": "#6b6b6b"
+          }
+        },
+        "beneficio_UaRPUG": {
+          "type": "beneficio",
+          "settings": {
+            "icon": "refresh",
+            "title": "Devolución garantizada",
+            "text": "Hasta 30 días para volver.",
+            "icon_color": "#a3138f",
+            "circle_color": "#fde7f8",
+            "title_color": "#1a1a1a",
+            "text_color": "#6b6b6b"
+          }
+        }
+      },
+      "block_order": [
+        "beneficio_fyW6rP",
+        "beneficio_pRJNTx",
+        "beneficio_7YLwQy",
+        "beneficio_UaRPUG"
+      ],
+      "name": "Beneficios",
+      "settings": {
+        "section_bg": "#ffffff",
+        "show_dividers": true,
+        "divider_color": "#ece7e1",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_x": 0,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_x": 0
+      }
     }
   },
   "order": [
     "main",
     "form",
     "contact_rosetta_WHmgTB",
-    "contact_cards_QV3DwL"
+    "contact_cards_QV3DwL",
+    "beneficios_zikxwt"
   ]
 }
