@@ -116,8 +116,27 @@
 
     { "type": "header", "content": "Cuadrícula" },
     { "type": "range", "id": "columns_desktop", "label": "Columnas en escritorio", "min": 1, "max": 4, "step": 1, "default": 3 },
-    { "type": "range", "id": "columns_tablet", "label": "Columnas en tablet", "min": 1, "max": 3, "step": 1, "default": 2 },
-    { "type": "range", "id": "columns_mobile", "label": "Columnas en móvil", "min": 1, "max": 2, "step": 1, "default": 1 },
+    {
+      "type": "select",
+      "id": "columns_tablet",
+      "label": "Columnas en tablet",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columnas en móvil",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "1"
+    },
     { "type": "range", "id": "gap", "label": "Espacio entre tarjetas", "unit": "px", "min": 0, "max": 60, "step": 2, "default": 20 },
 
     { "type": "header", "content": "Tarjetas (común a todas)" },
