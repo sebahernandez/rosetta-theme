@@ -17,421 +17,131 @@
         "content": "Conoce más sobre nuestra misión y valores."
       }
     },
-    "text_and_image_td4cyt": {
-      "type": "text-and-image",
-      "name": "Texto con imagen",
-      "settings": {
-        "title": "El sabor de lo local y la calidad que mereces ¡con delivery exclusivo!",
-        "text": "Productos frescos, artesanales y seleccionados con amor. Somos el único local con delivery en Tucacas. Descubre lo mejor en cada compra. 🍞✨",
-        "image": "shopify://shop_images/pan-rosetta.webp",
-        "layout": "text_first",
-        "text_padding": 30,
-        "image_padding": 20,
-        "title_font_size": 32,
-        "text_font_size": 16,
-        "title_color": "#222222",
-        "text_color": "#555555"
-      }
-    },
-    "image_and_icons_mWLznJ": {
-      "type": "image-and-icons",
+    "nosotros_home_bFYika": {
+      "type": "nosotros-home",
       "blocks": {
-        "step_HGaztW": {
-          "type": "step",
+        "insignia_bT3xCX": {
+          "type": "insignia",
           "settings": {
-            "icon": "shopify://shop_images/bag.png",
-            "step_title": "Explora Nuestro Catálogo",
-            "step_description": "Encuentra nuestros productos en la tienda online o en nuestras redes sociales.",
-            "step_title_font_size": 18,
-            "step_description_font_size": 15,
-            "step_title_color": "#333333",
-            "step_description_color": "#555555"
+            "column": "left",
+            "text": "Nosotros · Minimarket y bodegón",
+            "font_size": 13,
+            "bg_color": "#ffffff",
+            "text_color": "#1a1a1a",
+            "dot_color": "#ff4fd0",
+            "margin_bottom": 20
           }
         },
-        "step_cqjPmj": {
-          "type": "step",
+        "titulo_mDUqDK": {
+          "type": "titulo",
           "settings": {
-            "icon": "shopify://shop_images/phones.png",
-            "step_title": "Contáctanos por WhatsApp",
-            "step_description": "Si no tienes una tarjeta internacional, puedes completar tu compra por WhatsApp.",
-            "step_title_font_size": 18,
-            "step_description_font_size": 15,
-            "step_title_color": "#333333",
-            "step_description_color": "#555555"
+            "column": "left",
+            "text": "El sabor de lo local,",
+            "accent": "a tu puerta.",
+            "heading_level": "h2",
+            "font": "poppins_n6",
+            "size_mobile": 44,
+            "size_desktop": 72,
+            "color": "#1a1a1a",
+            "accent_color": "#a3157c",
+            "margin_bottom": 24
           }
         },
-        "step_YcdAMx": {
-          "type": "step",
+        "texto_4kafQ9": {
+          "type": "texto",
           "settings": {
-            "icon": "shopify://shop_images/stars.png",
-            "step_title": "Recibe los Datos de Pago",
-            "step_description": "Te enviaremos los detalles para realizar el pago por el método que prefieras.",
-            "step_title_font_size": 18,
-            "step_description_font_size": 15,
-            "step_title_color": "#333333",
-            "step_description_color": "#555555"
+            "column": "left",
+            "text": "Productos frescos, artesanales y seleccionados con amor. Somos el único local con delivery en Tucacas, y queremos que cada compra se sienta como ir a la bodega de confianza.",
+            "font": "assistant_n4",
+            "size_mobile": 16,
+            "size_desktop": 18,
+            "color": "#5c5550",
+            "max_width": 52,
+            "margin_bottom": 28
           }
         },
-        "step_MwXeeE": {
-          "type": "step",
+        "boton_rVTxrH": {
+          "type": "boton",
           "settings": {
-            "icon": "shopify://shop_images/truck.png",
-            "step_title": "Confirmación y Entrega",
-            "step_description": "Una vez confirmado el pago, te notificaremos sobre la entrega o retiro.",
-            "step_title_font_size": 18,
-            "step_description_font_size": 15,
-            "step_title_color": "#333333",
-            "step_description_color": "#555555"
+            "column": "left",
+            "label": "Empezar a comprar",
+            "link": "",
+            "show_arrow": true,
+            "bg_color": "#ff74d9",
+            "text_color": "#ffffff",
+            "border_color": "#ff74d9",
+            "hover_bg_color": "#f035bd",
+            "margin_bottom": 0
+          }
+        },
+        "boton_9mYAr4": {
+          "type": "boton",
+          "settings": {
+            "column": "left",
+            "label": "Cómo comprar",
+            "link": "",
+            "show_arrow": false,
+            "bg_color": "#ffffff",
+            "text_color": "#1a1a1a",
+            "border_color": "#e6dcd0",
+            "hover_bg_color": "#f4ede4",
+            "margin_bottom": 0
+          }
+        },
+        "imagen_qeB9ne": {
+          "type": "imagen",
+          "settings": {
+            "column": "right",
+            "image_alt": "",
+            "ratio": "1 / 1",
+            "radius": 28,
+            "margin_bottom": 0
+          }
+        },
+        "tarjeta_g6gh86": {
+          "type": "tarjeta",
+          "settings": {
+            "column": "right",
+            "position": "right",
+            "icon": "pin",
+            "title": "Tucacas, Falcón",
+            "subtitle": "Delivery exclusivo en la zona",
+            "bg_color": "#ffffff",
+            "icon_bg_color": "#6bf78f",
+            "icon_color": "#1a1a1a",
+            "title_color": "#1a1a1a",
+            "subtitle_color": "#5c5550",
+            "radius": 18
           }
         }
       },
       "block_order": [
-        "step_HGaztW",
-        "step_cqjPmj",
-        "step_YcdAMx",
-        "step_MwXeeE"
+        "insignia_bT3xCX",
+        "titulo_mDUqDK",
+        "texto_4kafQ9",
+        "boton_rVTxrH",
+        "boton_9mYAr4",
+        "imagen_qeB9ne",
+        "tarjeta_g6gh86"
       ],
-      "name": "Imagen con iconos",
+      "name": "Nosotros Home",
       "settings": {
-        "title": "Cómo Comprar en Rosetta",
-        "description": "Hemos diseñado un proceso fácil y flexible para que puedas comprar como prefieras:",
-        "image": "shopify://shop_images/rosetta-store.webp",
-        "title_font_size": 32,
-        "description_font_size": 16,
-        "title_color": "#222222",
-        "description_color": "#555555"
-      }
-    },
-    "text_image_full_rVaYLC": {
-      "type": "text-image-full",
-      "blocks": {
-        "point_g7CMWD": {
-          "type": "point",
-          "settings": {
-            "point": "Productos seleccionados con la mejor calidad",
-            "custom_font_size": 1.7
-          }
-        },
-        "point_BEDyNP": {
-          "type": "point",
-          "settings": {
-            "point": "Apoyo a productores locales y pequeños emprendedores",
-            "custom_font_size": 1.7
-          }
-        },
-        "point_JeMVN8": {
-          "type": "point",
-          "settings": {
-            "point": "Una experiencia de compra cálida y personalizada",
-            "custom_font_size": 1.7
-          }
-        }
-      },
-      "block_order": ["point_g7CMWD", "point_BEDyNP", "point_JeMVN8"],
-      "name": "Texto con imagen flotante",
-      "settings": {
-        "background_color": "#84f3d3",
-        "desktop_height": 400,
-        "tablet_height": 550,
-        "mobile_height": 500,
-        "title": "Nuestro Compromiso",
-        "description": "Cada producto que entregamos refleja nuestro compromiso con la calidad, el trabajo local y una experiencia cercana.",
-        "title_font_size": 3.9,
-        "description_font_size": 1.9,
-        "list_font_size": 1,
-        "button_font_size": 1.5,
-        "image": "shopify://shop_images/transporte-rosetta.webp",
-        "image_size": 610,
-        "image_top": -64,
-        "image_left": 0,
-        "button_label": "Comprar ahora",
-        "button_url": "shopify://products/refresco"
-      }
-    },
-    "promotional_cards_xQmQnH": {
-      "type": "promotional-cards",
-      "blocks": {
-        "promo_xEwxGq": {
-          "type": "promo",
-          "settings": {
-            "image": "shopify://shop_images/leche-rosetta.webp",
-            "subheading": "100% fresca",
-            "title": "Leche de vaca",
-            "price": "$4.99",
-            "button_label": "Comprar ahora",
-            "button_url": "",
-            "use_custom_text_sizes": false,
-            "custom_subheading_size": 1.1,
-            "custom_title_size": 1.9,
-            "custom_price_size": 1.3,
-            "custom_button_size": 0.9,
-            "use_custom_overlay": false,
-            "overlay_color": "#000000",
-            "overlay_opacity": 0.4,
-            "use_custom_colors": true,
-            "custom_subheading_color": "#ffffff",
-            "custom_title_color": "#ffffff",
-            "custom_price_color": "#ffffff",
-            "custom_button_text_color": "#ffffff",
-            "custom_button_background_color": "#ff49b3"
-          }
-        },
-        "promo_TQKcWF": {
-          "type": "promo",
-          "settings": {
-            "image": "shopify://shop_images/refresco-rosetta.webp",
-            "subheading": "Venta de bebidas",
-            "title": "Agua y Refrescos",
-            "price": "$4.99",
-            "button_label": "Comprar ahora",
-            "button_url": "",
-            "use_custom_text_sizes": false,
-            "custom_subheading_size": 0.8,
-            "custom_title_size": 1.3,
-            "custom_price_size": 1,
-            "custom_button_size": 0.9,
-            "use_custom_overlay": false,
-            "overlay_color": "#000000",
-            "overlay_opacity": 0.4,
-            "use_custom_colors": false,
-            "custom_subheading_color": "#555555",
-            "custom_title_color": "#111111",
-            "custom_price_color": "#444444",
-            "custom_button_text_color": "#ffffff",
-            "custom_button_background_color": "#ff49b3"
-          }
-        },
-        "promo_VNfTNM": {
-          "type": "promo",
-          "settings": {
-            "image": "shopify://shop_images/snacks-rosetta.webp",
-            "subheading": "100% orgánico",
-            "title": "Desayuno rápido",
-            "price": "$4.99",
-            "button_label": "Comprar ahora",
-            "button_url": "",
-            "use_custom_text_sizes": false,
-            "custom_subheading_size": 0.8,
-            "custom_title_size": 1.3,
-            "custom_price_size": 1,
-            "custom_button_size": 0.9,
-            "use_custom_overlay": false,
-            "overlay_color": "#000000",
-            "overlay_opacity": 0.4,
-            "use_custom_colors": false,
-            "custom_subheading_color": "#555555",
-            "custom_title_color": "#111111",
-            "custom_price_color": "#444444",
-            "custom_button_text_color": "#ffffff",
-            "custom_button_background_color": "#ff49b3"
-          }
-        }
-      },
-      "block_order": ["promo_xEwxGq", "promo_TQKcWF", "promo_VNfTNM"],
-      "name": "Tarjetas Promocionales",
-      "settings": {
-        "card_height": 280,
-        "card_gap": 20,
-        "cards_per_row_desktop": "3",
-        "cards_per_row_tablet": "2",
-        "enable_overlay": true,
-        "overlay_color": "#000000",
-        "overlay_opacity": 0.4,
-        "subheading_size": 1.5,
-        "title_size": 3.1,
-        "price_size": 1.4,
-        "button_size": 0.9,
-        "subheading_color": "#ffffff",
-        "title_color": "#ffffff",
-        "price_color": "#ffffff",
-        "button_text_color": "#ffffff",
-        "button_background_color": "#ff49b3",
-        "button_hover_color": "#e03a9c"
-      }
-    },
-    "rich_text_PYAG9i": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_xBBhRg": {
-          "type": "heading",
-          "settings": {
-            "heading": "¿Comó pagar en Rosetta?",
-            "heading_size": "h1"
-          }
-        },
-        "text_DkrCjz": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Ofrecemos diversas opciones de pago para para tu comodidad. Ya sea que prefieras pagar en bolívares con Pago Móvil o transferencia bancaria, o en divisas con tarjetas de crédito internacionales, te garantizamos un proceso ágil y seguro.</p>"
-          }
-        }
-      },
-      "block_order": ["heading_xBBhRg", "text_DkrCjz"],
-      "name": "t:sections.rich-text.presets.name",
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "",
-        "full_width": true,
-        "padding_top": 40,
-        "padding_bottom": 52
-      }
-    },
-    "icons_with_text_WCd3tj": {
-      "type": "icons-with-text",
-      "blocks": {
-        "metodo_pago_xEadTK": {
-          "type": "metodo_pago",
-          "settings": {
-            "icon": "shopify://shop_images/pago-movil-rosetta.webp",
-            "title": "Pago Móvil y Transferencias en Bolívares",
-            "description": "Aceptamos Pago Móvil Interbancario y transferencias bancarias desde cualquier banco en Venezuela. Un método rápido, seguro y sin complicaciones.",
-            "text_size": 16
-          }
-        },
-        "metodo_pago_FwAkMf": {
-          "type": "metodo_pago",
-          "settings": {
-            "icon": "shopify://shop_images/pago-en-linea.webp",
-            "title": "Pagos en Línea con Tarjeta de Crédito Internacional",
-            "description": "Aceptamos Visa y Mastercard internacionales a través de nuestra plataforma de pago en línea. Compra fácil y segura desde Venezuela o el extranjero.",
-            "text_size": 16
-          }
-        },
-        "metodo_pago_4U8nFm": {
-          "type": "metodo_pago",
-          "settings": {
-            "icon": "shopify://shop_images/pago-en-divisas.webp",
-            "title": "Pago en Divisas (Dólares y Euros)",
-            "description": "Si prefieres pagar en dólares o euros en efectivo, ¡también lo aceptamos! Pregunta en caja por la tasa de cambio del día.",
-            "text_size": 16
-          }
-        }
-      },
-      "block_order": [
-        "metodo_pago_xEadTK",
-        "metodo_pago_FwAkMf",
-        "metodo_pago_4U8nFm"
-      ],
-      "name": "Métodos de Pago",
-      "settings": {}
-    },
-    "testimonials_Kx3pFY": {
-      "type": "testimonials",
-      "blocks": {
-        "testimonial_zntpCg": {
-          "type": "testimonial",
-          "settings": {
-            "customer_name": "Carlos J.",
-            "testimonial_text": "<p>Todo llegó fresquito y rápido! Me encantó el pan artesanal y la atención fue increíble. Se nota el cariño en cada producto.</p>",
-            "customer_image": "shopify://shop_images/carlos.png",
-            "rating": 5
-          }
-        },
-        "testimonial_EbcMEg": {
-          "type": "testimonial",
-          "settings": {
-            "customer_name": "Guillermo H.",
-            "testimonial_text": "<p>La calidad de los embutidos y quesos es top. Ideal para una tabla con vino. Además, el proceso de pago fue muy fácil. ¡Rosetta es lo máximo!</p>",
-            "customer_image": "shopify://shop_images/guillermo.png",
-            "rating": 5
-          }
-        },
-        "testimonial_Ly6NWt": {
-          "type": "testimonial",
-          "settings": {
-            "customer_name": "Jose L.",
-            "testimonial_text": "<p>Una amiga me recomendó Rosetta y ahora no puedo parar. Los jugos, las recetas del blog, todo es delicioso. ¡Qué rico comprar local así!</p>",
-            "customer_image": "shopify://shop_images/jose.png",
-            "rating": 5
-          }
-        },
-        "testimonial_DqCMJT": {
-          "type": "testimonial",
-          "settings": {
-            "customer_name": "Lucia F.",
-            "testimonial_text": "<p>Este es un testimonio de ejemplo. ¡Me encantó el producto!</p>",
-            "customer_image": "shopify://shop_images/uifaces-popular-image_3.jpg",
-            "rating": 5
-          }
-        },
-        "testimonial_qFTtDp": {
-          "type": "testimonial",
-          "settings": {
-            "customer_name": "Diana C.",
-            "testimonial_text": "<p>Este es un testimonio de ejemplo. ¡Me encantó el producto!</p>",
-            "customer_image": "shopify://shop_images/uifaces-popular-image.jpg",
-            "rating": 5
-          }
-        },
-        "testimonial_iUXK96": {
-          "type": "testimonial",
-          "settings": {
-            "customer_name": "Diana D.",
-            "testimonial_text": "<p>Este es un testimonio de ejemplo. ¡Me encantó el producto!</p>",
-            "customer_image": "shopify://shop_images/uifaces-popular-image_1.jpg",
-            "rating": 5
-          }
-        }
-      },
-      "block_order": [
-        "testimonial_zntpCg",
-        "testimonial_EbcMEg",
-        "testimonial_Ly6NWt",
-        "testimonial_DqCMJT",
-        "testimonial_qFTtDp",
-        "testimonial_iUXK96"
-      ],
-      "name": "Testimonios de Clientes",
-      "settings": {}
-    },
-    "newsletter_zTHEbz": {
-      "type": "newsletter",
-      "blocks": {
-        "heading_8RxhnA": {
-          "type": "heading",
-          "settings": {
-            "heading": "Suscríbete a nuestras ofertas",
-            "heading_size": "h2"
-          }
-        },
-        "paragraph_rkWNcY": {
-          "type": "paragraph",
-          "settings": {
-            "text": "<p>Recibe recetas, promociones y novedades fresquitas directo en tu bandeja de entrada. ¡Conéctate con el sabor local</p>"
-          }
-        },
-        "email_form_mJAWH8": {
-          "type": "email_form",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "heading_8RxhnA",
-        "paragraph_rkWNcY",
-        "email_form_mJAWH8"
-      ],
-      "name": "t:sections.newsletter.presets.name",
-      "settings": {
-        "color_scheme": "",
-        "full_width": true,
-        "show_social": true,
-        "background_image": "shopify://shop_images/Patron.svg",
-        "background_size": "cover",
-        "padding_top": 40,
-        "padding_bottom": 52
+        "section_bg": "#faf7f2",
+        "max_width": 1280,
+        "columns_ratio": "45-55",
+        "gap_desktop": 56,
+        "padding_top_desktop": 32,
+        "padding_bottom_desktop": 32,
+        "padding_x_desktop": 24,
+        "gap_mobile": 28,
+        "padding_top_mobile": 16,
+        "padding_bottom_mobile": 24,
+        "padding_x_mobile": 16
       }
     }
   },
   "order": [
     "main",
-    "text_and_image_td4cyt",
-    "image_and_icons_mWLznJ",
-    "text_image_full_rVaYLC",
-    "promotional_cards_xQmQnH",
-    "rich_text_PYAG9i",
-    "icons_with_text_WCd3tj",
-    "testimonials_Kx3pFY",
-    "newsletter_zTHEbz"
+    "nosotros_home_bFYika"
   ]
 }
