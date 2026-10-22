@@ -1,0 +1,694 @@
+{%- liquid
+  assign columns = 'left,right' | split: ','
+  assign left_count = 0
+  assign right_count = 0
+  assign left_first_paso = -1
+  assign left_last_paso = -1
+  assign right_first_paso = -1
+  assign right_last_paso = -1
+  for block in section.blocks
+    assign block_col = block.settings.column | default: 'left'
+    if block_col == 'right'
+      assign right_count = right_count | plus: 1
+    else
+      assign left_count = left_count | plus: 1
+    endif
+    if block.type == 'paso' and block.settings.title != blank
+      if block_col == 'right'
+        if right_first_paso == -1
+          assign right_first_paso = block.index0
+        endif
+        assign right_last_paso = block.index0
+      else
+        if left_first_paso == -1
+          assign left_first_paso = block.index0
+        endif
+        assign left_last_paso = block.index0
+      endif
+    endif
+  endfor
+
+  assign ratio = section.settings.columns_ratio
+  case ratio
+    when '45-55'
+      assign grid_cols = '45fr 55fr'
+    when '40-60'
+      assign grid_cols = '40fr 60fr'
+    else
+      assign grid_cols = '1fr 1fr'
+  endcase
+-%}
+
+{%- if section.settings.section_bg != blank -%}
+  {%- style -%}
+    #shopify-section-{{ section.id }} {
+      background-color: {{ section.settings.section_bg }};
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
+{% stylesheet %}
+  .pn {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+    gap: var(--pn-gap-m);
+    width: 100%;
+    max-width: var(--pn-max-width);
+    margin-inline: auto;
+    padding: var(--pn-pt-m) var(--pn-px-m) var(--pn-pb-m);
+  }
+
+  .pn *,
+  .pn *::before,
+  .pn *::after {
+    box-sizing: border-box;
+  }
+
+  .pn__col {
+    min-width: 0;
+  }
+
+  .pn__item {
+    min-width: 0;
+    margin-bottom: var(--pn-mb, 0px);
+  }
+
+  .pn__label {
+    margin: 0;
+    font-family: var(--pn-font);
+    font-weight: var(--pn-weight);
+    font-size: var(--pn-size-m);
+    line-height: 1.4;
+    letter-spacing: var(--pn-tracking);
+    text-transform: uppercase;
+    color: var(--pn-color);
+    overflow-wrap: anywhere;
+  }
+
+  .pn__title {
+    margin: 0;
+    font-family: var(--pn-font);
+    font-weight: var(--pn-weight);
+    font-size: var(--pn-size-m);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--pn-color);
+    overflow-wrap: anywhere;
+  }
+
+  .pn__title-accent {
+    font-style: italic;
+    color: var(--pn-accent);
+  }
+
+  .pn__text {
+    max-width: var(--pn-measure);
+    margin: 0;
+    font-family: var(--pn-font);
+    font-weight: var(--pn-weight);
+    font-size: var(--pn-size-m);
+    line-height: 1.55;
+    color: var(--pn-color);
+    overflow-wrap: anywhere;
+  }
+
+  .pn__media {
+    overflow: hidden;
+    border-radius: var(--pn-radius);
+    aspect-ratio: var(--pn-ratio);
+    background-color: rgba(0, 0, 0, 0.06);
+  }
+
+  .pn__media img,
+  .pn__media svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--pn-focal, 50% 50%);
+  }
+
+  .pn__item--paso {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--pn-circle) minmax(0, 1fr);
+    align-items: center;
+    column-gap: 14px;
+  }
+
+  .pn__item--paso:not(.pn__item--first)::before,
+  .pn__item--paso:not(.pn__item--last)::after {
+    content: '';
+    position: absolute;
+    left: calc(var(--pn-circle) / 2);
+    width: 1px;
+    background-color: var(--pn-line);
+    transform: translateX(-0.5px);
+  }
+
+  .pn__item--paso:not(.pn__item--first)::before {
+    top: 0;
+    height: 50%;
+  }
+
+  .pn__item--paso:not(.pn__item--last)::after {
+    top: 50%;
+    bottom: calc(var(--pn-mb, 0px) * -1);
+  }
+
+  .pn__num {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--pn-circle);
+    height: var(--pn-circle);
+    border: 1px solid var(--pn-num-border);
+    border-radius: 50%;
+    background-color: var(--pn-num-bg);
+    color: var(--pn-num-color);
+    font-family: var(--pn-font);
+    font-weight: var(--pn-weight);
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  .pn__step {
+    min-width: 0;
+    padding: 12px 16px;
+    border: 1px solid var(--pn-card-border);
+    border-radius: var(--pn-radius);
+    background-color: var(--pn-card-bg);
+    font-family: var(--pn-font);
+    font-weight: var(--pn-weight);
+  }
+
+  .pn__step-title,
+  .pn__step-text {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .pn__step-title {
+    font-size: var(--pn-title-m);
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--pn-title-color);
+  }
+
+  .pn__step-text {
+    margin-top: 4px;
+    font-size: var(--pn-text-m);
+    line-height: 1.45;
+    color: var(--pn-text-color);
+  }
+
+  @media screen and (min-width: 750px) {
+    .pn {
+      gap: var(--pn-gap-d);
+      padding: var(--pn-pt-d) var(--pn-px-d) var(--pn-pb-d);
+    }
+
+    .pn__label,
+    .pn__text {
+      font-size: var(--pn-size-d);
+    }
+
+    .pn__title {
+      font-size: var(--pn-size-d);
+    }
+
+    .pn__item--paso {
+      column-gap: 18px;
+    }
+
+    .pn__step {
+      padding: 14px 22px;
+    }
+
+    .pn__step-title {
+      font-size: var(--pn-title-d);
+    }
+
+    .pn__step-text {
+      font-size: var(--pn-text-d);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .pn:not(.pn--single) {
+      grid-template-columns: var(--pn-grid-cols);
+    }
+  }
+{% endstylesheet %}
+
+<div
+  class="pn{% if left_count == 0 or right_count == 0 %} pn--single{% endif %}"
+  style="
+    --pn-max-width: {{ section.settings.max_width }}px;
+    --pn-grid-cols: {{ grid_cols }};
+    --pn-gap-m: {{ section.settings.gap_mobile }}px;
+    --pn-gap-d: {{ section.settings.gap_desktop }}px;
+    --pn-pt-m: {{ section.settings.padding_top_mobile }}px;
+    --pn-pb-m: {{ section.settings.padding_bottom_mobile }}px;
+    --pn-px-m: {{ section.settings.padding_x_mobile }}px;
+    --pn-pt-d: {{ section.settings.padding_top_desktop }}px;
+    --pn-pb-d: {{ section.settings.padding_bottom_desktop }}px;
+    --pn-px-d: {{ section.settings.padding_x_desktop }}px;
+  "
+>
+  {%- for col in columns -%}
+    {%- assign col_count = left_count -%}
+    {%- assign first_paso = left_first_paso -%}
+    {%- assign last_paso = left_last_paso -%}
+    {%- if col == 'right' -%}
+      {%- assign col_count = right_count -%}
+      {%- assign first_paso = right_first_paso -%}
+      {%- assign last_paso = right_last_paso -%}
+    {%- endif -%}
+    {%- if col_count == 0 -%}
+      {%- continue -%}
+    {%- endif -%}
+    {%- assign step_number = 0 -%}
+    <div class="pn__col pn__col--{{ col }}">
+      {%- for block in section.blocks -%}
+        {%- assign block_col = block.settings.column | default: 'left' -%}
+        {%- if block_col != col -%}
+          {%- continue -%}
+        {%- endif -%}
+
+        {%- case block.type -%}
+          {%- when 'etiqueta' -%}
+            {%- if block.settings.text != blank -%}
+              {%- assign e_font = block.settings.font -%}
+              {%- style -%}
+                {{ e_font | font_face: font_display: 'swap' }}
+              {%- endstyle -%}
+              <div
+                class="pn__item pn__item--etiqueta"
+                style="
+                  --pn-mb: {{ block.settings.margin_bottom }}px;
+                  --pn-font: {{ e_font.family }}, {{ e_font.fallback_families }};
+                  --pn-weight: {{ e_font.weight }};
+                  --pn-size-m: {{ block.settings.size_mobile | divided_by: 10.0 }}rem;
+                  --pn-size-d: {{ block.settings.size_desktop | divided_by: 10.0 }}rem;
+                  --pn-tracking: {{ block.settings.letter_spacing | divided_by: 100.0 }}em;
+                  --pn-color: {{ block.settings.color }};
+                "
+                {{ block.shopify_attributes }}
+              >
+                <p class="pn__label">{{ block.settings.text | escape }}</p>
+              </div>
+            {%- endif -%}
+
+          {%- when 'titulo' -%}
+            {%- if block.settings.text != blank or block.settings.accent != blank -%}
+              {%- assign t_font = block.settings.font -%}
+              {%- assign t_font_italic = t_font | font_modify: 'style', 'italic' -%}
+              {%- style -%}
+                {{ t_font | font_face: font_display: 'swap' }}
+                {{ t_font_italic | font_face: font_display: 'swap' }}
+              {%- endstyle -%}
+              <div
+                class="pn__item pn__item--titulo"
+                style="
+                  --pn-mb: {{ block.settings.margin_bottom }}px;
+                  --pn-font: {{ t_font.family }}, {{ t_font.fallback_families }};
+                  --pn-weight: {{ t_font.weight }};
+                  --pn-size-m: {{ block.settings.size_mobile | divided_by: 10.0 }}rem;
+                  --pn-size-d: {{ block.settings.size_desktop | divided_by: 10.0 }}rem;
+                  --pn-color: {{ block.settings.color }};
+                  --pn-accent: {{ block.settings.accent_color }};
+                "
+                {{ block.shopify_attributes }}
+              >
+                <{{ block.settings.heading_level }} class="pn__title">
+                  {{- block.settings.text | escape -}}
+                  {%- if block.settings.accent != blank %} <span class="pn__title-accent">{{ block.settings.accent | escape }}</span>{% endif -%}
+                </{{ block.settings.heading_level }}>
+              </div>
+            {%- endif -%}
+
+          {%- when 'subtitulo' -%}
+            {%- if block.settings.text != blank -%}
+              {%- assign x_font = block.settings.font -%}
+              {%- style -%}
+                {{ x_font | font_face: font_display: 'swap' }}
+              {%- endstyle -%}
+              <div
+                class="pn__item pn__item--subtitulo"
+                style="
+                  --pn-mb: {{ block.settings.margin_bottom }}px;
+                  --pn-font: {{ x_font.family }}, {{ x_font.fallback_families }};
+                  --pn-weight: {{ x_font.weight }};
+                  --pn-size-m: {{ block.settings.size_mobile | divided_by: 10.0 }}rem;
+                  --pn-size-d: {{ block.settings.size_desktop | divided_by: 10.0 }}rem;
+                  --pn-color: {{ block.settings.color }};
+                  --pn-measure: {{ block.settings.max_width }}ch;
+                "
+                {{ block.shopify_attributes }}
+              >
+                <p class="pn__text">{{ block.settings.text | escape }}</p>
+              </div>
+            {%- endif -%}
+
+          {%- when 'imagen' -%}
+            <div
+              class="pn__item pn__item--imagen"
+              style="
+                --pn-mb: {{ block.settings.margin_bottom }}px;
+                --pn-radius: {{ block.settings.radius }}px;
+                --pn-ratio: {{ block.settings.ratio }};
+                {%- if block.settings.image.presentation.focal_point != blank %}
+                  --pn-focal: {{ block.settings.image.presentation.focal_point }};
+                {%- endif %}
+              "
+              {{ block.shopify_attributes }}
+            >
+              <div class="pn__media">
+                {%- if block.settings.image != blank -%}
+                  {{
+                    block.settings.image
+                    | image_url: width: 1400
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '400, 600, 800, 1000, 1400',
+                      sizes: '(min-width: 990px) 45vw, 100vw',
+                      alt: block.settings.image_alt
+                  }}
+                {%- else -%}
+                  {{ 'image' | placeholder_svg_tag }}
+                {%- endif -%}
+              </div>
+            </div>
+
+          {%- when 'paso' -%}
+            {%- if block.settings.title != blank -%}
+              {%- assign step_number = step_number | plus: 1 -%}
+              {%- assign p_font = block.settings.font -%}
+              {%- style -%}
+                {{ p_font | font_face: font_display: 'swap' }}
+              {%- endstyle -%}
+              <div
+                class="pn__item pn__item--paso{% if block.index0 == first_paso %} pn__item--first{% endif %}{% if block.index0 == last_paso %} pn__item--last{% endif %}"
+                style="
+                  --pn-mb: {{ block.settings.margin_bottom }}px;
+                  --pn-font: {{ p_font.family }}, {{ p_font.fallback_families }};
+                  --pn-weight: {{ p_font.weight }};
+                  --pn-circle: {{ block.settings.circle_size }}px;
+                  --pn-radius: {{ block.settings.radius }}px;
+                  --pn-title-m: {{ block.settings.title_size_mobile | divided_by: 10.0 }}rem;
+                  --pn-title-d: {{ block.settings.title_size_desktop | divided_by: 10.0 }}rem;
+                  --pn-text-m: {{ block.settings.text_size_mobile | divided_by: 10.0 }}rem;
+                  --pn-text-d: {{ block.settings.text_size_desktop | divided_by: 10.0 }}rem;
+                  --pn-title-color: {{ block.settings.title_color }};
+                  --pn-text-color: {{ block.settings.text_color }};
+                  --pn-card-bg: {{ block.settings.card_bg_color }};
+                  --pn-card-border: {{ block.settings.card_border_color }};
+                  --pn-num-bg: {{ block.settings.num_bg_color }};
+                  --pn-num-color: {{ block.settings.num_color }};
+                  --pn-num-border: {{ block.settings.num_border_color }};
+                  --pn-line: {{ block.settings.line_color }};
+                "
+                {{ block.shopify_attributes }}
+              >
+                <span class="pn__num" aria-hidden="true">
+                  {%- if block.settings.number != blank -%}
+                    {{- block.settings.number | escape -}}
+                  {%- else -%}
+                    {{- step_number -}}
+                  {%- endif -%}
+                </span>
+                <div class="pn__step">
+                  <p class="pn__step-title">{{ block.settings.title | escape }}</p>
+                  {%- if block.settings.text != blank -%}
+                    <p class="pn__step-text">{{ block.settings.text | escape }}</p>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endif -%}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Pasos Nosotros",
+  "tag": "section",
+  "class": "pasos-nosotros-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    { "type": "header", "content": "Fondo y contenedor" },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Fondo de la sección",
+      "info": "Sin color, el fondo es transparente."
+    },
+    { "type": "range", "id": "max_width", "label": "Ancho máximo del contenido", "unit": "px", "min": 800, "max": 1800, "step": 20, "default": 1280 },
+    {
+      "type": "select",
+      "id": "columns_ratio",
+      "label": "Proporción de las columnas (escritorio)",
+      "options": [
+        { "value": "50-50", "label": "50 / 50" },
+        { "value": "45-55", "label": "45 / 55" },
+        { "value": "40-60", "label": "40 / 60" }
+      ],
+      "default": "45-55"
+    },
+
+    { "type": "header", "content": "Espaciados: escritorio" },
+    { "type": "range", "id": "gap_desktop", "label": "Espacio entre columnas", "unit": "px", "min": 0, "max": 120, "step": 4, "default": 56 },
+    { "type": "range", "id": "padding_top_desktop", "label": "Relleno superior", "unit": "px", "min": 0, "max": 160, "step": 4, "default": 32 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "Relleno inferior", "unit": "px", "min": 0, "max": 160, "step": 4, "default": 32 },
+    { "type": "range", "id": "padding_x_desktop", "label": "Relleno lateral", "unit": "px", "min": 0, "max": 120, "step": 4, "default": 24 },
+
+    { "type": "header", "content": "Espaciados: móvil" },
+    { "type": "range", "id": "gap_mobile", "label": "Espacio entre columnas apiladas", "unit": "px", "min": 0, "max": 80, "step": 4, "default": 28 },
+    { "type": "range", "id": "padding_top_mobile", "label": "Relleno superior", "unit": "px", "min": 0, "max": 120, "step": 4, "default": 16 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "Relleno inferior", "unit": "px", "min": 0, "max": 120, "step": 4, "default": 24 },
+    { "type": "range", "id": "padding_x_mobile", "label": "Relleno lateral", "unit": "px", "min": 0, "max": 60, "step": 2, "default": 16 }
+  ],
+  "blocks": [
+    {
+      "type": "etiqueta",
+      "name": "Etiqueta",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "column",
+          "label": "Columna",
+          "options": [
+            { "value": "left", "label": "Izquierda" },
+            { "value": "right", "label": "Derecha" }
+          ],
+          "default": "right"
+        },
+        { "type": "text", "id": "text", "label": "Texto", "default": "Cómo comprar en Rosetta" },
+        { "type": "font_picker", "id": "font", "label": "Fuente", "default": "poppins_n4" },
+        { "type": "range", "id": "size_mobile", "label": "Tamaño en móvil", "unit": "px", "min": 9, "max": 18, "step": 1, "default": 11 },
+        { "type": "range", "id": "size_desktop", "label": "Tamaño en escritorio", "unit": "px", "min": 9, "max": 20, "step": 1, "default": 12 },
+        { "type": "range", "id": "letter_spacing", "label": "Espaciado entre letras", "unit": "%", "min": 0, "max": 30, "step": 2, "default": 12 },
+        { "type": "color", "id": "color", "label": "Color del texto", "default": "#a3157c" },
+        { "type": "range", "id": "margin_bottom", "label": "Espacio inferior", "unit": "px", "min": 0, "max": 80, "step": 4, "default": 8 }
+      ]
+    },
+    {
+      "type": "titulo",
+      "name": "Título",
+      "settings": [
+        {
+          "type": "select",
+          "id": "column",
+          "label": "Columna",
+          "options": [
+            { "value": "left", "label": "Izquierda" },
+            { "value": "right", "label": "Derecha" }
+          ],
+          "default": "right"
+        },
+        { "type": "text", "id": "text", "label": "Título", "default": "Cuatro pasos," },
+        { "type": "text", "id": "accent", "label": "Texto de acento (cursiva)", "default": "a tu manera." },
+        {
+          "type": "select",
+          "id": "heading_level",
+          "label": "Nivel del encabezado",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" }
+          ],
+          "default": "h2"
+        },
+        { "type": "font_picker", "id": "font", "label": "Fuente", "default": "poppins_n4" },
+        { "type": "range", "id": "size_mobile", "label": "Tamaño en móvil", "unit": "px", "min": 24, "max": 64, "step": 2, "default": 32 },
+        { "type": "range", "id": "size_desktop", "label": "Tamaño en escritorio", "unit": "px", "min": 28, "max": 96, "step": 2, "default": 44 },
+        { "type": "color", "id": "color", "label": "Color del título", "default": "#1a1a1a" },
+        { "type": "color", "id": "accent_color", "label": "Color del acento", "default": "#1a1a1a" },
+        { "type": "range", "id": "margin_bottom", "label": "Espacio inferior", "unit": "px", "min": 0, "max": 80, "step": 4, "default": 8 }
+      ]
+    },
+    {
+      "type": "subtitulo",
+      "name": "Subtítulo",
+      "settings": [
+        {
+          "type": "select",
+          "id": "column",
+          "label": "Columna",
+          "options": [
+            { "value": "left", "label": "Izquierda" },
+            { "value": "right", "label": "Derecha" }
+          ],
+          "default": "right"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Texto",
+          "default": "Un proceso simple y flexible: compra en línea o acompañado por nuestro equipo."
+        },
+        { "type": "font_picker", "id": "font", "label": "Fuente", "default": "poppins_n4" },
+        { "type": "range", "id": "size_mobile", "label": "Tamaño en móvil", "unit": "px", "min": 12, "max": 24, "step": 1, "default": 14 },
+        { "type": "range", "id": "size_desktop", "label": "Tamaño en escritorio", "unit": "px", "min": 12, "max": 28, "step": 1, "default": 15 },
+        { "type": "color", "id": "color", "label": "Color del texto", "default": "#5c5550" },
+        { "type": "range", "id": "max_width", "label": "Ancho máximo del texto", "unit": "ch", "min": 30, "max": 90, "step": 2, "default": 60 },
+        { "type": "range", "id": "margin_bottom", "label": "Espacio inferior", "unit": "px", "min": 0, "max": 80, "step": 4, "default": 28 }
+      ]
+    },
+    {
+      "type": "imagen",
+      "name": "Imagen",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "column",
+          "label": "Columna",
+          "options": [
+            { "value": "left", "label": "Izquierda" },
+            { "value": "right", "label": "Derecha" }
+          ],
+          "default": "left"
+        },
+        { "type": "image_picker", "id": "image", "label": "Imagen" },
+        { "type": "text", "id": "image_alt", "label": "Texto alternativo" },
+        {
+          "type": "select",
+          "id": "ratio",
+          "label": "Proporción",
+          "options": [
+            { "value": "4 / 3", "label": "4:3" },
+            { "value": "1 / 1", "label": "1:1" },
+            { "value": "4 / 5", "label": "4:5" },
+            { "value": "3 / 4", "label": "3:4" },
+            { "value": "16 / 9", "label": "16:9" }
+          ],
+          "default": "4 / 5"
+        },
+        { "type": "range", "id": "radius", "label": "Radio de las esquinas", "unit": "px", "min": 0, "max": 60, "step": 2, "default": 28 },
+        { "type": "range", "id": "margin_bottom", "label": "Espacio inferior", "unit": "px", "min": 0, "max": 60, "step": 4, "default": 0 }
+      ]
+    },
+    {
+      "type": "paso",
+      "name": "Paso",
+      "settings": [
+        {
+          "type": "select",
+          "id": "column",
+          "label": "Columna",
+          "options": [
+            { "value": "left", "label": "Izquierda" },
+            { "value": "right", "label": "Derecha" }
+          ],
+          "default": "right"
+        },
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Número",
+          "info": "Si lo dejas vacío, se numera automáticamente según el orden."
+        },
+        { "type": "text", "id": "title", "label": "Título", "default": "Explora nuestro catálogo" },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Descripción",
+          "default": "Encuentra todo en la tienda en línea o en nuestras redes sociales."
+        },
+        { "type": "font_picker", "id": "font", "label": "Fuente", "default": "poppins_n4" },
+
+        { "type": "header", "content": "Tamaños" },
+        { "type": "range", "id": "title_size_mobile", "label": "Título en móvil", "unit": "px", "min": 11, "max": 22, "step": 1, "default": 14 },
+        { "type": "range", "id": "title_size_desktop", "label": "Título en escritorio", "unit": "px", "min": 11, "max": 26, "step": 1, "default": 15 },
+        { "type": "range", "id": "text_size_mobile", "label": "Descripción en móvil", "unit": "px", "min": 10, "max": 20, "step": 1, "default": 12 },
+        { "type": "range", "id": "text_size_desktop", "label": "Descripción en escritorio", "unit": "px", "min": 10, "max": 22, "step": 1, "default": 13 },
+        { "type": "range", "id": "circle_size", "label": "Tamaño del círculo numerado", "unit": "px", "min": 28, "max": 64, "step": 2, "default": 40 },
+        { "type": "range", "id": "radius", "label": "Radio de las esquinas de la tarjeta", "unit": "px", "min": 0, "max": 40, "step": 2, "default": 18 },
+
+        { "type": "header", "content": "Colores" },
+        { "type": "color", "id": "title_color", "label": "Color del título", "default": "#1a1a1a" },
+        { "type": "color", "id": "text_color", "label": "Color de la descripción", "default": "#5c5550" },
+        { "type": "color", "id": "card_bg_color", "label": "Fondo de la tarjeta", "default": "#ffffff" },
+        { "type": "color", "id": "card_border_color", "label": "Borde de la tarjeta", "default": "#e8e1d9" },
+        { "type": "color", "id": "num_bg_color", "label": "Fondo del círculo", "default": "#ffffff" },
+        { "type": "color", "id": "num_color", "label": "Color del número", "default": "#a3157c" },
+        { "type": "color", "id": "num_border_color", "label": "Borde del círculo", "default": "#e0d6cb" },
+        { "type": "color", "id": "line_color", "label": "Color de la línea conectora", "default": "#e0d6cb" },
+
+        { "type": "range", "id": "margin_bottom", "label": "Espacio inferior", "unit": "px", "min": 0, "max": 60, "step": 4, "default": 20 }
+      ]
+    }
+  ],
+  "max_blocks": 16,
+  "presets": [
+    {
+      "name": "Pasos Nosotros",
+      "blocks": [
+        { "type": "imagen" },
+        { "type": "etiqueta" },
+        { "type": "titulo" },
+        { "type": "subtitulo" },
+        {
+          "type": "paso",
+          "settings": {
+            "title": "Explora nuestro catálogo",
+            "text": "Encuentra todo en la tienda en línea o en nuestras redes sociales."
+          }
+        },
+        {
+          "type": "paso",
+          "settings": {
+            "title": "Escríbenos por WhatsApp",
+            "text": "Si no tienes tarjeta internacional, completa tu compra con nosotros por chat."
+          }
+        },
+        {
+          "type": "paso",
+          "settings": {
+            "title": "Recibe los datos de pago",
+            "text": "Te enviamos los detalles para pagar con el método que prefieras."
+          }
+        },
+        {
+          "type": "paso",
+          "settings": {
+            "title": "Confirmación y entrega",
+            "text": "Al confirmar el pago, te avisamos cuándo llega tu pedido o cuándo retirarlo."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
