@@ -372,6 +372,213 @@
         "gap_mobile": 28,
         "padding_top_mobile": 16,
         "padding_bottom_mobile": 24,
+        "padding_x_mobile": 16,
+        "bar_bg": "#ffffff",
+        "bar_border_color": "#e8e1d9",
+        "bar_radius": 18,
+        "bar_padding_y": 16,
+        "bar_margin_bottom_desktop": 40,
+        "bar_margin_bottom_mobile": 8
+      }
+    },
+    "nuestro_compromiso_GRc86Y": {
+      "type": "nuestro-compromiso",
+      "blocks": {
+        "etiqueta_gE9h7J": {
+          "type": "etiqueta",
+          "settings": {
+            "text": "Nuestro compromiso",
+            "font": "poppins_n4",
+            "size_mobile": 11,
+            "size_desktop": 12,
+            "letter_spacing": 12,
+            "color": "#f451d6",
+            "margin_bottom": 8
+          }
+        },
+        "titulo_gDbhJT": {
+          "type": "titulo",
+          "settings": {
+            "text": "Cada pedido lleva algo de",
+            "accent": "nuestra casa.",
+            "heading_level": "h2",
+            "font": "poppins_n4",
+            "size_mobile": 32,
+            "size_desktop": 44,
+            "color": "#1a1a1a",
+            "accent_color": "#f451d6",
+            "margin_bottom": 16
+          }
+        },
+        "texto_kX6iQP": {
+          "type": "texto",
+          "settings": {
+            "text": "Lo que entregamos refleja nuestro compromiso con la calidad, el trabajo local y una relación cercana con cada cliente.",
+            "font": "poppins_n4",
+            "size_mobile": 14,
+            "size_desktop": 15,
+            "color": "#5c5550",
+            "max_width": 50,
+            "margin_bottom": 24
+          }
+        },
+        "item_jwHpQK": {
+          "type": "item",
+          "settings": {
+            "text": "Productos seleccionados con la mejor calidad",
+            "font": "poppins_n4",
+            "size_mobile": 13,
+            "size_desktop": 14,
+            "color": "#1a1a1a",
+            "check_size": 20,
+            "check_bg_color": "#7df5c8",
+            "check_color": "#0b3d2e",
+            "margin_bottom": 12
+          }
+        },
+        "item_TFyCBX": {
+          "type": "item",
+          "settings": {
+            "text": "Apoyo a productores locales y pequeños emprendedores",
+            "font": "poppins_n4",
+            "size_mobile": 13,
+            "size_desktop": 14,
+            "color": "#1a1a1a",
+            "check_size": 20,
+            "check_bg_color": "#7df5c8",
+            "check_color": "#0b3d2e",
+            "margin_bottom": 12
+          }
+        },
+        "item_cTfhQ6": {
+          "type": "item",
+          "settings": {
+            "text": "Una experiencia de compra cálida y personalizada",
+            "font": "poppins_n4",
+            "size_mobile": 13,
+            "size_desktop": 14,
+            "color": "#1a1a1a",
+            "check_size": 20,
+            "check_bg_color": "#7df5c8",
+            "check_color": "#0b3d2e",
+            "margin_bottom": 24
+          }
+        },
+        "boton_ThPtGf": {
+          "type": "boton",
+          "settings": {
+            "label": "Comprar ahora",
+            "link": "",
+            "show_arrow": true,
+            "font": "poppins_n4",
+            "bg_color": "#f451d6",
+            "text_color": "#1a1a1a",
+            "border_color": "#f451d6",
+            "hover_bg_color": "#e03bc0",
+            "margin_bottom": 0
+          }
+        },
+        "imagen_QV4a7K": {
+          "type": "imagen",
+          "settings": {
+            "image_alt": "",
+            "ratio": "4 / 3"
+          }
+        },
+        "tarjeta_ijCFtn": {
+          "type": "tarjeta",
+          "settings": {
+            "image_alt": "",
+            "label": "Horneado cada día",
+            "title": "Panadería",
+            "link": "",
+            "show_arrow": true,
+            "font": "poppins_n4",
+            "title_size_mobile": 24,
+            "title_size_desktop": 28,
+            "ratio": "4 / 3",
+            "radius": 24,
+            "overlay": 45,
+            "title_color": "#ffffff",
+            "label_color": "#ffffff",
+            "arrow_bg_color": "#ffffff",
+            "arrow_color": "#1a1a1a"
+          }
+        },
+        "tarjeta_xqPiJ3": {
+          "type": "tarjeta",
+          "settings": {
+            "image_alt": "",
+            "label": "Bien frías",
+            "title": "Agua y refrescos",
+            "link": "",
+            "show_arrow": true,
+            "font": "poppins_n4",
+            "title_size_mobile": 24,
+            "title_size_desktop": 28,
+            "ratio": "4 / 3",
+            "radius": 24,
+            "overlay": 45,
+            "title_color": "#ffffff",
+            "label_color": "#ffffff",
+            "arrow_bg_color": "#ffffff",
+            "arrow_color": "#1a1a1a"
+          }
+        },
+        "tarjeta_ADbYq8": {
+          "type": "tarjeta",
+          "settings": {
+            "image_alt": "",
+            "label": "Para empezar el día",
+            "title": "Desayuno rápido",
+            "link": "",
+            "show_arrow": true,
+            "font": "poppins_n4",
+            "title_size_mobile": 24,
+            "title_size_desktop": 28,
+            "ratio": "4 / 3",
+            "radius": 24,
+            "overlay": 45,
+            "title_color": "#ffffff",
+            "label_color": "#ffffff",
+            "arrow_bg_color": "#ffffff",
+            "arrow_color": "#1a1a1a"
+          }
+        }
+      },
+      "block_order": [
+        "etiqueta_gE9h7J",
+        "titulo_gDbhJT",
+        "texto_kX6iQP",
+        "item_jwHpQK",
+        "item_TFyCBX",
+        "item_cTfhQ6",
+        "boton_ThPtGf",
+        "imagen_QV4a7K",
+        "tarjeta_ijCFtn",
+        "tarjeta_xqPiJ3",
+        "tarjeta_ADbYq8"
+      ],
+      "name": "Nuestro Compromiso",
+      "settings": {
+        "section_bg": "",
+        "max_width": 1360,
+        "panel_bg": "#ffd9f5",
+        "panel_radius": 28,
+        "panel_ratio": "60-40",
+        "panel_padding_y_desktop": 56,
+        "panel_padding_x_desktop": 56,
+        "panel_padding_y_mobile": 32,
+        "panel_padding_x_mobile": 20,
+        "cards_columns": "3",
+        "cards_gap": 14,
+        "cards_margin_top_desktop": 14,
+        "cards_margin_top_mobile": 14,
+        "padding_top_desktop": 16,
+        "padding_bottom_desktop": 32,
+        "padding_x_desktop": 24,
+        "padding_top_mobile": 12,
+        "padding_bottom_mobile": 24,
         "padding_x_mobile": 16
       }
     }
@@ -379,6 +586,7 @@
   "order": [
     "main",
     "nosotros_home_bFYika",
-    "pasos_nosotros_9ADCjC"
+    "pasos_nosotros_9ADCjC",
+    "nuestro_compromiso_GRc86Y"
   ]
 }
