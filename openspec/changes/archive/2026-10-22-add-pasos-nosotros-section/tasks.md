@@ -21,10 +21,10 @@
 ## 3. Verificación
 
 - [x] 3.1 Ejecutar `shopify theme check` y corregir errores del archivo nuevo
-- [ ] 3.2 Prueba manual en el editor de temas: añadir la sección en inicio, añadir/reordenar/eliminar bloques, comprobar fondo transparente por defecto y con color, y Poppins por defecto
-- [ ] 3.3 Probar responsive a 320, 375, 768, 990 y 1440px: sin scroll horizontal
+- [x] 3.2 Prueba manual en el editor de temas: añadir la sección en inicio, añadir/reordenar/eliminar bloques, comprobar fondo transparente por defecto y con color, y Poppins por defecto
+- [x] 3.3 Probar responsive a 320, 375, 768, 990 y 1440px: sin scroll horizontal
 
 ## 4. Cierre
 
 - [x] 4.1 Verificar con `git diff --name-only` que no hay archivos de contenido (`templates/*.json`, `sections/*-group.json`, `config/settings_data.json`) y que solo cambia `sections/pasos-nosotros.liquid`
-- [ ] 4.2 Commit con conventional commits y push a `develop`; si el tema no sincroniza, subir el archivo con `shopify theme push --only` previa confirmación
+- [x] 4.2 Commit con conventional commits y push a `develop`; si el tema no sincroniza, subir el archivo con `shopify theme push --only` previa confirmación
