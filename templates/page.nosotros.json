@@ -143,6 +143,57 @@
     "pasos_nosotros_9ADCjC": {
       "type": "pasos-nosotros",
       "blocks": {
+        "beneficio_i89fEc": {
+          "type": "beneficio",
+          "settings": {
+            "title": "Frescos",
+            "text": "Panadería horneada y productos del día.",
+            "italic": true,
+            "font": "poppins_n4",
+            "title_size_mobile": 16,
+            "title_size_desktop": 18,
+            "text_size_mobile": 12,
+            "text_size_desktop": 12,
+            "title_color": "#a3157c",
+            "text_color": "#5c5550",
+            "show_divider": true,
+            "divider_color": "#e8e1d9"
+          }
+        },
+        "beneficio_4WmJWD": {
+          "type": "beneficio",
+          "settings": {
+            "title": "Artesanales",
+            "text": "Hechos por productores de la zona.",
+            "italic": true,
+            "font": "poppins_n4",
+            "title_size_mobile": 16,
+            "title_size_desktop": 18,
+            "text_size_mobile": 12,
+            "text_size_desktop": 12,
+            "title_color": "#a3157c",
+            "text_color": "#5c5550",
+            "show_divider": true,
+            "divider_color": "#e8e1d9"
+          }
+        },
+        "beneficio_H37Ky9": {
+          "type": "beneficio",
+          "settings": {
+            "title": "Seleccionados",
+            "text": "Elegidos uno a uno, con cariño.",
+            "italic": true,
+            "font": "poppins_n4",
+            "title_size_mobile": 16,
+            "title_size_desktop": 18,
+            "text_size_mobile": 12,
+            "text_size_desktop": 12,
+            "title_color": "#a3157c",
+            "text_color": "#5c5550",
+            "show_divider": true,
+            "divider_color": "#e8e1d9"
+          }
+        },
         "imagen_Vk8DWz": {
           "type": "imagen",
           "settings": {
@@ -297,6 +348,9 @@
         }
       },
       "block_order": [
+        "beneficio_i89fEc",
+        "beneficio_4WmJWD",
+        "beneficio_H37Ky9",
         "imagen_Vk8DWz",
         "etiqueta_awFkJV",
         "titulo_CR4pYa",
