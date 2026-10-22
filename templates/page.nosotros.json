@@ -481,7 +481,8 @@
         "imagen_QV4a7K": {
           "type": "imagen",
           "settings": {
-            "image_alt": "",
+            "image": "shopify://shop_images/bolsa-rosetta.avif",
+            "image_alt": "bolsa rosetta",
             "ratio": "4 / 3"
           }
         },
