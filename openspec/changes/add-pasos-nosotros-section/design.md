@@ -30,3 +30,9 @@
 - La línea conectora depende de que los pasos sean consecutivos; si se intercalan otros bloques entre pasos de la misma columna, la línea sigue visible entre ellos (comportamiento aceptado).
 - Poppins requiere que esté en la biblioteca de fuentes de Shopify (`poppins_n4`); se valida con `shopify theme check` y en el editor.
 - Muchos settings por bloque: se agrupan con `header`.
+
+## Actualización: barra de beneficios
+
+- Nuevo bloque `beneficio` (límite 6), sin selector de columna: se renderiza en una barra `.pn__bar` como primer hijo de la cuadrícula (`grid-column: 1 / -1`) y se excluye del conteo de columnas.
+- Estilo de la barra (fondo, borde, radio, relleno vertical, espacio inferior móvil/escritorio) en ajustes de sección; texto, fuente (Poppins), cursiva, tamaños, colores y divisor por bloque.
+- Escritorio: `grid-auto-flow: column` con columnas iguales; móvil: apilado con divisor superior. `max_blocks` sube a 24.

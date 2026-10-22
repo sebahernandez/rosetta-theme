@@ -6,7 +6,14 @@
   assign left_last_paso = -1
   assign right_first_paso = -1
   assign right_last_paso = -1
+  assign has_bar = false
   for block in section.blocks
+    if block.type == 'beneficio'
+      if block.settings.title != blank
+        assign has_bar = true
+      endif
+      continue
+    endif
     assign block_col = block.settings.column | default: 'left'
     if block_col == 'right'
       assign right_count = right_count | plus: 1
@@ -130,6 +137,51 @@
     object-position: var(--pn-focal, 50% 50%);
   }
 
+  .pn__bar {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    margin-bottom: var(--pn-bar-mb-m);
+    overflow: hidden;
+    border: 1px solid var(--pn-bar-border);
+    border-radius: var(--pn-bar-radius);
+    background-color: var(--pn-bar-bg);
+  }
+
+  .pn__benefit {
+    min-width: 0;
+    padding: var(--pn-bar-py) 20px;
+    font-family: var(--pn-font);
+    font-weight: var(--pn-weight);
+  }
+
+  .pn__benefit:not(:first-child).pn__benefit--divider {
+    border-top: 1px solid var(--pn-divider);
+  }
+
+  .pn__benefit-title,
+  .pn__benefit-text {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .pn__benefit-title {
+    font-size: var(--pn-title-m);
+    line-height: 1.3;
+    color: var(--pn-title-color);
+  }
+
+  .pn__benefit-title--italic {
+    font-style: italic;
+  }
+
+  .pn__benefit-text {
+    margin-top: 4px;
+    font-size: var(--pn-text-m);
+    line-height: 1.4;
+    color: var(--pn-text-color);
+  }
+
   .pn__item--paso {
     position: relative;
     display: grid;
@@ -221,6 +273,30 @@
       font-size: var(--pn-size-d);
     }
 
+    .pn__bar {
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(0, 1fr);
+      grid-template-columns: none;
+      margin-bottom: var(--pn-bar-mb-d);
+    }
+
+    .pn__benefit {
+      padding-inline: 24px;
+    }
+
+    .pn__benefit:not(:first-child).pn__benefit--divider {
+      border-top: 0;
+      border-left: 1px solid var(--pn-divider);
+    }
+
+    .pn__benefit-title {
+      font-size: var(--pn-title-d);
+    }
+
+    .pn__benefit-text {
+      font-size: var(--pn-text-d);
+    }
+
     .pn__item--paso {
       column-gap: 18px;
     }
@@ -258,8 +334,50 @@
     --pn-pt-d: {{ section.settings.padding_top_desktop }}px;
     --pn-pb-d: {{ section.settings.padding_bottom_desktop }}px;
     --pn-px-d: {{ section.settings.padding_x_desktop }}px;
+    --pn-bar-bg: {{ section.settings.bar_bg }};
+    --pn-bar-border: {{ section.settings.bar_border_color }};
+    --pn-bar-radius: {{ section.settings.bar_radius }}px;
+    --pn-bar-py: {{ section.settings.bar_padding_y }}px;
+    --pn-bar-mb-m: {{ section.settings.bar_margin_bottom_mobile }}px;
+    --pn-bar-mb-d: {{ section.settings.bar_margin_bottom_desktop }}px;
   "
 >
+  {%- if has_bar -%}
+    <div class="pn__bar">
+      {%- for block in section.blocks -%}
+        {%- if block.type != 'beneficio' or block.settings.title == blank -%}
+          {%- continue -%}
+        {%- endif -%}
+        {%- assign b_font = block.settings.font -%}
+        {%- assign b_font_italic = b_font | font_modify: 'style', 'italic' -%}
+        {%- style -%}
+          {{ b_font | font_face: font_display: 'swap' }}
+          {{ b_font_italic | font_face: font_display: 'swap' }}
+        {%- endstyle -%}
+        <div
+          class="pn__benefit{% if block.settings.show_divider %} pn__benefit--divider{% endif %}"
+          style="
+            --pn-font: {{ b_font.family }}, {{ b_font.fallback_families }};
+            --pn-weight: {{ b_font.weight }};
+            --pn-title-m: {{ block.settings.title_size_mobile | divided_by: 10.0 }}rem;
+            --pn-title-d: {{ block.settings.title_size_desktop | divided_by: 10.0 }}rem;
+            --pn-text-m: {{ block.settings.text_size_mobile | divided_by: 10.0 }}rem;
+            --pn-text-d: {{ block.settings.text_size_desktop | divided_by: 10.0 }}rem;
+            --pn-title-color: {{ block.settings.title_color }};
+            --pn-text-color: {{ block.settings.text_color }};
+            --pn-divider: {{ block.settings.divider_color }};
+          "
+          {{ block.shopify_attributes }}
+        >
+          <p class="pn__benefit-title{% if block.settings.italic %} pn__benefit-title--italic{% endif %}">{{ block.settings.title | escape }}</p>
+          {%- if block.settings.text != blank -%}
+            <p class="pn__benefit-text">{{ block.settings.text | escape }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
   {%- for col in columns -%}
     {%- assign col_count = left_count -%}
     {%- assign first_paso = left_first_paso -%}
@@ -475,9 +593,36 @@
     { "type": "range", "id": "gap_mobile", "label": "Espacio entre columnas apiladas", "unit": "px", "min": 0, "max": 80, "step": 4, "default": 28 },
     { "type": "range", "id": "padding_top_mobile", "label": "Relleno superior", "unit": "px", "min": 0, "max": 120, "step": 4, "default": 16 },
     { "type": "range", "id": "padding_bottom_mobile", "label": "Relleno inferior", "unit": "px", "min": 0, "max": 120, "step": 4, "default": 24 },
-    { "type": "range", "id": "padding_x_mobile", "label": "Relleno lateral", "unit": "px", "min": 0, "max": 60, "step": 2, "default": 16 }
+    { "type": "range", "id": "padding_x_mobile", "label": "Relleno lateral", "unit": "px", "min": 0, "max": 60, "step": 2, "default": 16 },
+
+    { "type": "header", "content": "Barra de beneficios" },
+    { "type": "color", "id": "bar_bg", "label": "Fondo de la barra", "default": "#ffffff" },
+    { "type": "color", "id": "bar_border_color", "label": "Borde de la barra", "default": "#e8e1d9" },
+    { "type": "range", "id": "bar_radius", "label": "Radio de las esquinas", "unit": "px", "min": 0, "max": 40, "step": 2, "default": 18 },
+    { "type": "range", "id": "bar_padding_y", "label": "Relleno vertical de cada beneficio", "unit": "px", "min": 4, "max": 40, "step": 2, "default": 16 },
+    { "type": "range", "id": "bar_margin_bottom_desktop", "label": "Espacio inferior en escritorio", "unit": "px", "min": 0, "max": 120, "step": 4, "default": 40 },
+    { "type": "range", "id": "bar_margin_bottom_mobile", "label": "Espacio inferior en móvil", "unit": "px", "min": 0, "max": 80, "step": 4, "default": 8 }
   ],
   "blocks": [
+    {
+      "type": "beneficio",
+      "name": "Beneficio (barra superior)",
+      "limit": 6,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Título", "default": "Frescos" },
+        { "type": "text", "id": "text", "label": "Descripción", "default": "Panadería horneada y productos del día." },
+        { "type": "checkbox", "id": "italic", "label": "Título en cursiva", "default": true },
+        { "type": "font_picker", "id": "font", "label": "Fuente", "default": "poppins_n4" },
+        { "type": "range", "id": "title_size_mobile", "label": "Título en móvil", "unit": "px", "min": 12, "max": 28, "step": 1, "default": 16 },
+        { "type": "range", "id": "title_size_desktop", "label": "Título en escritorio", "unit": "px", "min": 12, "max": 32, "step": 1, "default": 18 },
+        { "type": "range", "id": "text_size_mobile", "label": "Descripción en móvil", "unit": "px", "min": 10, "max": 20, "step": 1, "default": 12 },
+        { "type": "range", "id": "text_size_desktop", "label": "Descripción en escritorio", "unit": "px", "min": 10, "max": 22, "step": 1, "default": 12 },
+        { "type": "color", "id": "title_color", "label": "Color del título", "default": "#a3157c" },
+        { "type": "color", "id": "text_color", "label": "Color de la descripción", "default": "#5c5550" },
+        { "type": "checkbox", "id": "show_divider", "label": "Mostrar divisor a la izquierda", "default": true },
+        { "type": "color", "id": "divider_color", "label": "Color del divisor", "default": "#e8e1d9" }
+      ]
+    },
     {
       "type": "etiqueta",
       "name": "Etiqueta",
@@ -650,11 +795,28 @@
       ]
     }
   ],
-  "max_blocks": 16,
+  "max_blocks": 24,
   "presets": [
     {
       "name": "Pasos Nosotros",
       "blocks": [
+        { "type": "beneficio" },
+        {
+          "type": "beneficio",
+          "settings": {
+            "title": "Artesanales",
+            "text": "Hechos por productores de la zona.",
+            "show_divider": true
+          }
+        },
+        {
+          "type": "beneficio",
+          "settings": {
+            "title": "Seleccionados",
+            "text": "Elegidos uno a uno, con cariño.",
+            "show_divider": false
+          }
+        },
         { "type": "imagen" },
         { "type": "etiqueta" },
         { "type": "titulo" },

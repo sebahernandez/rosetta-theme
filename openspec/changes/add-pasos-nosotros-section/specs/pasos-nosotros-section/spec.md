@@ -6,7 +6,7 @@ Sección de inicio que explica el proceso de compra en pasos numerados junto a u
 ## ADDED Requirements
 
 ### Requirement: Composición por bloques independientes
-La sección SHALL estar compuesta por bloques Etiqueta, Título, Subtítulo, Imagen y Paso, cada uno con su propia configuración, que el comerciante puede añadir, reordenar y eliminar. Cada bloque SHALL tener un selector de columna (izquierda/derecha).
+La sección SHALL estar compuesta por bloques Beneficio, Etiqueta, Título, Subtítulo, Imagen y Paso, cada uno con su propia configuración, que el comerciante puede añadir, reordenar y eliminar. Cada bloque SHALL tener un selector de columna (izquierda/derecha).
 
 #### Scenario: Configuración aislada
 - **WHEN** el comerciante cambia el color o tamaño de un bloque
@@ -63,3 +63,18 @@ La sección SHALL mostrar dos columnas desde 990px y una columna debajo, sin scr
 #### Scenario: Escritorio
 - **WHEN** el ancho es 990px o más
 - **THEN** la imagen y los pasos se muestran lado a lado con la proporción elegida
+
+### Requirement: Barra de beneficios superior
+La sección SHALL mostrar sobre las dos columnas una barra con los bloques Beneficio (título, descripción), cada uno con fuente, tamaños, colores y divisor propios. La barra SHALL poder configurarse (fondo, borde, radio, espaciados) y SHALL omitirse si no hay bloques Beneficio con título. Los bloques Beneficio no SHALL ocupar ninguna de las dos columnas.
+
+#### Scenario: Tres beneficios
+- **WHEN** hay tres bloques Beneficio con título
+- **THEN** en escritorio se muestran en una fila de igual ancho dentro de una tarjeta, con divisor entre los que lo tengan activo; en móvil se apilan
+
+#### Scenario: Sin beneficios
+- **WHEN** no hay bloques Beneficio con título
+- **THEN** la barra no se renderiza y las columnas funcionan igual
+
+#### Scenario: Cambio aislado
+- **WHEN** el comerciante cambia el color o el texto de un Beneficio
+- **THEN** solo ese Beneficio cambia

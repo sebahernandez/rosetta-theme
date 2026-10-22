@@ -14,6 +14,10 @@
 - [x] 2.6 Escribir el schema en español: ajustes de sección (color de fondo sin default, ancho máximo, proporción, espacios y rellenos móvil/escritorio), los 5 tipos de bloque, `max_blocks: 16` y preset con la composición de la referencia (4 pasos)
 - [x] 2.7 Validar que cada `range` tenga al menos 3 pasos ((max − min) / step ≥ 3) y que los defaults caigan en un paso
 
+## 2b. Barra de beneficios
+
+- [x] 2.8 Añadir el bloque Beneficio, la barra superior responsive y sus ajustes de sección; preset con Frescos, Artesanales y Seleccionados
+
 ## 3. Verificación
 
 - [x] 3.1 Ejecutar `shopify theme check` y corregir errores del archivo nuevo
