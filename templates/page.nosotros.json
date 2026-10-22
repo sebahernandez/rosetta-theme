@@ -489,7 +489,8 @@
         "tarjeta_ijCFtn": {
           "type": "tarjeta",
           "settings": {
-            "image_alt": "",
+            "image": "shopify://shop_images/panaderia-rosetta.avif",
+            "image_alt": "panaderia rosetta",
             "label": "Horneado cada día",
             "title": "Panadería",
             "link": "",
@@ -509,7 +510,8 @@
         "tarjeta_xqPiJ3": {
           "type": "tarjeta",
           "settings": {
-            "image_alt": "",
+            "image": "shopify://shop_images/refrescos-rosetta.avif",
+            "image_alt": "refrescos rosetta",
             "label": "Bien frías",
             "title": "Agua y refrescos",
             "link": "",
@@ -529,7 +531,8 @@
         "tarjeta_ADbYq8": {
           "type": "tarjeta",
           "settings": {
-            "image_alt": "",
+            "image": "shopify://shop_images/postres-rosetta.avif",
+            "image_alt": "desayuno rápido",
             "label": "Para empezar el día",
             "title": "Desayuno rápido",
             "link": "",
