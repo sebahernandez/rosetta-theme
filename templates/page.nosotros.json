@@ -92,6 +92,7 @@
           "type": "imagen",
           "settings": {
             "column": "right",
+            "image": "shopify://shop_images/arepas-rosetta.avif",
             "image_alt": "",
             "ratio": "1 / 1",
             "radius": 28,
