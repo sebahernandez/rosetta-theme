@@ -128,7 +128,7 @@
       "name": "Nosotros Home",
       "settings": {
         "section_bg": "#faf7f2",
-        "max_width": 1280,
+        "max_width": 1360,
         "columns_ratio": "45-55",
         "gap_desktop": 56,
         "padding_top_desktop": 32,
@@ -309,7 +309,7 @@
       "name": "Pasos Nosotros",
       "settings": {
         "section_bg": "",
-        "max_width": 1280,
+        "max_width": 1360,
         "columns_ratio": "45-55",
         "gap_desktop": 56,
         "padding_top_desktop": 32,
