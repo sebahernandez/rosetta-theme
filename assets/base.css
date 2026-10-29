@@ -3715,3 +3715,59 @@ details-disclosure > details {
     font-weight: 700;
     color: bisque !important;
 }
+
+.product-availability {
+  width: min(32rem, calc(100vw - 2rem));
+  max-width: none;
+  max-height: min(90vh, 38rem);
+  padding: 0;
+  overflow: auto;
+  color: rgb(var(--color-foreground));
+  background: rgb(var(--color-background));
+  border: 1px solid rgba(var(--color-foreground), 0.12);
+  border-radius: 1.25rem;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.24);
+}
+
+.product-availability::backdrop {
+  background: rgba(0, 0, 0, 0.56);
+}
+
+.product-availability__content {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  padding: clamp(1.5rem, 6vw, 2.5rem);
+  text-align: center;
+}
+
+.product-availability__title {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-size: clamp(1.8rem, 6vw, 2.4rem);
+  line-height: 1.2;
+}
+
+.product-availability__message {
+  max-width: 27rem;
+  margin: 0;
+  font-size: 1.6rem;
+  line-height: 1.55;
+}
+
+.product-availability__accept {
+  min-width: 12rem;
+  min-height: 4.4rem;
+  margin-top: 0.4rem;
+  cursor: pointer;
+}
+
+@media (max-width: 749px) {
+  .product-availability {
+    border-radius: 1rem;
+  }
+
+  .product-availability__message {
+    font-size: 1.5rem;
+  }
+}

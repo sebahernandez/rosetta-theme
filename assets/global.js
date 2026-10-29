@@ -1267,3 +1267,73 @@ class BulkAdd extends HTMLElement {
 if (!customElements.get('bulk-add')) {
   customElements.define('bulk-add', BulkAdd);
 }
+
+(() => {
+  const dialog = document.querySelector('[data-product-availability]');
+  if (!dialog || typeof dialog.showModal !== 'function') return;
+
+  const endpoint = dialog.dataset.endpoint;
+  const shopDomain = dialog.dataset.shopDomain;
+  const message = dialog.querySelector('[data-availability-message]');
+  const closeButton = dialog.querySelector('[data-availability-close]');
+  if (!endpoint || !shopDomain || !message || !closeButton) return;
+
+  const messages = {
+    both: 'Están disponibles el envío a domicilio y el retiro en tienda.',
+    shipping: 'Por ahora, solo está disponible el envío a domicilio.',
+    pickup: 'Por ahora, solo está disponible el retiro en tienda.',
+    none: 'Por ahora no están disponibles ni el envío a domicilio ni el retiro en tienda.',
+    unknown: 'No pudimos verificar la disponibilidad de las opciones de entrega. Inténtalo nuevamente en unos minutos.',
+  };
+
+  let currentState = null;
+  let requestPending = false;
+
+  const closeDialog = () => {
+    if (dialog.open) dialog.close();
+  };
+
+  closeButton.addEventListener('click', closeDialog);
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) closeDialog();
+  });
+
+  const showState = (state) => {
+    if (state === currentState) return;
+    currentState = state;
+    message.textContent = messages[state];
+    if (!dialog.open) dialog.showModal();
+  };
+
+  const getState = (data) => {
+    if (!data || typeof data.shippingEnabled !== 'boolean' || typeof data.pickupEnabled !== 'boolean') {
+      return 'unknown';
+    }
+    if (data.shippingEnabled && data.pickupEnabled) return 'both';
+    if (data.shippingEnabled) return 'shipping';
+    if (data.pickupEnabled) return 'pickup';
+    return 'none';
+  };
+
+  const refreshAvailability = async () => {
+    if (requestPending) return;
+    requestPending = true;
+    try {
+      const url = new URL(endpoint);
+      url.searchParams.set('shopDomain', shopDomain);
+      const response = await fetch(url.toString(), { cache: 'no-store' });
+      if (!response.ok) throw new Error('Availability request failed');
+      showState(getState(await response.json()));
+    } catch (_error) {
+      showState('unknown');
+    } finally {
+      requestPending = false;
+    }
+  };
+
+  void refreshAvailability();
+  window.setInterval(() => void refreshAvailability(), 60_000);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') void refreshAvailability();
+  });
+})();
