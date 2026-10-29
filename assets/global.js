@@ -1289,12 +1289,35 @@ if (!customElements.get('bulk-add')) {
 
   let currentState = null;
   let requestPending = false;
+  const dismissalKey = `rosetta:delivery-availability:dismissed:${shopDomain}`;
+  const unavailableStates = ['shipping', 'pickup', 'none'];
+
+  const getDismissedState = () => {
+    try {
+      return window.sessionStorage.getItem(dismissalKey);
+    } catch (_error) {
+      return null;
+    }
+  };
+
+  const rememberDismissal = () => {
+    if (!unavailableStates.includes(currentState)) return;
+    try {
+      window.sessionStorage.setItem(dismissalKey, currentState);
+    } catch (_error) {
+      // Keep the modal usable even when browser storage is unavailable.
+    }
+  };
 
   const closeDialog = () => {
-    if (dialog.open) dialog.close();
+    if (dialog.open) {
+      rememberDismissal();
+      dialog.close();
+    }
   };
 
   closeButton.addEventListener('click', closeDialog);
+  dialog.addEventListener('close', rememberDismissal);
   dialog.addEventListener('click', (event) => {
     if (event.target === dialog) closeDialog();
   });
@@ -1305,6 +1328,13 @@ if (!customElements.get('bulk-add')) {
 
     if (state === 'both' || state === 'unknown') {
       if (dialog.open) dialog.close();
+      if (state === 'both') {
+        try {
+          window.sessionStorage.removeItem(dismissalKey);
+        } catch (_error) {
+          // Storage is optional; availability messaging continues without it.
+        }
+      }
       notice.textContent = messages[state];
       notice.hidden = false;
       return;
@@ -1313,7 +1343,7 @@ if (!customElements.get('bulk-add')) {
     if (state === 'shipping' || state === 'pickup' || state === 'none') {
       notice.hidden = true;
       message.textContent = messages[state];
-      if (!dialog.open) dialog.showModal();
+      if (!dialog.open && getDismissedState() !== state) dialog.showModal();
     }
   };
 
