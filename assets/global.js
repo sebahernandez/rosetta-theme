@@ -1276,13 +1276,14 @@ if (!customElements.get('bulk-add')) {
   const shopDomain = dialog.dataset.shopDomain;
   const message = dialog.querySelector('[data-availability-message]');
   const closeButton = dialog.querySelector('[data-availability-close]');
-  if (!endpoint || !shopDomain || !message || !closeButton) return;
+  const notice = document.querySelector('[data-product-availability-notice]');
+  if (!endpoint || !shopDomain || !message || !closeButton || !notice) return;
 
   const messages = {
     both: 'Están disponibles el envío a domicilio y el retiro en tienda.',
-    shipping: 'Por ahora, solo está disponible el envío a domicilio.',
-    pickup: 'Por ahora, solo está disponible el retiro en tienda.',
-    none: 'Por ahora no están disponibles ni el envío a domicilio ni el retiro en tienda.',
+    shipping: 'El retiro en tienda no está disponible. El envío a domicilio sí está disponible.',
+    pickup: 'El envío a domicilio no está disponible. El retiro en tienda sí está disponible.',
+    none: 'No están disponibles el envío a domicilio ni el retiro en tienda.',
     unknown: 'No pudimos verificar la disponibilidad de las opciones de entrega. Inténtalo nuevamente en unos minutos.',
   };
 
@@ -1301,8 +1302,19 @@ if (!customElements.get('bulk-add')) {
   const showState = (state) => {
     if (state === currentState) return;
     currentState = state;
-    message.textContent = messages[state];
-    if (!dialog.open) dialog.showModal();
+
+    if (state === 'both' || state === 'unknown') {
+      if (dialog.open) dialog.close();
+      notice.textContent = messages[state];
+      notice.hidden = false;
+      return;
+    }
+
+    if (state === 'shipping' || state === 'pickup' || state === 'none') {
+      notice.hidden = true;
+      message.textContent = messages[state];
+      if (!dialog.open) dialog.showModal();
+    }
   };
 
   const getState = (data) => {

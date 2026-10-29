@@ -3762,6 +3762,23 @@ details-disclosure > details {
   cursor: pointer;
 }
 
+.product-availability__notice {
+  max-width: var(--page-width);
+  margin: 1.5rem auto;
+  padding: 1.2rem 1.6rem;
+  color: rgb(var(--color-foreground));
+  background: rgba(var(--color-foreground), 0.04);
+  border: 1px solid rgba(var(--color-foreground), 0.12);
+  border-radius: 0.8rem;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.product-availability__notice[hidden] {
+  display: none;
+}
+
 @media (max-width: 749px) {
   .product-availability {
     border-radius: 1rem;
@@ -3769,5 +3786,9 @@ details-disclosure > details {
 
   .product-availability__message {
     font-size: 1.5rem;
+  }
+
+  .product-availability__notice {
+    margin: 1rem 1.5rem;
   }
 }

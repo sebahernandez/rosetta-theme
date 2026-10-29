@@ -451,6 +451,9 @@ body.gradient {
       class="content-for-layout focus-none"
       role="main"
       tabindex="-1">
+      {%- if request.page_type == 'product' -%}
+        <p class="product-availability__notice" data-product-availability-notice role="status" aria-live="polite" hidden></p>
+      {%- endif -%}
       {{ content_for_layout }}
     </main>
 
@@ -465,7 +468,7 @@ body.gradient {
       >
         <div class="product-availability__content">
           <h2 class="product-availability__title" id="ProductAvailabilityTitle">Disponibilidad de entrega</h2>
-          <p class="product-availability__message" id="ProductAvailabilityMessage" data-availability-message aria-live="polite"></p>
+          <p class="product-availability__message" id="ProductAvailabilityMessage" data-availability-message></p>
           <button class="button product-availability__accept" type="button" data-availability-close>Aceptar</button>
         </div>
       </dialog>
