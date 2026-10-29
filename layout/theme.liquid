@@ -454,6 +454,23 @@ body.gradient {
       {{ content_for_layout }}
     </main>
 
+    {%- if request.page_type == 'product' -%}
+      <dialog
+        class="product-availability"
+        data-product-availability
+        data-endpoint="https://back.rosettamarketgroup.com/api/v1/store-operations/delivery-availability"
+        data-shop-domain="{{ shop.permanent_domain | escape }}"
+        aria-labelledby="ProductAvailabilityTitle"
+        aria-describedby="ProductAvailabilityMessage"
+      >
+        <div class="product-availability__content">
+          <h2 class="product-availability__title" id="ProductAvailabilityTitle">Disponibilidad de entrega</h2>
+          <p class="product-availability__message" id="ProductAvailabilityMessage" data-availability-message aria-live="polite"></p>
+          <button class="button product-availability__accept" type="button" data-availability-close>Aceptar</button>
+        </div>
+      </dialog>
+    {%- endif -%}
+
     {% sections 'footer-group' %}
 
     <script>
