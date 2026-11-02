@@ -1,0 +1,226 @@
+[
+  {
+    "title": "Bebidas sin alcohol",
+    "parent": null
+  },
+  {
+    "title": "Bebidas en polvo y sobres",
+    "parent": "Bebidas sin alcohol"
+  },
+  {
+    "title": "Energéticas y deportivas",
+    "parent": "Bebidas sin alcohol"
+  },
+  {
+    "title": "Gaseosas",
+    "parent": "Bebidas sin alcohol"
+  },
+  {
+    "title": "Jugos, néctares y té frío",
+    "parent": "Bebidas sin alcohol"
+  },
+  {
+    "title": "Maltas",
+    "parent": "Bebidas sin alcohol"
+  },
+  {
+    "title": "Sodas, agua mineral con gas y sin gas",
+    "parent": "Bebidas sin alcohol"
+  },
+  {
+    "title": "Cigarrillos y tabaco",
+    "parent": null
+  },
+  {
+    "title": "Cigarrillos",
+    "parent": "Cigarrillos y tabaco"
+  },
+  {
+    "title": "Encendedores",
+    "parent": "Cigarrillos y tabaco"
+  },
+  {
+    "title": "Tabaco",
+    "parent": "Cigarrillos y tabaco"
+  },
+  {
+    "title": "Confitería y snacks",
+    "parent": null
+  },
+  {
+    "title": "Caramelos y gomitas",
+    "parent": "Confitería y snacks"
+  },
+  {
+    "title": "Chicles y mentas",
+    "parent": "Confitería y snacks"
+  },
+  {
+    "title": "Chocolates",
+    "parent": "Confitería y snacks"
+  },
+  {
+    "title": "Frutos secos",
+    "parent": "Confitería y snacks"
+  },
+  {
+    "title": "Galletas, obleas y barquillos",
+    "parent": "Confitería y snacks"
+  },
+  {
+    "title": "Pasapalos y snacks salados",
+    "parent": "Confitería y snacks"
+  },
+  {
+    "title": "Cuidado personal",
+    "parent": null
+  },
+  {
+    "title": "Cremas dentales",
+    "parent": "Cuidado personal"
+  },
+  {
+    "title": "Jabones de baño",
+    "parent": "Cuidado personal"
+  },
+  {
+    "title": "Papel higiénico",
+    "parent": "Cuidado personal"
+  },
+  {
+    "title": "Toallas sanitarias",
+    "parent": "Cuidado personal"
+  },
+  {
+    "title": "Lácteos y refrigerados",
+    "parent": null
+  },
+  {
+    "title": "Leches en polvo",
+    "parent": "Lácteos y refrigerados"
+  },
+  {
+    "title": "Leches y cremas",
+    "parent": "Lácteos y refrigerados"
+  },
+  {
+    "title": "Margarinas y mantequillas",
+    "parent": "Lácteos y refrigerados"
+  },
+  {
+    "title": "Yogures y postres",
+    "parent": "Lácteos y refrigerados"
+  },
+  {
+    "title": "Licores y cervezas",
+    "parent": null
+  },
+  {
+    "title": "Aguardientes",
+    "parent": "Licores y cervezas"
+  },
+  {
+    "title": "Brandy",
+    "parent": "Licores y cervezas"
+  },
+  {
+    "title": "Cervezas",
+    "parent": "Licores y cervezas"
+  },
+  {
+    "title": "Ginebra",
+    "parent": "Licores y cervezas"
+  },
+  {
+    "title": "Licores y cremas",
+    "parent": "Licores y cervezas"
+  },
+  {
+    "title": "Ron",
+    "parent": "Licores y cervezas"
+  },
+  {
+    "title": "Sangría",
+    "parent": "Licores y cervezas"
+  },
+  {
+    "title": "Vinos y espumantes",
+    "parent": "Licores y cervezas"
+  },
+  {
+    "title": "Vodka y bebidas preparadas",
+    "parent": "Licores y cervezas"
+  },
+  {
+    "title": "Whisky",
+    "parent": "Licores y cervezas"
+  },
+  {
+    "title": "Limpieza y hogar",
+    "parent": null
+  },
+  {
+    "title": "Lavaplatos",
+    "parent": "Limpieza y hogar"
+  },
+  {
+    "title": "Panadería y pastelería",
+    "parent": null
+  },
+  {
+    "title": "Víveres y despensa",
+    "parent": null
+  },
+  {
+    "title": "Aceites y vinagres",
+    "parent": "Víveres y despensa"
+  },
+  {
+    "title": "Arroz y granos",
+    "parent": "Víveres y despensa"
+  },
+  {
+    "title": "Azúcar, endulzantes y saborizantes",
+    "parent": "Víveres y despensa"
+  },
+  {
+    "title": "Cereales y compotas",
+    "parent": "Víveres y despensa"
+  },
+  {
+    "title": "Condimentos y caldos",
+    "parent": "Víveres y despensa"
+  },
+  {
+    "title": "Enlatados y conservas",
+    "parent": "Víveres y despensa"
+  },
+  {
+    "title": "Harinas y almidones",
+    "parent": "Víveres y despensa"
+  },
+  {
+    "title": "Mermeladas y untables",
+    "parent": "Víveres y despensa"
+  },
+  {
+    "title": "Pastas",
+    "parent": "Víveres y despensa"
+  },
+  {
+    "title": "Postres y gelatinas",
+    "parent": "Víveres y despensa"
+  },
+  {
+    "title": "Repostería",
+    "parent": "Víveres y despensa"
+  },
+  {
+    "title": "Salsas y aderezos",
+    "parent": "Víveres y despensa"
+  },
+  {
+    "title": "Té, infusiones y café",
+    "parent": "Víveres y despensa"
+  }
+]
