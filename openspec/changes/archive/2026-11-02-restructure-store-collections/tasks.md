@@ -31,7 +31,7 @@
 
 - [x] 5.1 Consultar colecciones: exactamente 56 nuevas + "Ofertas" + "Más vendidos", sin duplicados; preservadas con el mismo id, handle y productsCount que en el respaldo
 - [x] 5.2 Verificar que `productsCount` de la tienda es igual al registrado en 2.2
-- [ ] 5.3 Abrir en el navegador `/collections/bebidas-sin-alcohol` y `/collections/panaderia-y-pasteleria` y verificar que cargan sin 404
+- [x] 5.3 Abrir en el navegador `/collections/bebidas-sin-alcohol` y `/collections/panaderia-y-pasteleria` y verificar que cargan sin 404
 - [x] 5.4 Reportar al usuario los handles borrados que estaban enlazados en `templates/index.json` (`panaderia`, `bebidas`, `cocinar`, `snacks`, `belleza-y-salud`, `ofertas-destacadas` si se borró) y en menús, para reasignarlos desde el editor de temas / Admin
 - [x] 5.5 `shopify theme check` como control de que el theme no cambió (sin errores nuevos)
 
