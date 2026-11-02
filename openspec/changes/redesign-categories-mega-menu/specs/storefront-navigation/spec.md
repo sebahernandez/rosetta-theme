@@ -69,6 +69,10 @@ La segunda fila SHALL mostrar el botón "Categorías" y botones píldora adicion
 - **WHEN** el comerciante añade un bloque de botón con texto "Ofertas" y enlace a la colección Ofertas
 - **THEN** aparece a la derecha de "Categorías" como píldora con los colores elegidos y lleva a esa colección
 
+#### Scenario: Enlaces simples a la derecha
+- **WHEN** el ajuste "Enlaces a la derecha" contiene "Nosotros, Contacto"
+- **THEN** esos enlaces del menú aparecen como enlaces de texto, sin píldora, alineados al extremo derecho de la segunda fila
+
 #### Scenario: Reordenar y eliminar botones
 - **WHEN** el comerciante reordena o elimina bloques de botón en el editor de temas
 - **THEN** la segunda fila refleja el nuevo orden o la ausencia del botón sin recargar el editor

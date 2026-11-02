@@ -55,6 +55,36 @@
   filter: brightness(0.96);
 }
 
+/* Plain links pushed to the right end of the row */
+.categories-row__links {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+  margin: 0 0 0 auto;
+  padding: 0;
+}
+
+.categories-row__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 4.4rem;
+  color: var(--header-link, #000000);
+  font-family: var(--font-body-family);
+  font-size: 1.5rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.categories-row__link:hover,
+.categories-row__link--active {
+  color: var(--header-link-hover, #ff4fd1);
+}
+
+.categories-row__link--active {
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
 .categories-pill__icon,
 .categories-pill__caret {
   display: inline-flex;

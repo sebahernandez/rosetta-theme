@@ -146,4 +146,37 @@
   </categories-menu>
 
   {%- render 'header-categories-pills', with_attributes: true -%}
+
+  {%- liquid
+    # Top-level menu links shown as plain text links on the right of the row
+    assign right_handles = ''
+    assign right_titles = section.settings.categories_right_links | split: ','
+    for right_title in right_titles
+      assign right_handle = right_title | strip | handleize
+      if right_handle != blank
+        assign right_handles = right_handles | append: '|' | append: right_handle
+      endif
+    endfor
+    assign right_handles = right_handles | append: '|'
+  -%}
+  {%- if right_handles != '|' -%}
+    <ul class="categories-row__links list-unstyled" role="list">
+      {%- for link in section.settings.menu.links -%}
+        {%- assign link_key = '|' | append: link.handle | append: '|' -%}
+        {%- if right_handles contains link_key -%}
+          <li>
+            <a
+              href="{{ link.url }}"
+              class="categories-row__link link focus-inset{% if link.current %} categories-row__link--active{% endif %}"
+              {% if link.current %}
+                aria-current="page"
+              {% endif %}
+            >
+              {{- link.title | escape -}}
+            </a>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
 </div>
