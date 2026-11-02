@@ -70,3 +70,22 @@ El contenido multimedia de una sección SHALL cargarse en el editor de temas y t
 
 - **WHEN** el theme se ejecuta en local con `shopify theme dev` tras el `git pull`
 - **THEN** las imágenes se muestran porque sus referencias apuntan a los archivos de la tienda
+
+### Requirement: Solo código en el push
+
+Todo push hacia GitHub o hacia el theme de Shopify SHALL contener únicamente archivos de código. Un push SHALL NOT sobrescribir la edición visual del comerciante (imágenes, textos, bloques y configuración guardados en el editor). Un `shopify theme push` SHALL limitarse con `--only` a los archivos de código modificados y SHALL NOT incluir archivos de contenido ni borrar archivos remotos.
+
+#### Scenario: Push a GitHub
+
+- **WHEN** se hace `git push` de un cambio
+- **THEN** los commits incluidos no contienen `templates/*.json`, `sections/*-group.json` ni `config/settings_data.json`, salvo excepción aprobada y commiteada por separado
+
+#### Scenario: Push directo al theme
+
+- **WHEN** se ejecuta `shopify theme push` sobre un theme con contenido editado
+- **THEN** el comando usa `--only` con la lista de archivos de código y el contenido del editor permanece intacto
+
+#### Scenario: Push sin sincronizar
+
+- **WHEN** `origin/develop` tiene commits `Update from Shopify` que no están en local
+- **THEN** se hace pull con rebase antes del push, de modo que el contenido del editor no se pierda ni se revierta
