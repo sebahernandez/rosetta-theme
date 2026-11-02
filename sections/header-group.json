@@ -76,7 +76,33 @@
         "margin_bottom": 52,
         "padding_top": 8,
         "padding_bottom": 8
-      }
+      },
+      "blocks": {
+        "pill_ofertas": {
+          "type": "pill_button",
+          "settings": {
+            "text": "Ofertas",
+            "link": "shopify://collections/ofertas",
+            "icon": "discount",
+            "bg_color": "#6fffd2",
+            "text_color": "#1c1417"
+          }
+        },
+        "pill_mas_vendidos": {
+          "type": "pill_button",
+          "settings": {
+            "text": "Más vendidos",
+            "link": "shopify://collections/mas-vendidos",
+            "icon": "star",
+            "bg_color": "#ffdcf6",
+            "text_color": "#1c1417"
+          }
+        }
+      },
+      "block_order": [
+        "pill_ofertas",
+        "pill_mas_vendidos"
+      ]
     }
   },
   "order": [
