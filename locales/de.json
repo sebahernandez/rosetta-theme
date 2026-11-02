@@ -278,6 +278,8 @@
     "header": {
       "announcement": "Ankündigung",
       "menu": "Menü",
+      "categories": "Categories",
+      "show_all": "Show all",
       "cart_count": {
         "one": "{{ count }} Artikel",
         "other": "{{ count }} Artikel"

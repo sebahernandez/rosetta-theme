@@ -278,6 +278,8 @@
     "header": {
       "announcement": "Ανακοίνωση",
       "menu": "Μενού",
+      "categories": "Categories",
+      "show_all": "Show all",
       "cart_count": {
         "one": "{{ count }} στοιχείο",
         "other": "{{ count }} στοιχεία"

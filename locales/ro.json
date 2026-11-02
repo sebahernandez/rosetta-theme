@@ -287,6 +287,8 @@
     "header": {
       "announcement": "Anunț",
       "menu": "Meniu",
+      "categories": "Categories",
+      "show_all": "Show all",
       "cart_count": {
         "one": "{{ count }} articol",
         "other": "{{ count }} articole",

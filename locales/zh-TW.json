@@ -278,6 +278,8 @@
     "header": {
       "announcement": "公告",
       "menu": "選單",
+      "categories": "Categories",
+      "show_all": "Show all",
       "cart_count": {
         "one": "{{ count }} 件商品",
         "other": "{{ count }} 件商品"

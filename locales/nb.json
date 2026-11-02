@@ -278,6 +278,8 @@
     "header": {
       "announcement": "Kunngjøring",
       "menu": "Meny",
+      "categories": "Categories",
+      "show_all": "Show all",
       "cart_count": {
         "one": "{{ count }} vare",
         "other": "{{ count }} varer"

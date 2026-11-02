@@ -1,0 +1,43 @@
+{% comment %}
+  Renders the icon configured (category_icon block) for a top-level menu link.
+  Matches block.settings.link_title against the link title using handleize
+  (case and accent insensitive). custom_icon takes precedence over icon.
+
+  Accepts:
+  - title: {String} Title of the top-level menu link
+  - with_attributes: {Boolean} Output block.shopify_attributes (desktop panel only,
+    so the theme editor does not receive duplicated attributes)
+
+  Usage:
+  {% render 'header-categories-icon', title: link.title, with_attributes: true %}
+{% endcomment %}
+
+{%- liquid
+  assign wanted = title | handleize
+  assign found = false
+  for block in section.blocks
+    if block.type == 'category_icon' and block.settings.link_title != blank
+      assign candidate = block.settings.link_title | handleize
+      if candidate == wanted
+        assign found = true
+        assign icon_block = block
+        break
+      endif
+    endif
+  endfor
+-%}
+<span
+  class="categories-icon{% unless found %} categories-icon--empty{% endunless %}"
+  aria-hidden="true"
+  {% if found and with_attributes %}
+    {{ icon_block.shopify_attributes }}
+  {% endif %}
+>
+  {%- if found -%}
+    {%- if icon_block.settings.custom_icon != blank -%}
+      {{ icon_block.settings.custom_icon | image_url: width: 64 | image_tag: loading: 'lazy', alt: '', width: 24, height: 24 }}
+    {%- elsif icon_block.settings.icon != blank -%}
+      {{- 'icon-' | append: icon_block.settings.icon | append: '.svg' | inline_asset_content -}}
+    {%- endif -%}
+  {%- endif -%}
+</span>

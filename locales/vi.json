@@ -278,6 +278,8 @@
     "header": {
       "announcement": "Thông báo",
       "menu": "Menu",
+      "categories": "Categories",
+      "show_all": "Show all",
       "cart_count": {
         "one": "{{ count }} mặt hàng",
         "other": "{{ count }} mặt hàng"

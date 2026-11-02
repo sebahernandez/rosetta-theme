@@ -296,6 +296,8 @@
     "header": {
       "announcement": "Skelbimas",
       "menu": "Meniu",
+      "categories": "Categories",
+      "show_all": "Show all",
       "cart_count": {
         "one": "{{ count }} prekė",
         "other": "{{ count }} prekės (-ių)",

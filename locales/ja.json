@@ -278,6 +278,8 @@
     "header": {
       "announcement": "告知",
       "menu": "メニュー",
+      "categories": "Categories",
+      "show_all": "Show all",
       "cart_count": {
         "one": "{{ count }}個のアイテム",
         "other": "{{ count }}個のアイテム"

@@ -278,6 +278,8 @@
     "header": {
       "announcement": "การประกาศ",
       "menu": "เมนู",
+      "categories": "Categories",
+      "show_all": "Show all",
       "cart_count": {
         "one": "{{ count }} รายการ",
         "other": "{{ count }} รายการ"

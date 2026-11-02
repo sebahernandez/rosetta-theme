@@ -278,6 +278,8 @@
     "header": {
       "announcement": "Duyuru",
       "menu": "Menü",
+      "categories": "Categories",
+      "show_all": "Show all",
       "cart_count": {
         "one": "{{ count }} ürün",
         "other": "{{ count }} ürün"

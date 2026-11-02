@@ -17,6 +17,11 @@
   <link rel="stylesheet" href="{{ 'component-mega-menu.css' | asset_url }}">
 {%- endif -%}
 
+{%- if section.settings.menu_type_desktop == 'categories' -%}
+  <link rel="stylesheet" href="{{ 'component-categories-menu.css' | asset_url }}">
+  <script src="{{ 'categories-menu.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
 <style>
   header-drawer {
     justify-self: start;
@@ -97,6 +102,17 @@
 </style>
 
 {%- style -%}
+  {%- if section.settings.menu_type_desktop == 'categories' -%}
+    .header-wrapper {
+      --cat-panel-bg: {{ section.settings.categories_panel_bg | default: '#ffffff' }};
+      --cat-list-bg: {{ section.settings.categories_list_bg | default: '#faf7f2' }};
+      --cat-active-bg: {{ section.settings.categories_active_bg | default: '#ffdcf6' }};
+      --cat-accent: {{ section.settings.categories_accent | default: '#f04ee0' }};
+      --cat-text: {{ section.settings.categories_text | default: '#1c1417' }};
+      --cat-max-height: {{ section.settings.categories_panel_max_height | default: 640 }}px;
+    }
+  {%- endif -%}
+
   .header {
     padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 3rem;
   }
@@ -420,6 +436,8 @@
       <div class="header__nav-row-inner page-width">
         {%- if section.settings.menu_type_desktop == 'dropdown' -%}
           {% render 'header-dropdown-menu' %}
+        {%- elsif section.settings.menu_type_desktop == 'categories' -%}
+          {% render 'header-categories-menu' %}
         {%- else -%}
           {% render 'header-mega-menu' %}
         {%- endif -%}
@@ -588,7 +606,7 @@
 {
   "name": "t:sections.header.name",
   "class": "section-header",
-  "max_blocks": 3,
+  "max_blocks": 40,
   "settings": [
     {
       "type": "select",
@@ -642,11 +660,59 @@
         {
           "value": "drawer",
           "label": "t:sections.header.settings.menu_type_desktop.options__3.label"
+        },
+        {
+          "value": "categories",
+          "label": "Categorías"
         }
       ],
       "default": "dropdown",
       "label": "t:sections.header.settings.menu_type_desktop.label",
       "info": "t:sections.header.settings.menu_type_desktop.info"
+    },
+    {
+      "type": "header",
+      "content": "Menú de categorías (solo tipo Categorías)"
+    },
+    {
+      "type": "color",
+      "id": "categories_panel_bg",
+      "label": "Fondo del panel",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "categories_list_bg",
+      "label": "Fondo de la columna de categorías",
+      "default": "#faf7f2"
+    },
+    {
+      "type": "color",
+      "id": "categories_active_bg",
+      "label": "Fondo de la categoría seleccionada",
+      "default": "#ffdcf6"
+    },
+    {
+      "type": "color",
+      "id": "categories_accent",
+      "label": "Color de acento y \"Mostrar todo\"",
+      "default": "#f04ee0"
+    },
+    {
+      "type": "color",
+      "id": "categories_text",
+      "label": "Color del texto",
+      "default": "#1c1417"
+    },
+    {
+      "type": "range",
+      "id": "categories_panel_max_height",
+      "min": 400,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "label": "Alto máximo del panel",
+      "default": 640
     },
     {
       "type": "select",
@@ -864,6 +930,392 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "categories_button",
+      "name": "Botón Categorías",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto",
+          "default": "Categorías"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icono",
+          "default": "",
+          "options": [
+            {
+              "value": "",
+              "label": "Sin icono"
+            },
+            {
+              "value": "apple",
+              "label": "Manzana"
+            },
+            {
+              "value": "banana",
+              "label": "Banana"
+            },
+            {
+              "value": "bottle",
+              "label": "Botella"
+            },
+            {
+              "value": "box",
+              "label": "Caja"
+            },
+            {
+              "value": "carrot",
+              "label": "Zanahoria"
+            },
+            {
+              "value": "dairy",
+              "label": "Lácteos"
+            },
+            {
+              "value": "fire",
+              "label": "Fuego"
+            },
+            {
+              "value": "leaf",
+              "label": "Hoja"
+            },
+            {
+              "value": "lightning-bolt",
+              "label": "Rayo"
+            },
+            {
+              "value": "paw-print",
+              "label": "Huella"
+            },
+            {
+              "value": "perfume",
+              "label": "Perfume"
+            },
+            {
+              "value": "pepper",
+              "label": "Pimiento"
+            },
+            {
+              "value": "plant",
+              "label": "Planta"
+            },
+            {
+              "value": "price-tag",
+              "label": "Etiqueta de precio"
+            },
+            {
+              "value": "discount",
+              "label": "Descuento"
+            },
+            {
+              "value": "snowflake",
+              "label": "Copo de nieve"
+            },
+            {
+              "value": "serving-dish",
+              "label": "Plato"
+            },
+            {
+              "value": "shirt",
+              "label": "Camisa"
+            },
+            {
+              "value": "shoe",
+              "label": "Zapato"
+            },
+            {
+              "value": "lipstick",
+              "label": "Labial"
+            },
+            {
+              "value": "heart",
+              "label": "Corazón"
+            },
+            {
+              "value": "star",
+              "label": "Estrella"
+            },
+            {
+              "value": "truck",
+              "label": "Camión"
+            }
+          ]
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Color de fondo",
+          "default": "#ff71db"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Color del texto",
+          "default": "#1c1417"
+        }
+      ]
+    },
+    {
+      "type": "pill_button",
+      "name": "Botón píldora",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto",
+          "default": "Ofertas"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enlace"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icono",
+          "default": "discount",
+          "options": [
+            {
+              "value": "",
+              "label": "Sin icono"
+            },
+            {
+              "value": "apple",
+              "label": "Manzana"
+            },
+            {
+              "value": "banana",
+              "label": "Banana"
+            },
+            {
+              "value": "bottle",
+              "label": "Botella"
+            },
+            {
+              "value": "box",
+              "label": "Caja"
+            },
+            {
+              "value": "carrot",
+              "label": "Zanahoria"
+            },
+            {
+              "value": "dairy",
+              "label": "Lácteos"
+            },
+            {
+              "value": "fire",
+              "label": "Fuego"
+            },
+            {
+              "value": "leaf",
+              "label": "Hoja"
+            },
+            {
+              "value": "lightning-bolt",
+              "label": "Rayo"
+            },
+            {
+              "value": "paw-print",
+              "label": "Huella"
+            },
+            {
+              "value": "perfume",
+              "label": "Perfume"
+            },
+            {
+              "value": "pepper",
+              "label": "Pimiento"
+            },
+            {
+              "value": "plant",
+              "label": "Planta"
+            },
+            {
+              "value": "price-tag",
+              "label": "Etiqueta de precio"
+            },
+            {
+              "value": "discount",
+              "label": "Descuento"
+            },
+            {
+              "value": "snowflake",
+              "label": "Copo de nieve"
+            },
+            {
+              "value": "serving-dish",
+              "label": "Plato"
+            },
+            {
+              "value": "shirt",
+              "label": "Camisa"
+            },
+            {
+              "value": "shoe",
+              "label": "Zapato"
+            },
+            {
+              "value": "lipstick",
+              "label": "Labial"
+            },
+            {
+              "value": "heart",
+              "label": "Corazón"
+            },
+            {
+              "value": "star",
+              "label": "Estrella"
+            },
+            {
+              "value": "truck",
+              "label": "Camión"
+            }
+          ]
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Color de fondo",
+          "default": "#6fffd2"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Color del texto",
+          "default": "#1c1417"
+        }
+      ]
+    },
+    {
+      "type": "category_icon",
+      "name": "Icono de categoría",
+      "limit": 30,
+      "settings": [
+        {
+          "type": "text",
+          "id": "link_title",
+          "label": "Título del enlace",
+          "info": "Texto del enlace de primer nivel del menú al que aplica (no distingue mayúsculas ni acentos)."
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icono",
+          "default": "",
+          "options": [
+            {
+              "value": "",
+              "label": "Sin icono"
+            },
+            {
+              "value": "apple",
+              "label": "Manzana"
+            },
+            {
+              "value": "banana",
+              "label": "Banana"
+            },
+            {
+              "value": "bottle",
+              "label": "Botella"
+            },
+            {
+              "value": "box",
+              "label": "Caja"
+            },
+            {
+              "value": "carrot",
+              "label": "Zanahoria"
+            },
+            {
+              "value": "dairy",
+              "label": "Lácteos"
+            },
+            {
+              "value": "fire",
+              "label": "Fuego"
+            },
+            {
+              "value": "leaf",
+              "label": "Hoja"
+            },
+            {
+              "value": "lightning-bolt",
+              "label": "Rayo"
+            },
+            {
+              "value": "paw-print",
+              "label": "Huella"
+            },
+            {
+              "value": "perfume",
+              "label": "Perfume"
+            },
+            {
+              "value": "pepper",
+              "label": "Pimiento"
+            },
+            {
+              "value": "plant",
+              "label": "Planta"
+            },
+            {
+              "value": "price-tag",
+              "label": "Etiqueta de precio"
+            },
+            {
+              "value": "discount",
+              "label": "Descuento"
+            },
+            {
+              "value": "snowflake",
+              "label": "Copo de nieve"
+            },
+            {
+              "value": "serving-dish",
+              "label": "Plato"
+            },
+            {
+              "value": "shirt",
+              "label": "Camisa"
+            },
+            {
+              "value": "shoe",
+              "label": "Zapato"
+            },
+            {
+              "value": "lipstick",
+              "label": "Labial"
+            },
+            {
+              "value": "heart",
+              "label": "Corazón"
+            },
+            {
+              "value": "star",
+              "label": "Estrella"
+            },
+            {
+              "value": "truck",
+              "label": "Camión"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Icono personalizado",
+          "info": "Tiene prioridad sobre el icono seleccionado."
+        }
+      ]
     }
   ]
 }

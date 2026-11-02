@@ -287,6 +287,8 @@
     "header": {
       "announcement": "Anuncio",
       "menu": "Menú",
+      "categories": "Categorías",
+      "show_all": "Mostrar todo",
       "cart_count": {
         "one": "{{ count }} artículo",
         "other": "{{ count }} artículos",

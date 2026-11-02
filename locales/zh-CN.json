@@ -278,6 +278,8 @@
     "header": {
       "announcement": "公告",
       "menu": "菜单",
+      "categories": "Categories",
+      "show_all": "Show all",
       "cart_count": {
         "one": "{{ count }} 件产品",
         "other": "{{ count }} 件产品"

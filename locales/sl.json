@@ -296,6 +296,8 @@
     "header": {
       "announcement": "Obvestilo",
       "menu": "Meni",
+      "categories": "Categories",
+      "show_all": "Show all",
       "cart_count": {
         "one": "{{ count }} element",
         "other": "Št. elementov: {{ count }}",

@@ -1,0 +1,126 @@
+{% comment %}
+  Renders the "Categorías" mega panel and pill buttons for the header second row.
+  Content comes from section.settings.menu (up to 3 levels); icons, pills and the
+  main button come from header blocks (category_icon, pill_button, categories_button).
+
+  Usage:
+  {% render 'header-categories-menu' %}
+{% endcomment %}
+
+{%- liquid
+  assign main_button = null
+  for block in section.blocks
+    if block.type == 'categories_button'
+      assign main_button = block
+      break
+    endif
+  endfor
+
+  if main_button.settings.text != blank
+    assign button_text = main_button.settings.text
+  else
+    assign button_text = 'sections.header.categories' | t
+  endif
+  assign button_bg = main_button.settings.bg_color | default: '#ff71db'
+  assign button_color = main_button.settings.text_color | default: '#1c1417'
+-%}
+
+<div class="categories-row">
+  <categories-menu class="categories-menu">
+    <button
+      type="button"
+      class="categories-pill categories-pill--main focus-inset"
+      style="--pill-bg: {{ button_bg }}; --pill-text: {{ button_color }};"
+      aria-expanded="false"
+      aria-controls="CategoriesPanel"
+      data-categories-button
+      {% if main_button %}
+        {{ main_button.shopify_attributes }}
+      {% endif %}
+    >
+      {%- if main_button.settings.icon != blank -%}
+        <span class="categories-pill__icon" aria-hidden="true">
+          {{- 'icon-' | append: main_button.settings.icon | append: '.svg' | inline_asset_content -}}
+        </span>
+      {%- endif -%}
+      <span class="categories-pill__text">{{ button_text | escape }}</span>
+      <span class="categories-pill__caret" aria-hidden="true">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
+    </button>
+
+    <div
+      id="CategoriesPanel"
+      class="categories-panel"
+      role="dialog"
+      aria-label="{{ button_text | escape }}"
+      hidden
+    >
+      <ul class="categories-list" role="list">
+        {%- for link in section.settings.menu.links -%}
+          <li>
+            <a
+              href="{{ link.url }}"
+              class="categories-list__link focus-inset{% if forloop.first %} is-active{% endif %}"
+              data-target="CategoriesContent-{{ forloop.index }}"
+              {% if link.current %}
+                aria-current="page"
+              {% endif %}
+            >
+              {%- render 'header-categories-icon', title: link.title, with_attributes: true -%}
+              <span class="categories-list__text">{{ link.title | escape }}</span>
+              <span class="categories-list__chevron" aria-hidden="true">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      <div class="categories-contents">
+        {%- for link in section.settings.menu.links -%}
+          <div
+            id="CategoriesContent-{{ forloop.index }}"
+            class="categories-content{% if forloop.first %} is-active{% endif %}"
+            {% unless forloop.first %}
+              hidden
+            {% endunless %}
+          >
+            <div class="categories-content__header">
+              <h2 class="categories-content__title">{{ link.title | escape }}</h2>
+              <a href="{{ link.url }}" class="categories-show-all focus-inset">
+                {{ 'sections.header.show_all' | t }} <span aria-hidden="true">&rsaquo;</span>
+              </a>
+            </div>
+
+            {%- if link.links != blank -%}
+              <ul class="categories-columns" role="list">
+                {%- for childlink in link.links -%}
+                  <li class="categories-column{% if childlink.links != blank %} categories-column--group{% endif %}">
+                    <a href="{{ childlink.url }}" class="categories-column__title focus-inset">
+                      {{- childlink.title | escape -}}
+                    </a>
+                    {%- if childlink.links != blank -%}
+                      <ul class="categories-sublist" role="list">
+                        {%- for grandchildlink in childlink.links -%}
+                          <li>
+                            <a href="{{ grandchildlink.url }}" class="categories-sublist__link focus-inset">
+                              {{- grandchildlink.title | escape -}}
+                            </a>
+                          </li>
+                        {%- endfor -%}
+                        <li>
+                          <a href="{{ childlink.url }}" class="categories-show-all categories-show-all--small focus-inset">
+                            {{ 'sections.header.show_all' | t }} <span aria-hidden="true">&rsaquo;</span>
+                          </a>
+                        </li>
+                      </ul>
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </categories-menu>
+
+  {%- render 'header-categories-pills', with_attributes: true -%}
+</div>

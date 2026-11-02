@@ -1,0 +1,29 @@
+{% comment %}
+  Renders the pill_button blocks of the header as links.
+
+  Accepts:
+  - with_attributes: {Boolean} Output block.shopify_attributes (desktop row only)
+
+  Usage:
+  {% render 'header-categories-pills', with_attributes: true %}
+{% endcomment %}
+
+{%- for block in section.blocks -%}
+  {%- if block.type == 'pill_button' -%}
+    <a
+      href="{{ block.settings.link | default: routes.all_products_collection_url }}"
+      class="categories-pill focus-inset"
+      style="--pill-bg: {{ block.settings.bg_color | default: '#6fffd2' }}; --pill-text: {{ block.settings.text_color | default: '#1c1417' }};"
+      {% if with_attributes %}
+        {{ block.shopify_attributes }}
+      {% endif %}
+    >
+      {%- if block.settings.icon != blank -%}
+        <span class="categories-pill__icon" aria-hidden="true">
+          {{- 'icon-' | append: block.settings.icon | append: '.svg' | inline_asset_content -}}
+        </span>
+      {%- endif -%}
+      <span class="categories-pill__text">{{ block.settings.text | escape }}</span>
+    </a>
+  {%- endif -%}
+{%- endfor -%}

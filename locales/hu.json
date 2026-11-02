@@ -278,6 +278,8 @@
     "header": {
       "announcement": "Közlemény",
       "menu": "Menü",
+      "categories": "Categories",
+      "show_all": "Show all",
       "cart_count": {
         "one": "{{ count }} elem",
         "other": "{{ count }} elem"

@@ -296,6 +296,8 @@
     "header": {
       "announcement": "Объявление",
       "menu": "Меню",
+      "categories": "Categories",
+      "show_all": "Show all",
       "cart_count": {
         "one": "Элементы: {{ count }}",
         "other": "Элементов: {{ count }}",

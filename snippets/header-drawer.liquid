@@ -5,6 +5,11 @@
   {% render 'header-drawer' %}
 {% endcomment %}
 
+{%- assign is_categories = false -%}
+{%- if section.settings.menu_type_desktop == 'categories' -%}
+  {%- assign is_categories = true -%}
+{%- endif -%}
+
 <header-drawer data-breakpoint="{% if section.settings.menu_type_desktop == 'drawer' %}desktop{% else %}tablet{% endif %}">
   <details id="Details-menu-drawer-container" class="menu-drawer-container">
     <summary
@@ -29,6 +34,9 @@
                         id="HeaderDrawer-{{ link.handle }}"
                         class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.child_active %} menu-drawer__menu-item--active{% endif %}"
                       >
+                        {%- if is_categories -%}
+                          {%- render 'header-categories-icon', title: link.title -%}
+                        {%- endif -%}
                         {{ link.title | escape }}
                         <span class="svg-wrapper">
                           {{- 'icon-arrow.svg' | inline_asset_content -}}
@@ -50,6 +58,16 @@
                             {{ link.title | escape }}
                           </button>
                           <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
+                            {%- if is_categories -%}
+                              <li>
+                                <a
+                                  href="{{ link.url }}"
+                                  class="menu-drawer__menu-item link link--text list-menu__item focus-inset categories-drawer__all"
+                                >
+                                  {{ 'sections.header.show_all' | t }}
+                                </a>
+                              </li>
+                            {%- endif -%}
                             {%- for childlink in link.links -%}
                               <li>
                                 {%- if childlink.links == blank -%}
@@ -95,6 +113,16 @@
                                         role="list"
                                         tabindex="-1"
                                       >
+                                        {%- if is_categories -%}
+                                          <li>
+                                            <a
+                                              href="{{ childlink.url }}"
+                                              class="menu-drawer__menu-item link link--text list-menu__item focus-inset categories-drawer__all"
+                                            >
+                                              {{ 'sections.header.show_all' | t }}
+                                            </a>
+                                          </li>
+                                        {%- endif -%}
                                         {%- for grandchildlink in childlink.links -%}
                                           <li>
                                             <a
@@ -128,12 +156,20 @@
                         aria-current="page"
                       {% endif %}
                     >
+                      {%- if is_categories -%}
+                        {%- render 'header-categories-icon', title: link.title -%}
+                      {%- endif -%}
                       {{ link.title | escape }}
                     </a>
                   {%- endif -%}
                 </li>
               {%- endfor -%}
             </ul>
+            {%- if is_categories -%}
+              <div class="categories-drawer__pills">
+                {%- render 'header-categories-pills' -%}
+              </div>
+            {%- endif -%}
           </nav>
           <div class="menu-drawer__utility-links">
             {%- capture login_url -%}{%- render 'login-url' -%}{%- endcapture -%}

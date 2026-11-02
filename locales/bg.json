@@ -278,6 +278,8 @@
     "header": {
       "announcement": "Известие",
       "menu": "Меню",
+      "categories": "Categories",
+      "show_all": "Show all",
       "cart_count": {
         "one": "{{ count }} артикул",
         "other": "{{ count }} артикула"

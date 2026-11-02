@@ -278,6 +278,8 @@
     "header": {
       "announcement": "Aankondiging",
       "menu": "Menu",
+      "categories": "Categories",
+      "show_all": "Show all",
       "cart_count": {
         "one": "{{ count }} artikel",
         "other": "{{ count }} artikelen"

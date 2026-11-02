@@ -278,6 +278,8 @@
     "header": {
       "announcement": "공지",
       "menu": "메뉴",
+      "categories": "Categories",
+      "show_all": "Show all",
       "cart_count": {
         "one": "{{ count }}개 품목",
         "other": "{{ count }}개 품목"

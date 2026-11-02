@@ -278,6 +278,8 @@
     "header": {
       "announcement": "Ilmoitus",
       "menu": "Valikko",
+      "categories": "Categories",
+      "show_all": "Show all",
       "cart_count": {
         "one": "{{ count }} tuote",
         "other": "{{ count }} tuotetta"

@@ -278,6 +278,8 @@
     "header": {
       "announcement": "Meddelande",
       "menu": "Meny",
+      "categories": "Categories",
+      "show_all": "Show all",
       "cart_count": {
         "one": "{{ count }} artikel",
         "other": "{{ count }} artiklar"

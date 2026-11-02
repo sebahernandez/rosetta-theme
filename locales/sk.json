@@ -296,6 +296,8 @@
     "header": {
       "announcement": "Oznámenie",
       "menu": "Ponuka",
+      "categories": "Categories",
+      "show_all": "Show all",
       "cart_count": {
         "one": "{{ count }} položka",
         "other": "Počet položiek: {{ count }}",

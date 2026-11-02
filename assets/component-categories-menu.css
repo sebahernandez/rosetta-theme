@@ -1,0 +1,286 @@
+/*
+ * Categories menu (menu_type_desktop = categories).
+ * Colors come from --cat-* custom properties set inline on .header-wrapper.
+ * Sections: pills, desktop panel, mobile drawer additions.
+ */
+
+/* ---------- Icons (shared by panel and drawer) ---------- */
+.categories-icon {
+  display: inline-flex;
+  flex: 0 0 2.4rem;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  color: var(--cat-accent, #f04ee0);
+}
+
+.categories-icon svg,
+.categories-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ---------- Pills ---------- */
+.categories-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.8rem 0;
+}
+
+.categories-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  min-height: 4.4rem;
+  padding: 0 2rem;
+  border: 0;
+  border-radius: 999px;
+  background-color: var(--pill-bg, #6fffd2);
+  color: var(--pill-text, #1c1417);
+  font-family: var(--font-body-family);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.categories-pill:hover {
+  filter: brightness(0.96);
+}
+
+.categories-pill__icon,
+.categories-pill__caret {
+  display: inline-flex;
+  align-items: center;
+}
+
+.categories-pill__icon svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.categories-pill__caret svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  transition: transform 0.2s ease;
+}
+
+.categories-pill--main[aria-expanded='true'] .categories-pill__caret svg {
+  transform: rotate(180deg);
+}
+
+/* ---------- Desktop panel ---------- */
+.header__nav-row-inner {
+  position: relative;
+}
+
+.categories-menu {
+  display: block;
+}
+
+.categories-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: minmax(260px, 30%) 1fr;
+  max-height: min(var(--cat-max-height, 640px), calc(100vh - 16rem));
+  overflow: hidden;
+  border: 0.1rem solid var(--header-divider-line, #e1d7ca);
+  border-radius: 0 0 1.6rem 1.6rem;
+  background-color: var(--cat-panel-bg, #ffffff);
+  color: var(--cat-text, #1c1417);
+  box-shadow: 0 1.6rem 3.2rem -1.2rem rgba(28, 20, 23, 0.25);
+}
+
+.categories-panel[hidden] {
+  display: none;
+}
+
+.categories-list {
+  margin: 0;
+  padding: 1.2rem 0;
+  overflow-y: auto;
+  list-style: none;
+  background-color: var(--cat-list-bg, #faf7f2);
+}
+
+.categories-list__link {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  min-height: 4.4rem;
+  padding: 0.8rem 1.6rem;
+  border-left: 0.4rem solid transparent;
+  color: var(--cat-text, #1c1417);
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+.categories-list__link:hover,
+.categories-list__link:focus-visible,
+.categories-list__link.is-active {
+  border-left-color: var(--cat-accent, #f04ee0);
+  background-color: var(--cat-active-bg, #ffdcf6);
+}
+
+.categories-list__text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.categories-list__chevron {
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+.categories-list__chevron svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  transform: rotate(-90deg);
+}
+
+.categories-contents {
+  min-width: 0;
+  overflow-y: auto;
+  padding: 2.4rem 3.2rem 3.2rem;
+}
+
+.categories-content[hidden] {
+  display: none;
+}
+
+.categories-content__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2.4rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 0.1rem solid var(--header-divider-line, #e1d7ca);
+}
+
+.categories-content__title {
+  position: relative;
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-size: 2.4rem;
+}
+
+.categories-content__title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1.3rem;
+  width: 100%;
+  height: 0.3rem;
+  background-color: var(--cat-accent, #f04ee0);
+}
+
+.categories-show-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 4.4rem;
+  color: var(--cat-accent, #f04ee0);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.categories-show-all--small {
+  min-height: 3.2rem;
+  font-size: 1.4rem;
+}
+
+.categories-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 2rem 2.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.categories-column__title {
+  display: block;
+  padding: 0.6rem 0;
+  color: var(--cat-text, #1c1417);
+  text-decoration: none;
+}
+
+.categories-column--group > .categories-column__title {
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+}
+
+.categories-column__title:hover,
+.categories-sublist__link:hover {
+  color: var(--cat-accent, #f04ee0);
+  text-decoration: underline;
+}
+
+.categories-sublist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.categories-sublist__link {
+  display: block;
+  padding: 0.5rem 0;
+  color: var(--cat-text, #1c1417);
+  font-size: 1.4rem;
+  text-decoration: none;
+}
+
+/* ---------- Mobile drawer additions ---------- */
+.menu-drawer .categories-icon {
+  margin-right: 1.2rem;
+}
+
+.menu-drawer .menu-drawer__menu-item {
+  min-height: 4.4rem;
+  overflow-wrap: anywhere;
+}
+
+.menu-drawer .categories-drawer__all {
+  color: var(--cat-accent, #f04ee0);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.categories-drawer__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1.6rem 3rem 0.8rem;
+}
+
+.categories-drawer__pills .categories-pill {
+  flex: 1 1 auto;
+  max-width: 100%;
+}
+
+@media screen and (max-width: 989px) {
+  .categories-row {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .categories-pill,
+  .categories-pill__caret svg {
+    transition: none;
+  }
+}
