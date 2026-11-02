@@ -21,6 +21,17 @@
   else
     assign button_text = 'sections.header.categories' | t
   endif
+  # Top-level links listed here (comma separated, compared by handle) are hidden from the panel
+  assign excluded_handles = ''
+  assign excluded_titles = section.settings.categories_excluded_links | split: ','
+  for excluded_title in excluded_titles
+    assign excluded_handle = excluded_title | strip | handleize
+    if excluded_handle != blank
+      assign excluded_handles = excluded_handles | append: '|' | append: excluded_handle
+    endif
+  endfor
+  assign excluded_handles = excluded_handles | append: '|'
+
   assign button_bg = main_button.settings.bg_color | default: '#ff71db'
   assign button_color = main_button.settings.text_color | default: '#1c1417'
 -%}
@@ -55,11 +66,16 @@
       hidden
     >
       <ul class="categories-list" role="list">
+        {%- assign is_first_category = true -%}
         {%- for link in section.settings.menu.links -%}
+          {%- assign link_key = '|' | append: link.handle | append: '|' -%}
+          {%- if excluded_handles contains link_key -%}
+            {%- continue -%}
+          {%- endif -%}
           <li>
             <a
               href="{{ link.url }}"
-              class="categories-list__link focus-inset{% if forloop.first %} is-active{% endif %}"
+              class="categories-list__link focus-inset{% if is_first_category %} is-active{% endif %}"
               data-target="CategoriesContent-{{ forloop.index }}"
               {% if link.current %}
                 aria-current="page"
@@ -70,15 +86,21 @@
               <span class="categories-list__chevron" aria-hidden="true">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
             </a>
           </li>
+          {%- assign is_first_category = false -%}
         {%- endfor -%}
       </ul>
 
       <div class="categories-contents">
+        {%- assign is_first_category = true -%}
         {%- for link in section.settings.menu.links -%}
+          {%- assign link_key = '|' | append: link.handle | append: '|' -%}
+          {%- if excluded_handles contains link_key -%}
+            {%- continue -%}
+          {%- endif -%}
           <div
             id="CategoriesContent-{{ forloop.index }}"
-            class="categories-content{% if forloop.first %} is-active{% endif %}"
-            {% unless forloop.first %}
+            class="categories-content{% if is_first_category %} is-active{% endif %}"
+            {% unless is_first_category %}
               hidden
             {% endunless %}
           >
@@ -117,6 +139,7 @@
               </ul>
             {%- endif -%}
           </div>
+          {%- assign is_first_category = false -%}
         {%- endfor -%}
       </div>
     </div>

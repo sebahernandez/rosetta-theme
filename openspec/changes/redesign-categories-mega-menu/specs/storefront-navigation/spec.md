@@ -29,11 +29,15 @@ El menú principal SHALL ofrecer en escritorio los tipos desplegable, mega menú
 ## ADDED Requirements
 
 ### Requirement: Panel de categorías en escritorio
-Con el tipo "Categorías", el botón "Categorías" SHALL abrir un panel con los enlaces de primer nivel del menú configurado en una columna izquierda y, a la derecha, el contenido de la categoría seleccionada. Los enlaces SHALL ser exactamente los del menú configurado, en su mismo orden y con sus mismos destinos.
+Con el tipo "Categorías", el botón "Categorías" SHALL abrir un panel con los enlaces de primer nivel del menú configurado en una columna izquierda y, a la derecha, el contenido de la categoría seleccionada. Los enlaces SHALL ser los del menú configurado, en su mismo orden y con sus mismos destinos, salvo los de primer nivel que el comerciante excluya en el encabezado (por defecto: Inicio, Ofertas, Más vendidos, Nosotros, Contacto).
 
 #### Scenario: Abrir el panel
 - **WHEN** un visitante en escritorio pulsa "Categorías"
 - **THEN** se abre el panel con todas las categorías del menú en la columna izquierda y la primera categoría seleccionada
+
+#### Scenario: Enlaces excluidos
+- **WHEN** el menú contiene "Inicio", "Ofertas", "Más vendidos", "Nosotros" y "Contacto" además de las 9 categorías, y la lista de exclusión tiene su valor por defecto
+- **THEN** el panel muestra solo las 9 categorías y el cajón móvil sigue mostrando todo el menú
 
 #### Scenario: Cambiar de categoría
 - **WHEN** el visitante pasa el puntero o enfoca otra categoría de la columna izquierda
