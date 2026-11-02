@@ -51,7 +51,10 @@
                         tabindex="-1"
                       >
                         <div class="menu-drawer__inner-submenu">
-                          <button class="menu-drawer__close-button link link--text focus-inset" aria-expanded="true">
+                          <button
+                            class="menu-drawer__close-button link link--text focus-inset{% if is_categories %} categories-drawer__title{% endif %}"
+                            aria-expanded="true"
+                          >
                             <span class="svg-wrapper">
                               {{- 'icon-arrow.svg' | inline_asset_content -}}
                             </span>
@@ -100,7 +103,7 @@
                                       class="menu-drawer__submenu has-submenu gradient motion-reduce"
                                     >
                                       <button
-                                        class="menu-drawer__close-button link link--text focus-inset"
+                                        class="menu-drawer__close-button link link--text focus-inset{% if is_categories %} categories-drawer__title{% endif %}"
                                         aria-expanded="true"
                                       >
                                         <span class="svg-wrapper">
