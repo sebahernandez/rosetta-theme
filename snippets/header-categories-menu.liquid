@@ -49,9 +49,17 @@
         {{ main_button.shopify_attributes }}
       {% endif %}
     >
-      {%- if main_button.settings.icon != blank -%}
+      {%- liquid
+        # Without a categories_button block, fall back to the grid icon
+        if main_button
+          assign button_icon = main_button.settings.icon
+        else
+          assign button_icon = 'grid'
+        endif
+      -%}
+      {%- if button_icon != blank -%}
         <span class="categories-pill__icon" aria-hidden="true">
-          {{- 'icon-' | append: main_button.settings.icon | append: '.svg' | inline_asset_content -}}
+          {{- 'icon-' | append: button_icon | append: '.svg' | inline_asset_content -}}
         </span>
       {%- endif -%}
       <span class="categories-pill__text">{{ button_text | escape }}</span>
