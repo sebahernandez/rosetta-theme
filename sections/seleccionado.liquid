@@ -262,11 +262,12 @@
             {%- if block.settings.title != blank or block.settings.accent != blank -%}
               <h2 class="seleccionado__heading" style="color: {{ block.settings.color }};" {{ block.shopify_attributes }}>
                 {{- block.settings.title | escape | newline_to_br -}}
-                {%- if block.settings.accent != blank -%}
+               
+              </h2>
+               {%- if block.settings.accent != blank -%}
                   {%- if block.settings.title != blank %} {% endif -%}
                   <em style="color: {{ block.settings.accent_color }};">{{ block.settings.accent | escape }}</em>
                 {%- endif -%}
-              </h2>
             {%- endif -%}
           {%- when 'subtitle' -%}
             {%- if block.settings.text != blank -%}
