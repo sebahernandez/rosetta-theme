@@ -3,11 +3,11 @@
 ## MODIFIED Requirements
 
 ### Requirement: Iconos de categoría configurables
-Cada categoría de primer nivel SHALL poder mostrar un icono. Las categorías Panadería y pastelería, Bebidas sin alcohol, Cigarrillos y tabaco, Confitería y snacks, Cuidado personal, Lácteos y refrigerados, Licores y cervezas, Limpieza y hogar y Víveres y despensa SHALL mostrar por defecto un icono de línea relacionado, sin relleno y en negro. Un bloque del encabezado que indique el título del enlace y un icono SHALL sustituir el icono por defecto. Una categoría sin icono SHALL mostrarse alineada con las demás.
+Cada categoría de primer nivel SHALL poder mostrar un icono. Las 9 categorías principales de la tienda SHALL mostrar por defecto un icono de línea relacionado, sin relleno y en negro. Un bloque del encabezado que indique el título del enlace y un icono SHALL sustituir el icono por defecto. Una categoría sin icono SHALL mostrarse alineada con las demás.
 
 #### Scenario: Iconos por defecto
 - **WHEN** el tipo de menú es "Categorías" y no hay bloques de icono configurados
-- **THEN** cada una de las 9 categorías principales muestra a su izquierda un icono de línea negro relacionado con ella, en el panel de escritorio y en el cajón móvil
+- **THEN** cada una de las 9 categorías principales (Panadería y pastelería, Bebidas sin alcohol, Cigarrillos y tabaco, Confitería y snacks, Cuidado personal, Lácteos y refrigerados, Licores y cervezas, Limpieza y hogar y Víveres y despensa) muestra a su izquierda un icono de línea negro relacionado con ella, en el panel de escritorio y en el cajón móvil
 
 #### Scenario: Estilo del icono
 - **WHEN** el visitante pasa el puntero sobre una categoría o esta queda seleccionada

@@ -25,4 +25,4 @@
 
 ## 5. Entrega
 
-- [ ] 5.1 Commit convencional (`feat(header): add line icons to category menu`) y push a `develop`; verificar con `git log origin/develop -1`
+- [x] 5.1 Commit convencional (`feat(header): add line icons to category menu`) y push a `develop`; verificar con `git log origin/develop -1`
