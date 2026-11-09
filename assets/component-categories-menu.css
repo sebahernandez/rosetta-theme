@@ -314,8 +314,14 @@
   margin-right: 1.2rem;
 }
 
+.js .menu-drawer .menu-drawer__menu li {
+  margin-bottom: 0;
+}
+
 .menu-drawer .menu-drawer__menu-item {
-  min-height: 4.4rem;
+  min-height: 4rem;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
   overflow-wrap: anywhere;
 }
 
