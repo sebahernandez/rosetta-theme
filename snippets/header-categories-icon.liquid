@@ -2,6 +2,8 @@
   Renders the icon configured (category_icon block) for a top-level menu link.
   Matches block.settings.link_title against the link title using handleize
   (case and accent insensitive). custom_icon takes precedence over icon.
+  Without a matching block, the main categories fall back to a built-in
+  line icon (assets/icon-cat-*.svg, Lucide, ISC).
 
   Accepts:
   - title: {String} Title of the top-level menu link
@@ -25,9 +27,34 @@
       endif
     endif
   endfor
+
+  # Built-in line icon for the main categories when no block overrides it
+  assign default_icon = ''
+  unless found
+    case wanted
+      when 'panaderia-y-pasteleria'
+        assign default_icon = 'cat-bakery'
+      when 'bebidas-sin-alcohol'
+        assign default_icon = 'cat-soft-drinks'
+      when 'cigarrillos-y-tabaco'
+        assign default_icon = 'cat-tobacco'
+      when 'confiteria-y-snacks'
+        assign default_icon = 'cat-candy'
+      when 'cuidado-personal'
+        assign default_icon = 'cat-personal-care'
+      when 'lacteos-y-refrigerados'
+        assign default_icon = 'cat-dairy'
+      when 'licores-y-cervezas'
+        assign default_icon = 'cat-beer'
+      when 'limpieza-y-hogar'
+        assign default_icon = 'cat-cleaning'
+      when 'viveres-y-despensa'
+        assign default_icon = 'cat-pantry'
+    endcase
+  endunless
 -%}
 <span
-  class="categories-icon{% unless found %} categories-icon--empty{% endunless %}"
+  class="categories-icon{% unless found or default_icon != blank %} categories-icon--empty{% endunless %}"
   aria-hidden="true"
   {% if found and with_attributes %}
     {{ icon_block.shopify_attributes }}
@@ -39,5 +66,7 @@
     {%- elsif icon_block.settings.icon != blank -%}
       {{- 'icon-' | append: icon_block.settings.icon | append: '.svg' | inline_asset_content -}}
     {%- endif -%}
+  {%- elsif default_icon != blank -%}
+    {{- 'icon-' | append: default_icon | append: '.svg' | inline_asset_content -}}
   {%- endif -%}
 </span>

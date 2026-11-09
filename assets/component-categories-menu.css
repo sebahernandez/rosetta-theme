@@ -12,7 +12,7 @@
   justify-content: center;
   width: 2.4rem;
   height: 2.4rem;
-  color: var(--cat-accent, #f04ee0);
+  color: var(--cat-icon-color, #000000);
 }
 
 .categories-icon svg,
@@ -20,6 +20,21 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+/* Line icons (assets/icon-cat-*.svg): stroke only, never filled */
+.categories-icon .icon-cat {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+}
+
+@media screen and (forced-colors: active) {
+  /* base.css forces fill on .icon; keep line icons unfilled */
+  .categories-icon .icon-cat {
+    fill: none !important;
+    stroke: CanvasText;
+  }
 }
 
 /* ---------- Pills ---------- */
